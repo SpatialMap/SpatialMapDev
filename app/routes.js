@@ -118,6 +118,26 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/dataView/:uid',
+      name: 'dataView',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/DataView/reducer'),
+          import('containers/DataView/sagas'),
+          import('containers/DataView'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('dataView', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

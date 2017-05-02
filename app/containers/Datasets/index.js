@@ -29,6 +29,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
           let product = snapshot.val();
           // console.log(product,'snapshot.val()');
           productallid.push({
+            id: snapshot.getKey(),
             Description: product.Description,
             author: product.author,
             contact: product.contact,

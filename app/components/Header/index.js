@@ -18,6 +18,7 @@ function Header() {
       <Link className="navItem" to="/"> home </Link>
       <Link className="navItem" to="/about"> about </Link>
       <Link className="navItem" to="/datasets"> datasets </Link>
+      <Link className="navItem" to="/dataView"> dataView </Link>
       <Link className="navItem" to="/profile"> profile </Link>
       <Link className="navItem" to="/login"> login </Link>
     </div>
