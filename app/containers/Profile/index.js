@@ -19,6 +19,16 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
   }
 
   render() {
+    var user = firebase.auth().currentUser;
+    if (user != null) {
+       var email = user.email;
+       var uid = user.uid;
+       var name = user.displayName;
+    } else {
+       var email = "not logged in";
+       var uid = "not logged in";
+       var name = "not logged in";
+    }
     return (
       <div>
         <Helmet
@@ -28,6 +38,11 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
           ]}
         />
        <h1> This is the Profile </h1>
+        Email: {email}
+        <br/>
+        UID : {uid}
+        <br/>
+        Name : {name}
       </div>
     );
   }

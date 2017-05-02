@@ -11,9 +11,47 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import makeSelectDatasets from './selectors';
 import messages from './messages';
+import DataChild from './dataChilds.js';
+import * as firebase from 'firebase';
+
 
 export class Datasets extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.state = {
+      productallid: [],
+    }
+  }
+
+  componentWillMount(){
+    var productallid = [];
+    firebase.database().ref('data').orderByChild('tissue').on("child_added", (snapshot) => {
+          let product = snapshot.val();
+          // console.log(product,'snapshot.val()');
+          productallid.push({
+            Description: product.Description,
+            author: product.author,
+            contact: product.contact,
+            email: product.email,
+            lab: product.lab,
+            operator: product.operator,
+            species: product.species,
+            tissue: product.tissue,
+            title:product.title,
+            varName: product.varName,
+          });
+    });
+    this.setState({
+      productallid
+    })
+  }
+
   render() {
+
+    const DataSetItem = this.state.productallid.map((detail)=>{
+     <div> test {detail.varName} </div>
+    })
+
     return (
       <div>
         <Helmet
@@ -23,6 +61,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
           ]}
         />
         <FormattedMessage {...messages.header} />
+        {DataSetItem}
       </div>
     );
   }
