@@ -15,10 +15,17 @@ import messages from './messages';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
+    const One = "lore ipsum dolore";
+
     return (
+      <div>
       <h1>
         <FormattedMessage {...messages.header} />
+        <br/>
+
       </h1>
+        {One}
+      </div>
     );
   }
 }

@@ -44,6 +44,22 @@ import './global-styles';
 // Import root routes
 import createRoutes from './routes';
 
+
+// init firebase API
+var firebase = require('firebase');
+
+const config = {
+    apiKey: "AIzaSyC7iVp_D4iCAOl1e6ymW9TB7aC9E8tbjD4",
+    authDomain: "spatialmap-1b08e.firebaseapp.com",
+    databaseURL: "https://spatialmap-1b08e.firebaseio.com",
+    projectId: "spatialmap-1b08e",
+    storageBucket: "spatialmap-1b08e.appspot.com",
+    messagingSenderId: "370588224195"
+  };
+
+firebase.initializeApp(config);
+
+
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router
 // Optionally, this could be changed to leverage a created history
