@@ -8,10 +8,11 @@ import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
+import './main.css';
 
 function Header() {
   return (
-    <div>
+    <div className="navBar">
       <Link to="/"> home </Link>
       <Link to="/profile"> profile </Link>
       <Link to="/about"> login </Link>

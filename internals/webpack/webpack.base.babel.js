@@ -17,7 +17,16 @@ module.exports = (options) => ({
       loader: 'babel-loader',
       exclude: /node_modules/,
       query: options.babelQuery,
-    }, {
+    },
+    {
+    // Preprocess our own .css files
+    // This is the place to add your own loaders (e.g. sass/less etc.)
+    // for a list of loaders, see https://webpack.js.org/loaders/#styling
+    test: /\.css$/,
+    exclude: /node_modules/,
+    use: ['style-loader', 'css-loader'],
+    },
+    {
       // Do not transform vendor's CSS with CSS-modules
       // The point is that they remain in global scope.
       // Since we require these CSS files in our JS or CSS files,
