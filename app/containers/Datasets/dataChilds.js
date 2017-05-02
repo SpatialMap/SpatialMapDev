@@ -1,15 +1,18 @@
 import React from 'react';
 import * as firebase from 'firebase';
 import { Link } from 'react-router';
+import './datasets.css';
 
 class DataChild extends React.Component {
 
   render() {
-    console.log(this.props.item,'item value is');
     return (
-          <div style={{height: 200, width: 200, backgroundColor: 'grey'}}>
-            <Link to='/dataView'><div> {this.props.item.varName} </div></Link>
+          <Link to='/dataView'><div className="dataChild">
+            <div className="tileText"> Sample : {this.props.item.varName} </div>
+            <div className="tileText"> Lab : {this.props.item.lab} </div>
+            <div className="tileText"> Species : {this.props.item.species} </div>
           </div>
+        </Link>
     );
   }
 }

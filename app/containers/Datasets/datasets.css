@@ -1,0 +1,24 @@
+.dataChild {
+  height: 200px;
+  width: 30vw;
+  margin: 10px;
+  padding: 10px;
+  background-color: rgba(120,200,120, 0.5);
+}
+
+.flexTiles{
+  display: flex;
+  position: relative;
+  flex-flow: row wrap;
+  width: 100vw;
+  justify-content: center;
+}
+
+.tileText{
+  padding: 5px;
+  color: #000;
+}
+
+a:link{
+  text-decoration: none!important;
+}

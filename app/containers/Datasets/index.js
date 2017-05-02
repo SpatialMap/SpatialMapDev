@@ -13,7 +13,7 @@ import makeSelectDatasets from './selectors';
 import messages from './messages';
 import DataChild from './dataChilds.js';
 import * as firebase from 'firebase';
-
+import './datasets.css'
 
 export class Datasets extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -48,9 +48,11 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
 
   render() {
 
-    const DataSetItem = this.state.productallid.map((detail)=>{
-     <div> test {detail.varName} </div>
-    })
+    var DataSetItem = this.state.productallid.map((detail)=>
+     <DataChild item={detail} />
+    )
+
+    var flexTiles = <div className="flexTiles"> {DataSetItem} </div>;
 
     return (
       <div>
@@ -60,8 +62,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
             { name: 'description', content: 'Description of Datasets' },
           ]}
         />
-        <FormattedMessage {...messages.header} />
-        {DataSetItem}
+        {flexTiles}
       </div>
     );
   }
