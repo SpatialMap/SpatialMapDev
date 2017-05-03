@@ -23,7 +23,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
     }
   }
 
-  componentWillMount(){
+  componentDidMount(){
     var productallid = [];
     firebase.database().ref('data').orderByChild('tissue').on("child_added", (snapshot) => {
           let product = snapshot.val();
@@ -50,7 +50,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
   render() {
 
     var DataSetItem = this.state.productallid.map((detail)=>
-     <DataChild item={detail} />
+     <DataChild key={'dataChild'+detail.id} item={detail} />
     )
 
     var flexTiles = <div className="flexTiles"> {DataSetItem} </div>;

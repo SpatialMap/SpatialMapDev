@@ -6,7 +6,6 @@ import './datasets.css';
 class DataChild extends React.Component {
 
   render() {
-    var Test1 = "test343";
     return (
           <Link to={'/dataView/' + this.props.item.id} key={'link' + this.props.item.id}>
             <div className="dataChild" key={'dataChild' + this.props.item.id}>
