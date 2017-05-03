@@ -1,0 +1,4 @@
+.mainPlot{
+  width: 100%;
+  height: calc(vh - 50px);
+}
