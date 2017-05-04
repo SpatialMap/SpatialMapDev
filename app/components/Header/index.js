@@ -31,7 +31,7 @@ function Header() {
       <Link className="navItem" to="/"> home </Link>
       <Link className="navItem" to="/about"> about </Link>
       <Link className="navItem" to="/datasets"> datasets </Link>
-      <Link className="navItem" to="/dataView/-KjDDPVL9KB0EDY7AHQa"> dataView </Link>
+      <Link className="navItem" to="/dataView/-KjEMjNMw4y2kxZJkoWh"> dataView </Link>
       <Link className="navItem" to="/profile"> profile </Link>
       <Link className="navItem" to="/login"> login </Link>
       <button className="navItem" onClick={logout.bind(this)}> Logout </button>

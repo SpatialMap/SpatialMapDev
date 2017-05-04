@@ -12,10 +12,10 @@ import { createStructuredSelector } from 'reselect';
 import makeSelectDataView from './selectors';
 import messages from './messages';
 import ReactDOM from 'react-dom';
-import * as V from 'victory';
-import { VictoryScatter } from 'victory';
-import { VictoryChart } from 'victory';
-import { VictoryZoomContainer } from 'victory';
+// import * as V from 'victory';
+// import { VictoryScatter } from 'victory';
+// import { VictoryChart } from 'victory';
+// import { VictoryZoomContainer } from 'victory';
 import * as firebase from 'firebase';
 import './dataView.css';
 
@@ -32,7 +32,7 @@ export class DataView extends React.Component {
 
   componentDidMount(){
     var dataset = [];
-    firebase.database().ref('data/' + this.props.params.uid + '/pcaData').once("value", (snapshot) => {
+    firebase.database().ref('data/' + this.props.params.uid + '/fSet').once("value", (snapshot) => {
           let dataset = snapshot.val();
           this.setState({
             dataset
@@ -41,10 +41,8 @@ export class DataView extends React.Component {
 
   }
   render() {
-    console.log(this.state.dataset);
     const Query =  <h2> {this.props.params.uid}</h2>;
     const data2 = this.state.dataset;
-    console.log({data2});
     return (
       <div>
         <Helmet
@@ -53,46 +51,41 @@ export class DataView extends React.Component {
             { name: 'description', content: 'Description of DataView' },
           ]}
         />
-        <div className="mainPlot">
-        <VictoryChart className="mainPlot" standalone={false} containerComponent={<VictoryZoomContainer  style={{width: 800, height: 800}} standalone={true}  />}
-        >
-        <VictoryScatter
-        standalone={false}
-        data={data2}
-        x="PCA1"
-        y="PCA2"
-        events={[
-  {
-    target: "data",
-    eventHandlers: {
-      onClick: () => {
-        return [
-          {
-            mutation: (props) => {
-              return {
-                style: Object.assign({}, props.style, {fill: "orange"})
-              };
-            }
-          }, {
-            target: "labels",
-            mutation: () => {
-              return {text: "works"};
-            },
-            callback: () => {
-              console.log("I happen after setState");
-            }
-          }
-        ];
-      }
-    }
-  }
- ]}
-      />
-      </VictoryChart>
-
-      </div>
-      </div>
-    );
+        </div>
+ //        <div className="mainPlot">
+ //        <VictoryChart className="mainPlot" standalone={false} containerComponent={<VictoryZoomContainer style={{width: 800, height: 800}} standalone={true}  />}
+ //        >
+ //        <VictoryScatter
+ //        domainPadding={20}
+ //        width={400}
+ //        size={2}
+ //        height={400}
+ //        data={data2}
+ //        x="PCA1"
+ //        y="PCA2"
+ //        events={[
+ //  {
+ //    target: "data",
+ //    eventHandlers: {
+ //      onClick: () => {
+ //        return [
+ //          {
+ //            mutation: (props) => {
+ //              return {
+ //                style: Object.assign({}, props.style, {fill: "orange"})
+ //              };
+ //            }
+ //          }
+ //        ];
+ //      }
+ //    }
+ //  }
+ // ]}
+ //      />
+ //      </VictoryChart>
+ //
+ //      </div>
+    )
   }
 }
 
