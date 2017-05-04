@@ -1,4 +1,35 @@
 .mainPlot{
-  width: 600px;
+  width: 600;
   height: 300px;
+}
+
+.App-header {
+  background-color: #222;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.App-chart-container {
+  padding: 15px;
+  margin: 0 auto;
+  margin-top: 30px;
+  max-width: 800px;
+
+  overflow: auto;
+}
+
+.App-chart-description {
+  font-size: 1.2em;
+}
+
+.App-chart-source {
+  color: #757575;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-bottom: 30px;
+}
+
+.App-chart-source a {
+  color: #757575;
 }

@@ -18,16 +18,38 @@ import ReactDOM from 'react-dom';
 // import { VictoryZoomContainer } from 'victory';
 import * as firebase from 'firebase';
 import './dataView.css';
+import ScatterPlot from './scatter.js';
+
+const styles = {
+  width   : 500,
+  height  : 300,
+  padding : 30,
+};
+
+// The number of data points for the chart.
+const numDataPoints = 50;
+
+// A function that returns a random number from 0 to 1000
+const randomNum     = () => Math.floor(Math.random() * 1000);
+
+// A function that creates an array of 50 elements of (x, y) coordinates.
+const randomDataSet = () => {
+  return Array.apply(null, {length: 50}).map(() => [randomNum(), randomNum()]);
+}
 
 export class DataView extends React.Component {
   // eslint-disable-line react/prefer-stateless-function
-
   constructor(props) {
     super(props);
     this.state = {
       dataset: [],
       test1: "123",
+      data: randomDataSet(),
     }
+  }
+
+  randomizeData() {
+    this.setState({ data: randomDataSet() });
   }
 
   componentDidMount(){
@@ -51,41 +73,15 @@ export class DataView extends React.Component {
             { name: 'description', content: 'Description of DataView' },
           ]}
         />
+        <h1> d3.js plots </h1>
+        <ScatterPlot {...this.state} {...styles} />
+         <div className="controls">
+          <button className="btn randomize" onClick={() => this.randomizeData()}>
+            Randomize Data
+          </button>
         </div>
- //        <div className="mainPlot">
- //        <VictoryChart className="mainPlot" standalone={false} containerComponent={<VictoryZoomContainer style={{width: 800, height: 800}} standalone={true}  />}
- //        >
- //        <VictoryScatter
- //        domainPadding={20}
- //        width={400}
- //        size={2}
- //        height={400}
- //        data={data2}
- //        x="PCA1"
- //        y="PCA2"
- //        events={[
- //  {
- //    target: "data",
- //    eventHandlers: {
- //      onClick: () => {
- //        return [
- //          {
- //            mutation: (props) => {
- //              return {
- //                style: Object.assign({}, props.style, {fill: "orange"})
- //              };
- //            }
- //          }
- //        ];
- //      }
- //    }
- //  }
- // ]}
- //      />
- //      </VictoryChart>
- //
- //      </div>
-    )
+      </div>
+      )
   }
 }
 
