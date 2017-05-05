@@ -21,50 +21,56 @@ import './dataView.css';
 import ScatterPlot from './scatter.js';
 
 const styles = {
-  width   : 500,
-  height  : 300,
+  width   : 1700,
+  height  : 600,
   padding : 30,
 };
 
-// The number of data points for the chart.
-const numDataPoints = 50;
-
-// A function that returns a random number from 0 to 1000
-const randomNum     = () => Math.floor(Math.random() * 1000);
-
-// A function that creates an array of 50 elements of (x, y) coordinates.
-const randomDataSet = () => {
-  return Array.apply(null, {length: 50}).map(() => [randomNum(), randomNum()]);
-}
+//
+// // // The number of data points for the chart.
+// //
+// // // A function that returns a random number from 0 to 1000
+// const randomNum = () => Math.floor(Math.random() * 1000);
+// //
+// // // A function that creates an array of 50 elements of (x, y) coordinates.
+// const randomDataSet = () => {
+//   return Array.apply(null, {length: 100}).map(() => [randomNum(), randomNum()]);
+// }
 
 export class DataView extends React.Component {
   // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
-      dataset: [],
       test1: "123",
-      data: randomDataSet(),
+      data: [],
+      data2: [],
     }
   }
 
   randomizeData() {
-    this.setState({ data: randomDataSet() });
+    this.setState({ data: data
+      // randomDataSet()
+    });
   }
 
   componentDidMount(){
-    var dataset = [];
+    var data = [];
     firebase.database().ref('data/' + this.props.params.uid + '/fSet').once("value", (snapshot) => {
-          let dataset = snapshot.val();
+          let data = snapshot.val();
           this.setState({
-            dataset
+            data
           })
     });
-
   }
+
   render() {
+
+    // const data = Array.from(da);
+    // const data = Array.apply(null, {length: 1000}).map(() => ["one":1, "two":2]);
     const Query =  <h2> {this.props.params.uid}</h2>;
-    const data2 = this.state.dataset;
+    const data = this.state.data
+    // const data = this.state.data;
     return (
       <div>
         <Helmet
@@ -73,12 +79,12 @@ export class DataView extends React.Component {
             { name: 'description', content: 'Description of DataView' },
           ]}
         />
+
+        <div className="mainPlot" >
         <h1> d3.js plots </h1>
         <ScatterPlot {...this.state} {...styles} />
          <div className="controls">
-          <button className="btn randomize" onClick={() => this.randomizeData()}>
-            Randomize Data
-          </button>
+        </div>
         </div>
       </div>
       )
