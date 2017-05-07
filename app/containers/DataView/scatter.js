@@ -1,6 +1,6 @@
-import React        from 'react';
-import d3           from 'd3';
-import DataCircles  from './dataPoints.js';
+import React from 'react';
+import d3 from 'd3';
+import DataCircles from './dataPoints.js';
 
 const xMax   = (data)  => d3.max(data, (d) => d.PCA1);
 const xMin   = (data)  => d3.min(data, (d) => d.PCA1);
@@ -22,7 +22,7 @@ const yScale = (props) => {
 
 export default (props) => {
   const scales = { xScale: xScale(props), yScale: yScale(props) };
-  return <svg width={props.width} height={props.height}>
+  return <svg width={window.innerWidth} height={props.height}>
     <DataCircles {...props} {...scales} />
   </svg>
 };

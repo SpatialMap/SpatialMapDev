@@ -11,6 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import makeSelectProfile from './selectors';
 import * as firebase from 'firebase';
 import { browserHistory } from 'react-router';
+import "./profile.css"
 
 
 export class Profile extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -37,12 +38,20 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
             { name: 'description', content: 'Description of Profile' },
           ]}
         />
-       <h1> This is the Profile </h1>
-        Email: {email}
-        <br/>
-        UID : {uid}
-        <br/>
-        Name : {name}
+        <div className="profileData">
+           <h1> Profile </h1>
+            Email: {email}
+            <br/>
+            UID : {uid}
+            <br/>
+            Name : {name}
+        </div>
+        <div className="uploadData">
+          upload placeholder
+        </div>
+        <div className="myData">
+          my datasets
+        </div>
       </div>
     );
   }

@@ -1,3 +1,4 @@
+
 /*
  *
  * DataView
@@ -21,21 +22,10 @@ import './dataView.css';
 import ScatterPlot from './scatter.js';
 
 const styles = {
-  width   : 1700,
-  height  : 600,
+  width   : 1800,
+  height  : 500,
   padding : 30,
 };
-
-//
-// // // The number of data points for the chart.
-// //
-// // // A function that returns a random number from 0 to 1000
-// const randomNum = () => Math.floor(Math.random() * 1000);
-// //
-// // // A function that creates an array of 50 elements of (x, y) coordinates.
-// const randomDataSet = () => {
-//   return Array.apply(null, {length: 100}).map(() => [randomNum(), randomNum()]);
-// }
 
 export class DataView extends React.Component {
   // eslint-disable-line react/prefer-stateless-function
@@ -47,13 +37,7 @@ export class DataView extends React.Component {
       data2: [],
     }
   }
-
-  randomizeData() {
-    this.setState({ data: data
-      // randomDataSet()
-    });
-  }
-
+  //loading scatterplot data from firebase
   componentDidMount(){
     var data = [];
     firebase.database().ref('data/' + this.props.params.uid + '/fSet').once("value", (snapshot) => {
@@ -66,8 +50,6 @@ export class DataView extends React.Component {
 
   render() {
 
-    // const data = Array.from(da);
-    // const data = Array.apply(null, {length: 1000}).map(() => ["one":1, "two":2]);
     const Query =  <h2> {this.props.params.uid}</h2>;
     const data = this.state.data
     // const data = this.state.data;
@@ -79,11 +61,13 @@ export class DataView extends React.Component {
             { name: 'description', content: 'Description of DataView' },
           ]}
         />
-
-        <div className="mainPlot" >
-        <h1> d3.js plots </h1>
+        <div className="info">
+        <p> header info placeholder </p>
+        </div>
+        <div className="" >
         <ScatterPlot {...this.state} {...styles} />
-         <div className="controls">
+        <div className="table">
+        <p> table placeholder </p>
         </div>
         </div>
       </div>

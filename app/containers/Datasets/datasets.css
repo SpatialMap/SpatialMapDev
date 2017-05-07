@@ -1,17 +1,19 @@
 .dataChild {
   height: 200px;
-  width: 30vw;
-  margin: 10px;
+  width: 20vw;
+  margin: 5px;
   padding: 10px;
   background-color: rgba(120,200,120, 0.5);
+  box-shadow: 3px 4px 5px #888888;
 }
 
 .flexTiles{
   display: flex;
   position: relative;
   flex-flow: row wrap;
-  width: 100vw;
+  width: 100%;
   justify-content: center;
+  margin-top: -20px;
 }
 
 .tileText{

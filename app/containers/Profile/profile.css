@@ -1,0 +1,20 @@
+.profileData {
+  text-align: center;
+}
+
+.uploadData {
+  margin-top: 50px;
+  height: 200px;
+  padding: 30px;
+  color: white;
+  text-align: center;
+  background-color: rgba(50,50,50,0.4);
+}
+
+.myData {
+  height: 600px;
+  padding: 30px;
+  color: white;
+  text-align: center;
+  background-color: rgba(50,50,50,0.6);
+}
