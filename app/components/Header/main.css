@@ -1,8 +1,18 @@
 .navBar{
   margin-bottom: 20px;
-  padding: 15px;
-  text-align: center;
+  padding: 20px;
+  padding-right: 60px;
+  text-align: right;
   background-color: rgba(230,230,230, 1);
+}
+
+.logo{
+  margin-top: -5px;
+  text-align: left;
+  float: left;
+  color: #34495E;
+  font-size: 150%;
+
 }
 
 .navItem{

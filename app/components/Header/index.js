@@ -32,6 +32,7 @@ function Header() {
   const Try = profileloggedin ? <div> this is a test </div> : <div> not logged in </div>
   return (
     <div className="navBar">
+      <div className="logo"> SpatialMaps </div>
       <Link className="navItem" to="/"> home </Link>
       <Link className="navItem" to="/about"> about </Link>
       <Link className="navItem" to="/datasets"> datasets </Link>

@@ -3,12 +3,14 @@ import React from 'react';
 const renderCircles = (props) => {
   return (coords, index) => {
     var indexRad = index == 15 ? 10 : 2;
-    var color = coords.Markers == "unknown" ? "rgba(100,100,100,0.1)" : coords.Colors ;
+    var colorVar = coords.Markers == "unknown" ? "rgba(100,100,100,0.1)" : coords.Colors ;
+    var strokeVar = coords.Markers == "unknown" ? "rgba(100,100,100,0)" : "none" ;
     const circleProps = {
       cx: props.xScale(coords.PCA1),
       cy: props.yScale(coords.PCA2),
       r: 3,
-      fill: color,
+      fill: colorVar,
+      stroke: strokeVar,
       key: index
     };
     return <circle {...circleProps} />;
@@ -16,5 +18,5 @@ const renderCircles = (props) => {
 };
 
 export default (props) => {
-  return <g>{ props.data.map(renderCircles(props)) }</g>
+  return <g onMouseEnter={console.log("test")}>{ props.data.map(renderCircles(props)) }</g>
 }

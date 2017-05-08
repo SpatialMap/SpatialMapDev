@@ -22,7 +22,7 @@ const yScale = (props) => {
 
 export default (props) => {
   const scales = { xScale: xScale(props), yScale: yScale(props) };
-  return <svg width={window.innerWidth - 40} height={props.height}>
+  return <svg width={props.width} height={props.height}>
     <DataCircles {...props} {...scales} />
   </svg>
 };

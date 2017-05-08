@@ -12,19 +12,19 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
+import './home.css'
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const One = "lore ipsum dolore";
+    const One = "Welcome to SpatialMaps";
 
     return (
       <div>
-      <h1>
-        <FormattedMessage {...messages.header} />
-        <br/>
-
-      </h1>
-        {One}
+        <div className="welcome">
+          <h1> {One} </h1>
+        </div>
+        <div className="welcome2">
+        </div>
       </div>
     );
   }

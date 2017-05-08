@@ -22,6 +22,11 @@
   padding: 50px;
 }
 
+.scatterContainer {
+  height: 350px;
+  width: 100%;
+}
+
 body {
   margin: 0;
 }
