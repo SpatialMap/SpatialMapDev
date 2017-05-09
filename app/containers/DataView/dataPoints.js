@@ -4,11 +4,11 @@ const renderCircles = (props) => {
   return (coords, index) => {
     var indexRad = index == 15 ? 10 : 2;
     // conditional statements inside variables to select certain elements
-    var colorVarVisible = coords.Markers == "unknown" ? "rgba(100,100,100,0.1)" : coords.Colors ;
-    var colorVarHidden = coords.Markers == "unknown" ? "none" : coords.Colors ;
+    var colorVarVisible = coords.markers == "unknown" ? "rgba(100,100,100,0.1)" : coords.Colors ;
+    var colorVarHidden = coords.markers == "unknown" ? "none" : coords.Colors ;
     var colorVar = props.dispUnknown == true ? colorVarVisible : colorVarHidden;
-    var textVar = coords.Markers == "unknown" ? "" : coords.Markers ;
-    var strokeVar = coords.Markers == "unknown" ? "rgba(100,100,100,0)" : "none" ;
+    var textVar = coords.markers == "unknown" ? "" : coords.markers ;
+    var strokeVar = coords.markers == "unknown" ? "rgba(100,100,100,0)" : "none" ;
     //x,y coordinates
     var xPOS = props.xScale(coords.PCA1);
     var yPOS = props.yScale(coords.PCA2);

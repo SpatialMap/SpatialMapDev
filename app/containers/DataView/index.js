@@ -1,4 +1,3 @@
-
 /*
  *
  * DataView
@@ -57,7 +56,7 @@ let _columns = [
   {
     key: 'column2',
     name: 'Markers',
-    fieldName: 'Markers',
+    fieldName: 'markers',
     minWidth: 100,
     isResizable: true
   },
@@ -118,27 +117,8 @@ export class DataView extends React.Component {
     // }
 
 
+
   render() {
-    let _items2 = [
-      {
-             key: 1,
-             name: 'Item ' + 1,
-             value: 1,
-             values: 3
-      },
-      {
-             key: 2,
-             name: 'Item ' + 2,
-             value: 2,
-             values: 3
-      },
-      {
-             key: 3,
-             name: 'Item ' + 3,
-             value: 3,
-             values: 3
-      },
-    ];
 
     const data = this.state.data
 
@@ -150,6 +130,7 @@ export class DataView extends React.Component {
             items={ data }
             columns={ _columns }
             setKey='set'
+            groups={ data.markers }
             layoutMode={ DetailsListLayoutMode.fixedColumns }
             selection={ this._selection }
             selectionPreservedOnEmptyClick={ true }
