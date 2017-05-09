@@ -46,7 +46,9 @@ export class DataView extends React.Component {
       data: [],
       data2: [],
       loading: true,
-      value: 4,
+      radius: 4,
+      dispUnknown: true,
+      labels: false,
     };
   }
 
@@ -138,31 +140,33 @@ export class DataView extends React.Component {
          <div className="slider">
             <Slider
               label='Scatter Point Size'
-              min={ 1 }
-              max={ 10 }
-              step={ 1 }
+              min={ 0.5 }
+              max={ 8 }
+              step={ 0.5 }
               defaultValue={ 4 }
-              onChange={ value => this.setState({ value }) }
+              onChange={ radius => this.setState({ radius }) }
               showValue={ false }
             />
          </div>
          <div className="toggle">
              <Toggle
-              defaultChecked={ true }
               label='Display Labels'
               onAriaLabel='This toggle is checked. Press to uncheck.'
               offAriaLabel='This toggle is unchecked. Press to check.'
               onText='On'
-              offText='Off' />
+              offText='Off'
+              onChange={ labels => this.setState({ labels }) }
+        />
         </div>
         <div className="toggle">
             <Toggle
-             defaultChecked={ true }
-             label='Display Unknown'
+             label='Hide Unknown'
              onAriaLabel='This toggle is checked. Press to uncheck.'
              offAriaLabel='This toggle is unchecked. Press to check.'
              onText='On'
-             offText='Off' />
+             offText='Off'
+             onChange={ dispUnknown => this.setState({ dispUnknown }) }
+            />
        </div>
        <div className="buttons last">
            <DefaultButton

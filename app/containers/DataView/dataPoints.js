@@ -4,7 +4,9 @@ const renderCircles = (props) => {
   return (coords, index) => {
     var indexRad = index == 15 ? 10 : 2;
     // conditional statements inside variables to select certain elements
-    var colorVar = coords.Markers == "unknown" ? "rgba(100,100,100,0.1)" : coords.Colors ;
+    var colorVarVisible = coords.Markers == "unknown" ? "rgba(100,100,100,0.1)" : coords.Colors ;
+    var colorVarHidden = coords.Markers == "unknown" ? "none" : coords.Colors ;
+    var colorVar = props.dispUnknown == true ? colorVarVisible : colorVarHidden;
     var textVar = coords.Markers == "unknown" ? "" : coords.Markers ;
     var strokeVar = coords.Markers == "unknown" ? "rgba(100,100,100,0)" : "none" ;
     //x,y coordinates
@@ -13,6 +15,7 @@ const renderCircles = (props) => {
     const circleProps = {
       cx: xPOS,
       cy: yPOS,
+      r: props.radius,
       fill: colorVar,
       stroke: strokeVar,
       key: index
@@ -28,7 +31,16 @@ const renderCircles = (props) => {
       //textsize defined in css
     };
 
-    return <g className="circleText" key={index+0.2}> <circle {...circleProps} /> <text {...textProps}> {textVar} </text> </g>;
+    var boolTest = props.labels;
+
+    var output = boolTest == false ? <g className="circleText" key={index+0.2}>
+                                              <circle {...circleProps} />
+                                          </g> : <g className="circleText" key={index+0.2}>
+                                          <circle {...circleProps} />
+                                          <text {...textProps}> {textVar} </text>
+                                          </g>;
+
+    return output;
   };
 };
 
