@@ -28,6 +28,14 @@ import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import {
+  DetailsList,
+  DetailsListLayoutMode,
+  Selection
+} from 'office-ui-fabric-react/lib/DetailsList';
+import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
+
 var Dimensions = require('react-dimensions');
 
 const styles = {
@@ -35,6 +43,39 @@ const styles = {
   height  : 500,
   padding : 30,
 };
+
+
+
+let _columns = [
+  {
+    key: 'column1',
+    name: 'Colors',
+    fieldName: 'Colors',
+    minWidth: 100,
+    isResizable: true
+  },
+  {
+    key: 'column2',
+    name: 'Markers',
+    fieldName: 'Markers',
+    minWidth: 100,
+    isResizable: true
+  },
+  {
+    key: 'column3',
+    name: 'PCA1',
+    fieldName: 'PCA1',
+    minWidth: 100,
+    isResizable: true
+  },
+  {
+    key: 'column4',
+    name: 'PCA2',
+    fieldName: 'PCA2',
+    minWidth: 100,
+    isResizable: true
+  },
+];
 
 export class DataView extends React.Component {
   // eslint-disable-line react/prefer-stateless-function
@@ -76,10 +117,49 @@ export class DataView extends React.Component {
     //   }
     // }
 
+
   render() {
+    let _items2 = [
+      {
+             key: 1,
+             name: 'Item ' + 1,
+             value: 1,
+             values: 3
+      },
+      {
+             key: 2,
+             name: 'Item ' + 2,
+             value: 2,
+             values: 3
+      },
+      {
+             key: 3,
+             name: 'Item ' + 3,
+             value: 3,
+             values: 3
+      },
+    ];
+
+    const data = this.state.data
+
+    const table = <div> <TextField
+          label='Filter by name:'
+        />
+        <MarqueeSelection selection={ this._selection }>
+          <DetailsList
+            items={ data }
+            columns={ _columns }
+            setKey='set'
+            layoutMode={ DetailsListLayoutMode.fixedColumns }
+            selection={ this._selection }
+            selectionPreservedOnEmptyClick={ true }
+            onItemInvoked={ (item) => alert(`Item invoked: ${item.name}`) }
+          />
+        </MarqueeSelection>
+        </div>;
 
     const Query =  <h2> {this.props.params.uid}</h2>;
-    const data = this.state.data
+
     const d3Plot =  <div className="scatterContainer" >
                       <ReactSVGPanZoom
                         style={{}}
@@ -106,6 +186,7 @@ export class DataView extends React.Component {
                       </div>;
 
     const d3Container = this.loading == true ? d3Loader : d3Plot;
+
 
 
     // const data = this.state.data;
@@ -179,7 +260,7 @@ export class DataView extends React.Component {
       </div>
       <div className="choiceGroup">
         <div className="choiceChild">
-          <p> Box Plot </p>
+          <p> Profile </p>
         </div>
       </div>
       <div className="choiceGroup">
@@ -200,7 +281,7 @@ export class DataView extends React.Component {
           {d3Container}
       </div>
       <div className="table">
-          <p> table placeholder </p>
+          {table}
       </div>
       </div>
       )
