@@ -25,6 +25,9 @@ import { Slider } from 'office-ui-fabric-react/lib/Slider';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
+import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
+import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+
 var Dimensions = require('react-dimensions');
 
 const styles = {
@@ -114,7 +117,7 @@ export class DataView extends React.Component {
         />
 
         <div className="configBar">
-          <div className="buttons">
+          <div className="buttons first">
             <DefaultButton
                 description='Opens the Sample Dialog'
                 text='Citation'
@@ -161,15 +164,33 @@ export class DataView extends React.Component {
              onText='On'
              offText='Off' />
        </div>
-       <div className="buttonsRight">
+       <div className="buttons last">
            <DefaultButton
                description='Opens the Sample Dialog'
                text='Comments'
            />
       </div>
+      <div className="headerPlaceholder">
+        <p> Placeholder </p>
       </div>
-      <div className="info">
-        <p> header info placeholder </p>
+      <div className="choiceGroup">
+        <div className="choiceChild">
+          <p> Box Plot </p>
+        </div>
+      </div>
+      <div className="choiceGroup">
+        <div className="choiceChild">
+          <p> T-SNE </p>
+        </div>
+      </div>
+      <div className="choiceGroup">
+        <div className="choiceChild">
+          <p> PCA </p>
+        </div>
+      </div>
+      <div className="headerPlaceholder">
+        <p> Placeholder </p>
+      </div>
       </div>
       <div className="mainPlot">
           {d3Container}
