@@ -4,17 +4,17 @@ const renderCircles = (props) => {
   return (coords, index) => {
     // conditional statements inside variables to select certain elements
     // conditional for selected key
-    var markSelected = index == props.activeKey ? "black" : "none";
+    let markSelected = index == props.activeKey ? "black" : "none";
     //show/hide points with "unknown" markers
-    var toggleUnknown = props.dispUnknown == true ? "rgba(100,100,100,0.1)" : "none";
-    var colorVar = coords.markers == "unknown" ? toggleUnknown : coords.Colors ;
+    let toggleUnknown = props.dispUnknown == true ? "rgba(100,100,100,0.1)" : "none";
+    let colorVar = coords.markers == "unknown" ? toggleUnknown : coords.Colors ;
     //attach markername if not "unknown"
-    var textVar = coords.markers == "unknown" ? "" : coords.markers ;
+    let textVar = coords.markers == "unknown" ? "" : coords.markers ;
     //not used at the moment - activate to add a stroke circle around each unknown point
-    var strokeVar = coords.markers == "unknown" ? "rgba(100,100,100,0)" : "none" ;
+    let strokeVar = coords.markers == "unknown" ? "rgba(100,100,100,0)" : "none" ;
     //x,y coordinates
-    var xPOS = props.xScale(coords.PCA1);
-    var yPOS = props.yScale(coords.PCA2);
+    let xPOS = props.xScale(coords.PCA1);
+    let yPOS = props.yScale(coords.PCA2);
     const circleProps = {
       cx: xPOS,
       cy: yPOS,
@@ -34,9 +34,8 @@ const renderCircles = (props) => {
       //textsize defined in css
     };
 
-    var output = props.labels == false ? <g className="circleText" key={index+0.2}>
-                                              <circle {...circleProps} />
-                                          </g> : <g className="circleText" key={index+0.2}>
+    var output = props.labels == false ? <circle {...circleProps} />
+                                           : <g className="circleText" key={index+0.2}>
                                           <circle {...circleProps} />
                                           <text {...textProps}> {textVar} </text>
                                           </g>;
@@ -46,5 +45,5 @@ const renderCircles = (props) => {
 };
 
 export default (props) => {
-  return <g >{ props.data.map(renderCircles(props)) }</g>
+  return <g>{ props.data.map(renderCircles(props)) }</g>
 }

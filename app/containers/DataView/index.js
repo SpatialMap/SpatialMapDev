@@ -26,18 +26,12 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DetailsList, DetailsListLayoutMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
+import { Callout } from 'office-ui-fabric-react/lib/Callout';
 
 var Dimensions = require('react-dimensions');
-
-const styles = {
-  width   : 1800,
-  height  : 500,
-  padding : 30,
-};
 
 export class DataView extends React.Component {
   // eslint-disable-line react/prefer-stateless-function
@@ -45,14 +39,13 @@ export class DataView extends React.Component {
     super(props, context);
     this.Viewer = null;
     this.state = {
-      test1: "123",
       data: [],
-      data2: [],
       loading: true,
       radius: 4,
       dispUnknown: true,
       labels: false,
       activeKey: [],
+      activeField: "PCA",
     };
   }
 
@@ -67,80 +60,83 @@ export class DataView extends React.Component {
     firebase.database().ref('data/' + this.props.params.uid + '/fSet').once("value", (snapshot) => {
           let data = snapshot.val();
           this.setState({
-            data
-          });
-          this.setState({
+            data,
             loading : false
-          })
+          });
     })
   };
 
-    // @keydown( 'enter' ) // or specify `which` code directly, in this case 13
-    //   submit( event ) {
-    //     // do something, or not, with the keydown event, maybe event.preventDefault()
-    //     this.Viewer.setTool("pan");
-    //     //this.setState({tool: fitSelection(})
-    //   }
-    // }
-
-
+    //  @keydown( 'enter' ) // or specify `which` code directly, in this case 13
+    //    submit( event ) {
+    //      // do something, or not, with the keydown event, maybe event.preventDefault()
+    //      this.Viewer.setTool("pan");
+    //      //this.setState({tool: fitSelection(})
+    //    }
+    // / }
 
   render() {
 
+
+    const styles = {
+      width   : 1900/2,
+      height  : 500,
+      padding : 30,
+    };
+
     const data = this.state.data;
 
-    const d3Plot =  <div className="scatterContainer" >
+    const d3Plot =  <div className="scatterContainer">
                       <ReactSVGPanZoom
-                        width={1800} height={500} ref={Viewer => this.Viewer = Viewer}
+                        width={styles.width} height={styles.height} ref={Viewer => this.Viewer = Viewer}
                         onClick={event => console.log('click', event.x, event.y, event.originalEvent)}
                         onMouseMove={event => console.log('move', event.x, event.y)}
                         SVGBackground="white"
                         background="white"
                         detectWheel={true}
                         // detectAutoPan={false}
-                        miniatureWidth={50}
                         toolbarPosition={"none"}
                         tool={"auto"}
                         detectAutoPan={false}
                         >
-                        <svg width={1800} height={500}>
+                        <svg>
                           <ScatterPlot {...this.state} {...styles}  />
                         </svg>
                     </ReactSVGPanZoom>
                   </div>
 
-    const d3Loader =  <div className="loader">
-                        <Spinner size={SpinnerSize.large} />
+    const loader =  <div className="loader">
+                        <Spinner size={SpinnerSize.large} label='dataset' />
                       </div>;
 
-    const d3Container = this.state.loading == true ? d3Loader : d3Plot;
+    const d3Container = this.state.loading == true ? loader : d3Plot;
 
-    const ListAgg2 = this.state.loading == true ? [] : Object.keys(data[1]);
+    const keyAggregate = this.state.loading == true ? [] : Object.keys(data[1]);
     var columnVar = [];
-    for (var i = 1; i < ListAgg2.length; ++i) {
-        ListAgg2[i] != "Colors" && ListAgg2[i] != "PCA1" && ListAgg2[i] != "PCA2"  ?
-        columnVar.push({"Key": ListAgg2[i]+i ,
-                  "name" : ListAgg2[i] ,
-                  "fieldName" : ListAgg2[i],
+    for (var i = 1; i < keyAggregate.length; ++i) {
+        keyAggregate[i] != "Colors" && keyAggregate[i] != "PCA1" && keyAggregate[i] != "PCA2"  ?
+        columnVar.push({"Key": keyAggregate[i]+i ,
+                  "name" : keyAggregate[i] ,
+                  "fieldName" : keyAggregate[i],
                   "maxWidth" : 200,
       }) : null ;
     }
 
-    const table = <div> <TextField
-          label='Filter by name:'
-        />
-        <MarqueeSelection selection={ this._selection }>
-          <DetailsList
-            items={ data }
-            columns={ columnVar }
-            setKey='set'
-            layoutMode={ DetailsListLayoutMode.fixedColumns }
-            selection={ this._selection }
-            selectionPreservedOnEmptyClick={ true }
-            onItemInvoked={ (item, index) => this.setState({ activeKey : index }) }
-          />
-        </MarqueeSelection>
-        </div>;
+    const table = <div>
+                    <TextField placeholder='Search'/>
+                    <MarqueeSelection selection={this._selection}>
+                      <DetailsList
+                        items={data}
+                        columns={columnVar}
+                        setKey='set'
+                        layoutMode={DetailsListLayoutMode.fixedColumns}
+                        selection={this._selection}
+                        isLazyLoaded = {true}
+                        checkboxVisibility = {false}
+                        selectionPreservedOnEmptyClick={true}
+                        onItemInvoked={ (item, index) => this.setState({ activeKey : index }) }
+                      />
+                    </MarqueeSelection>
+                  </div>;
 
     // const data = this.state.data;
     return (
@@ -153,7 +149,8 @@ export class DataView extends React.Component {
         />
 
         <div className="configBar">
-          <div className="buttons first">
+          <div className="buttons first"
+          >
             <DefaultButton
                 description='Opens the Sample Dialog'
                 text='Citation'
@@ -189,7 +186,7 @@ export class DataView extends React.Component {
               offAriaLabel='This toggle is unchecked. Press to check.'
               onText='On'
               offText='Off'
-              onChange={ labels => this.setState({ labels }) }
+              onChange={ () => this.setState({ labels : !this.state.labels }) }
         />
         </div>
         <div className="toggle">
@@ -199,7 +196,7 @@ export class DataView extends React.Component {
              offAriaLabel='This toggle is unchecked. Press to check.'
              onText='On'
              offText='Off'
-             onChange={ dispUnknown => this.setState({ dispUnknown }) }
+             onChange={ () => this.setState({ dispUnknown : !this.state.dispUnknown }) }
             />
        </div>
        <div className="buttons last">
@@ -231,6 +228,7 @@ export class DataView extends React.Component {
       </div>
       </div>
       <div className="mainPlot">
+          {d3Container}
           {d3Container}
       </div>
       <div className="table">

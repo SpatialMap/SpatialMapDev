@@ -52,7 +52,6 @@
   float: right;
 }
 
-
 .choiceGroup {
   float: right;
   margin-left: 2px;
@@ -80,6 +79,13 @@
 .choiceChild:hover {
   background-color: #DFCFBF;
 }
+
+.scatterContainer{
+  height: 500px;
+  width: 900px;
+  float: left;
+}
+
 
 .toggle {
   float: left;

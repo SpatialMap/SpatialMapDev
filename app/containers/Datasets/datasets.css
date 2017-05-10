@@ -16,6 +16,10 @@
   margin-top: -20px;
 }
 
+.loader {
+  padding: 200px;
+}
+
 .tileText{
   padding: 5px;
   color: #000;

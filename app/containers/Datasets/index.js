@@ -13,47 +13,58 @@ import makeSelectDatasets from './selectors';
 import messages from './messages';
 import DataChild from './dataChilds.js';
 import * as firebase from 'firebase';
-import './datasets.css'
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import './datasets.css';
 
 export class Datasets extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
-      productallid: [],
+      msnsets: [],
+      loading: true,
     }
   }
 
   componentDidMount(){
-    var productallid = [];
+    var msnsets = [];
     firebase.database().ref('meta').orderByChild('tissue').on("child_added", (snapshot) => {
-          let product = snapshot.val();
-          // console.log(product,'snapshot.val()');
-          productallid.push({
+          let set = snapshot.val();
+          // console.log(set,'snapshot.val()');
+          msnsets.push({
             id: snapshot.getKey(),
-            Description: product.Description,
-            author: product.author,
-            contact: product.contact,
-            email: product.email,
-            lab: product.lab,
-            operator: product.operator,
-            species: product.species,
-            tissue: product.tissue,
-            title:product.title,
-            varName: product.varName,
+            Description: set.Description,
+            author: set.author,
+            contact: set.contact,
+            email: set.email,
+            lab: set.lab,
+            operator: set.operator,
+            species: set.species,
+            tissue: set.tissue,
+            title:set.title,
+            varName: set.varName,
           });
     });
     this.setState({
-      productallid
-    })
+      msnsets : msnsets
+    });
+    this.setState({
+      loading : false
+    });
   }
 
   render() {
 
-    var DataSetItem = this.state.productallid.map((detail)=>
+    const DataSetItem = this.state.msnsets.map((detail)=>
      <DataChild key={'dataChild'+detail.id} item={detail} />
     );
 
-    var flexTiles = <div className="flexTiles"> {DataSetItem} </div>;
+    const loader =  <div className="loader">
+                        <p> fetching dataset </p>
+                        <Spinner size={SpinnerSize.large} />
+                    </div>;
+
+    const flexTiles = <div className="flexTiles"> {DataSetItem} </div>;
+    const itemContainer = this.state.loading == true ? loader : flexTiles;
 
     return (
       <div>
@@ -63,7 +74,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
             { name: 'description', content: 'Description of Datasets' },
           ]}
         />
-        {flexTiles}
+        {itemContainer}
       </div>
     );
   }
