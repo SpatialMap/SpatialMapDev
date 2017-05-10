@@ -28,11 +28,7 @@ import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/Choi
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import {
-  DetailsList,
-  DetailsListLayoutMode,
-  Selection
-} from 'office-ui-fabric-react/lib/DetailsList';
+import { DetailsList, DetailsListLayoutMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 
 var Dimensions = require('react-dimensions');
@@ -42,39 +38,6 @@ const styles = {
   height  : 500,
   padding : 30,
 };
-
-
-
-let _columns = [
-  {
-    key: 'column1',
-    name: 'Colors',
-    fieldName: 'Colors',
-    minWidth: 100,
-    isResizable: true
-  },
-  {
-    key: 'column2',
-    name: 'Markers',
-    fieldName: 'markers',
-    minWidth: 100,
-    isResizable: true
-  },
-  {
-    key: 'column3',
-    name: 'PCA1',
-    fieldName: 'PCA1',
-    minWidth: 100,
-    isResizable: true
-  },
-  {
-    key: 'column4',
-    name: 'PCA2',
-    fieldName: 'PCA2',
-    minWidth: 100,
-    isResizable: true
-  },
-];
 
 export class DataView extends React.Component {
   // eslint-disable-line react/prefer-stateless-function
@@ -89,6 +52,7 @@ export class DataView extends React.Component {
       radius: 4,
       dispUnknown: true,
       labels: false,
+      activeKey: [],
     };
   }
 
@@ -104,6 +68,9 @@ export class DataView extends React.Component {
           let data = snapshot.val();
           this.setState({
             data
+          });
+          this.setState({
+            loading : false
           })
     })
   };
@@ -120,30 +87,10 @@ export class DataView extends React.Component {
 
   render() {
 
-    const data = this.state.data
-
-    const table = <div> <TextField
-          label='Filter by name:'
-        />
-        <MarqueeSelection selection={ this._selection }>
-          <DetailsList
-            items={ data }
-            columns={ _columns }
-            setKey='set'
-            groups={ data.markers }
-            layoutMode={ DetailsListLayoutMode.fixedColumns }
-            selection={ this._selection }
-            selectionPreservedOnEmptyClick={ true }
-            onItemInvoked={ (item) => alert(`Item invoked: ${item.name}`) }
-          />
-        </MarqueeSelection>
-        </div>;
-
-    const Query =  <h2> {this.props.params.uid}</h2>;
+    const data = this.state.data;
 
     const d3Plot =  <div className="scatterContainer" >
                       <ReactSVGPanZoom
-                        style={{}}
                         width={1800} height={500} ref={Viewer => this.Viewer = Viewer}
                         onClick={event => console.log('click', event.x, event.y, event.originalEvent)}
                         onMouseMove={event => console.log('move', event.x, event.y)}
@@ -162,13 +109,38 @@ export class DataView extends React.Component {
                     </ReactSVGPanZoom>
                   </div>
 
-    const d3Loader =  <div>
+    const d3Loader =  <div className="loader">
                         <Spinner size={SpinnerSize.large} />
                       </div>;
 
-    const d3Container = this.loading == true ? d3Loader : d3Plot;
+    const d3Container = this.state.loading == true ? d3Loader : d3Plot;
 
+    const ListAgg2 = this.state.loading == true ? [] : Object.keys(data[1]);
+    var columnVar = [];
+    for (var i = 1; i < ListAgg2.length; ++i) {
+        ListAgg2[i] != "Colors" && ListAgg2[i] != "PCA1" && ListAgg2[i] != "PCA2"  ?
+        columnVar.push({"Key": ListAgg2[i]+i ,
+                  "name" : ListAgg2[i] ,
+                  "fieldName" : ListAgg2[i],
+                  "maxWidth" : 200,
+      }) : null ;
+    }
 
+    const table = <div> <TextField
+          label='Filter by name:'
+        />
+        <MarqueeSelection selection={ this._selection }>
+          <DetailsList
+            items={ data }
+            columns={ columnVar }
+            setKey='set'
+            layoutMode={ DetailsListLayoutMode.fixedColumns }
+            selection={ this._selection }
+            selectionPreservedOnEmptyClick={ true }
+            onItemInvoked={ (item, index) => this.setState({ activeKey : index }) }
+          />
+        </MarqueeSelection>
+        </div>;
 
     // const data = this.state.data;
     return (
@@ -237,7 +209,7 @@ export class DataView extends React.Component {
            />
       </div>
       <div className="headerPlaceholder">
-        <p> Placeholder </p>
+        <p>  </p>
       </div>
       <div className="choiceGroup">
         <div className="choiceChild">
@@ -255,7 +227,7 @@ export class DataView extends React.Component {
         </div>
       </div>
       <div className="headerPlaceholder">
-        <p> Placeholder </p>
+        <p>  </p>
       </div>
       </div>
       <div className="mainPlot">

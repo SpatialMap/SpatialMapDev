@@ -2,12 +2,15 @@ import React from 'react';
 
 const renderCircles = (props) => {
   return (coords, index) => {
-    var indexRad = index == 15 ? 10 : 2;
     // conditional statements inside variables to select certain elements
-    var colorVarVisible = coords.markers == "unknown" ? "rgba(100,100,100,0.1)" : coords.Colors ;
-    var colorVarHidden = coords.markers == "unknown" ? "none" : coords.Colors ;
-    var colorVar = props.dispUnknown == true ? colorVarVisible : colorVarHidden;
+    // conditional for selected key
+    var markSelected = index == props.activeKey ? "black" : "none";
+    //show/hide points with "unknown" markers
+    var toggleUnknown = props.dispUnknown == true ? "rgba(100,100,100,0.1)" : "none";
+    var colorVar = coords.markers == "unknown" ? toggleUnknown : coords.Colors ;
+    //attach markername if not "unknown"
     var textVar = coords.markers == "unknown" ? "" : coords.markers ;
+    //not used at the moment - activate to add a stroke circle around each unknown point
     var strokeVar = coords.markers == "unknown" ? "rgba(100,100,100,0)" : "none" ;
     //x,y coordinates
     var xPOS = props.xScale(coords.PCA1);
@@ -17,9 +20,9 @@ const renderCircles = (props) => {
       cy: yPOS,
       r: props.radius,
       fill: colorVar,
-      stroke: strokeVar,
+      stroke: markSelected,
+      strokeWidth: props.radius/3,
       key: index
-      //radius defined in css
       //hoover defined in css
     };
 
@@ -31,9 +34,7 @@ const renderCircles = (props) => {
       //textsize defined in css
     };
 
-    var boolTest = props.labels;
-
-    var output = boolTest == false ? <g className="circleText" key={index+0.2}>
+    var output = props.labels == false ? <g className="circleText" key={index+0.2}>
                                               <circle {...circleProps} />
                                           </g> : <g className="circleText" key={index+0.2}>
                                           <circle {...circleProps} />
