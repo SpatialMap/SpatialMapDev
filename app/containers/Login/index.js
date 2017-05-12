@@ -12,16 +12,23 @@ import makeSelectProfile from './selectors';
 import * as firebase from 'firebase';
 import { browserHistory } from 'react-router';
 import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/Pivot';
-import './login.css'
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
+import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import { PrimaryButton, IButtonProps, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import './login.css';
 
 
 export class Profile extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
-      login: true,
+      switch: "Login",
+      error: false,
+      email: "",
+      password: "",
+      password2: "",
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   googleLogin = (type) =>{
@@ -50,32 +57,64 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
     }
   }
 
+  pwReset = (type) =>{
+  return () => {
+    const email = this.state.email;
+    var auth = firebase.auth();
+    auth.sendPasswordResetEmail(email).then(function() {
+      // Email sent.
+      console.log('email send out')
+    }, function(error) {
+      // An error happened.
+      });
+    }
+  }
+
   handleSubmit = (type) => {
     return () => {
-      const email = this.email.value;
-      const pw = this.password.value;
-      if (type === 'login') {
+      const email = this.state.email;
+      const pw = this.state.password;
+      if (type === 'Login') {
         firebase.auth().signInWithEmailAndPassword(email, pw).catch(function(error) {
           this.setState({ error: error.message });
         }).then(() => {
-          event.preventDefault(); // prevent full page reload
-          // change current location without full page reload
           browserHistory.push(`/`);
           });
       } else {
         firebase.auth().createUserWithEmailAndPassword(email, pw).then(() => {
         }).catch((error) => this.setState({ error: error.message })).then(() => {
-          event.preventDefault(); // prevent full page reload
-          // change current location without full page reload
           browserHistory.push(`/`);
-            });
+        });
       }
     }
   }
 
   render() {
 
-    var textMsg = this.state.login == true ? <p> Login </p> : <p> Register </p>;
+    const registerContent = <div> <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
+                                <TextField placeholder='Password'  onChanged={(value) => this.setState({password : value})}/>
+                                <TextField placeholder='Password'  onChanged={(value) => this.setState({password : value})}/>
+                                <PrimaryButton className="buttons"
+                                  text='Create Account'
+                                  onClick={ this.handleSubmit("CreateUserAccount") }
+                                />
+                         </div>;
+
+    const loginContent = <div> <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
+                                <TextField placeholder='Password' type='password' onChanged={(value) => this.setState({password : value})}/>
+                                <PrimaryButton className="buttons"
+                                  text='login'
+                                  onClick={ this.handleSubmit("Login") }
+                                />
+                                <DefaultButton className="buttons"
+                                  text='reset password'
+                                  type= "hero"
+                                  onClick={ this.pwReset("resett") }
+                                />
+                         </div>;
+
+    const textMsg = this.state.switch == "Login" ? loginContent : registerContent;
+
     console.log(this.state.login);
 
     return (
@@ -87,12 +126,19 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
           ]}
         />
       <div className="mainContent">
-        <Pivot>
-          <PivotItem linkText='Login'    onClick={() => this.setState({ login : true })} />
-          <PivotItem linkText='Register' onClick={() => this.setState({ login : false })}/>
+        <Pivot onLinkClick={ (PivotItem) => this.setState({ switch : PivotItem.props.linkText })}>
+          <PivotItem linkText='Login'   />
+          <PivotItem linkText='Register'/>
         </Pivot>
+        <div className="inputArea">
+          <div className="inputInnerField">
+
         {textMsg}
-        <button onClick={this.googleLogin('google')}> Log in with Google </button>
+      </div>
+        </div>
+        <button onClick={this.googleLogin('google')}> Google </button>
+        <button onClick={this.googleLogin('google')}> Github </button>
+        <button onClick={this.googleLogin('google')}> Facebook </button>
       </div>
     </div>
     );

@@ -1,3 +1,19 @@
-.mainContent{
+.mainContent {
   text-align: center;
+}
+
+.inputArea {
+  margin: 25px 0px 25px 0px;
+  padding: 20px;
+  box-shadow: -5px 0px 10px #888888;
+  background-color: rgba(100,100,100,0.2);
+}
+
+.inputInnerField{
+  margin: auto;
+  width: 600px;
+}
+
+.buttons {
+  margin: 5px;
 }

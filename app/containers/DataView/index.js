@@ -93,7 +93,7 @@ export class DataView extends React.Component {
                         SVGBackground="white"
                         background="white"
                         detectWheel={true}
-                        // detectAutoPan={false}
+                        miniaturePosition = {"none"}
                         toolbarPosition={"none"}
                         tool={"auto"}
                         detectAutoPan={false}
