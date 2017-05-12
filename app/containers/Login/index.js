@@ -11,11 +11,16 @@ import { createStructuredSelector } from 'reselect';
 import makeSelectProfile from './selectors';
 import * as firebase from 'firebase';
 import { browserHistory } from 'react-router';
+import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/Pivot';
+import './login.css'
 
 
 export class Profile extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
+    this.state = {
+      login: true,
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -69,17 +74,27 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
   }
 
   render() {
+
+    var textMsg = this.state.login == true ? <p> Login </p> : <p> Register </p>;
+    console.log(this.state.login);
+
     return (
-      <div>
+    <div>
         <Helmet
           title="Profile"
           meta={[
             { name: 'description', content: 'Description of Profile' },
           ]}
         />
-       <h1> This is a test </h1>
-       <button onClick={this.googleLogin('google')}> Log in with Google </button>
+      <div className="mainContent">
+        <Pivot>
+          <PivotItem linkText='Login'    onClick={() => this.setState({ login : true })} />
+          <PivotItem linkText='Register' onClick={() => this.setState({ login : false })}/>
+        </Pivot>
+        {textMsg}
+        <button onClick={this.googleLogin('google')}> Log in with Google </button>
       </div>
+    </div>
     );
   }
 }
