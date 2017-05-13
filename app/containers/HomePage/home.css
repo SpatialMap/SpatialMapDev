@@ -1,7 +1,14 @@
-.welcome{
+.welcome {
   margin-top: -21px;
   text-align: center;
   padding: 60px;
-  height: 30vh;
+  height: 40vh;
+  -webkit-box-shadow: inset 0px 12px 112px -50px rgba(0,0,0,0.1);
+  -moz-box-shadow: inset 0px 12px 112px -50px rgba(0,0,0,0.1);
+  box-shadow: inset 0px 12px 112px -50px rgba(0,0,0,0.1);
+}
 
+
+.tileHeight {
+  height: 60vh;
 }

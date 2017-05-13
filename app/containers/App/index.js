@@ -12,8 +12,10 @@
  */
 
 import React from 'react';
-import Header from 'components/Header'
+import Header from 'components/Header';
+import './global.css';
 export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
 
   static propTypes = {
     children: React.PropTypes.node,
@@ -21,7 +23,7 @@ export default class App extends React.PureComponent { // eslint-disable-line re
 
   render() {
     return (
-      <div>
+      <div className="main">
         <Header />
         {React.Children.toArray(this.props.children)}
       </div>

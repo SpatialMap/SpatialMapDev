@@ -23,7 +23,11 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         <div className="welcome">
           <h1> {One} </h1>
         </div>
-        <div className="welcome2">
+        <div className="greyBG tileHeight">
+          <p> </p>
+        </div>
+        <div className="footer">
+          
         </div>
       </div>
     );
