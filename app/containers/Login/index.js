@@ -92,8 +92,8 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
   render() {
 
     const registerContent = <div> <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
-                                <TextField placeholder='Password'  onChanged={(value) => this.setState({password : value})}/>
-                                <TextField placeholder='Password'  onChanged={(value) => this.setState({password : value})}/>
+                                <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password : value})}/>
+                                <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password2 : value})}/>
                                 <PrimaryButton className="buttons"
                                   text='Create Account'
                                   onClick={ this.handleSubmit("CreateUserAccount") }
@@ -101,7 +101,7 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
                          </div>;
 
     const loginContent = <div> <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
-                                <TextField placeholder='Password' type='password' onChanged={(value) => this.setState({password : value})}/>
+                                <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password : value})}/>
                                 <PrimaryButton className="buttons"
                                   text='login'
                                   onClick={ this.handleSubmit("Login") }
