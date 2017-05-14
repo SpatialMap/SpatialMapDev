@@ -42,6 +42,7 @@
   padding-top: 15px;
   margin-left: 2px;
   background-color: #f4f4f4;
+
 }
 
 .first {
@@ -63,8 +64,11 @@
   height: 60px;
   width: 100px;
   float: right;
+  font-weight: 400;
   text-align: center;
+  padding-top: 22px;
   font-weight: bold;
+  font-size: 12px;
 }
 
 .headerPlaceholder{

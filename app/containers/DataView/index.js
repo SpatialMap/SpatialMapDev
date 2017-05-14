@@ -210,17 +210,17 @@ export class DataView extends React.Component {
       </div>
       <div className="choiceGroup">
         <div className="choiceChild">
-          <p> Profile </p>
+           Profile
         </div>
       </div>
       <div className="choiceGroup">
         <div className="choiceChild">
-          <p> T-SNE </p>
+          T-SNE
         </div>
       </div>
       <div className="choiceGroup">
         <div className="choiceChild">
-          <p> PCA </p>
+          PCA
         </div>
       </div>
       <div className="headerPlaceholder">
