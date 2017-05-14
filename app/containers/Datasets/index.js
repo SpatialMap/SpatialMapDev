@@ -15,6 +15,7 @@ import DataChild from './dataChilds.js';
 import * as firebase from 'firebase';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import './datasets.css';
+import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 
 export class Datasets extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -74,6 +75,13 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
             { name: 'description', content: 'Description of Datasets' },
           ]}
         />
+      <div className="sidebar">
+        <SearchBox
+          onChange={ (newValue) => console.log('SearchBox onChange fired: ' + newValue) }
+          onSearch={ (newValue) => console.log('SearchBox onSearch fired: ' + newValue) }
+        />
+        <p>Sort</p>
+      </div>
         {itemContainer}
       </div>
     );

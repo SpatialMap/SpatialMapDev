@@ -1,19 +1,31 @@
 .dataChild {
-  height: 200px;
-  width: 20vw;
-  margin: 3px;
+  height: 50px;
+  width: 100%;
+  margin-bottom: 5px;
   padding: 10px;
-  background-color: rgba(120,200,120, 0.5);
-  box-shadow: 3px 4px 5px #888888;
+  background-color: #f4f4f4;
+  box-shadow: 0px 1px 5px #888888;
+  display: flex;
 }
 
-.flexTiles{
-  display: flex;
-  position: relative;
-  flex-flow: row wrap;
-  width: 100%;
-  justify-content: center;
-  margin-top: -20px;
+.dataChild:hover {
+  background-color: #ebefee;
+}
+
+.flexTiles {
+  width: 60vw;
+  margin-top: -15px;
+  float: left;
+}
+
+.sidebar {
+  float: right;
+  padding: 25px;
+  height: 100%;
+  box-shadow: 0px 1px 5px #888888;
+  background-color: #f4f4f4;
+  width: calc(40vw - 22px);
+  margin-top: -15px;
 }
 
 .loader {
