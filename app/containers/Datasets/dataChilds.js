@@ -12,7 +12,6 @@ class DataChild extends React.Component {
               <div className="tileText" key={'sample' + this.props.item.id}> Sample : {this.props.item.varName} </div>
               <div className="tileText" key={'lab' + this.props.item.id}> Lab : {this.props.item.lab} </div>
               <div className="tileText" key={'species' + this.props.item.id}> Species : {this.props.item.species} </div>
-              <div className="tileText" key={'id' + this.props.item.id}> id : {this.props.item.id} </div>
             </div>
         </Link>
     );
