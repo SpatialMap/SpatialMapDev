@@ -6,8 +6,9 @@ const renderCircles = (props) => {
     // conditional for selected key
     const markSelected = index == props.activeKey ? "black" : "none";
     //show/hide points with "unknown" markers
+    const colorSpace = props.colorSelect == '' ? coords.Colors : props.colScale(coords[props.colorSelect]);
     const toggleUnknown = props.dispUnknown == true ? "rgba(100,100,100,0.1)" : "none";
-    const colorVar = coords.markers == "unknown" ? toggleUnknown : coords.Colors ;
+    const colorUnknown = coords.markers == "unknown" ? toggleUnknown : colorSpace;
     //attach markername if not "unknown"
     const textVar = coords.markers == "unknown" ? "" : coords.markers ;
     //not used at the moment - activate to add a stroke circle around each unknown point
@@ -15,14 +16,17 @@ const renderCircles = (props) => {
     //x,y coordinates
     const xPOS = props.xScale(coords.PCA1);
     const yPOS = props.yScale(coords.PCA2);
+    //col rendering
+    // fill: colorVar
     const circleProps = {
       cx: xPOS,
       cy: yPOS,
       r: props.radius,
-      fill: colorVar,
+      fill: colorUnknown,
+      opacity: 0.8,
       stroke: markSelected,
       strokeWidth: props.radius/3,
-      key: index
+      key: index,
       //hoover defined in css
     };
 
@@ -34,9 +38,9 @@ const renderCircles = (props) => {
       //textsize defined in css
     };
 
-    var output = props.labels == false ? <circle {...circleProps} />
+    var output = props.labels == false ? <circle {...circleProps} onClick={() => console.log(index)}/>
                                            : <g className="circleText" key={index+0.2}>
-                                          <circle {...circleProps} />
+                                          <circle {...circleProps} onClick={() => console.log(index)}/>
                                           <text {...textProps}> {textVar} </text>
                                           </g>;
 

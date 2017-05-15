@@ -33,9 +33,16 @@
 - node 6.4.0+
 - npm 3.10.7+
 
-#####commands:
+##### commands:
 ```
 git clone the SpatialMap repo
 npm install --save
 npm run start
+```
+
+in case errors appear you might need to add
+
+```
+npm install --save firebase
+npm install --save react-dimensions
 ```

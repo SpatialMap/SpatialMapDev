@@ -50,6 +50,7 @@ export class DataView extends React.Component {
       plotPCA: true,
       plotTSNE: true,
       plotProfile: false,
+      colorSelect: ['ProteinCoverage'],
     };
   }
 
@@ -102,7 +103,7 @@ export class DataView extends React.Component {
                         tool={"auto"}
                         detectAutoPan={false}
                         >
-                        <svg>
+                        <svg width={styles.width} height={styles.height}>
                           <ScatterPlot {...this.state} {...styles}  />
                         </svg>
                     </ReactSVGPanZoom>
