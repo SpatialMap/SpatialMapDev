@@ -27,7 +27,8 @@ import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button'
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { DetailsList, DetailsListLayoutMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
+import { DetailsList, DetailsListLayoutMode, Selection, CheckboxVisibility, buildColumns,
+  IColumn, ConstrainMode, ColumnActionsMode } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Callout } from 'office-ui-fabric-react/lib/Callout';
 
@@ -46,6 +47,9 @@ export class DataView extends React.Component {
       labels: false,
       activeKey: [],
       activeField: "PCA",
+      plotPCA: true,
+      plotTSNE: true,
+      plotProfile: false,
     };
   }
 
@@ -78,7 +82,7 @@ export class DataView extends React.Component {
 
 
     const styles = {
-      width   : 1900/2,
+      width   : 1900/2.1,
       height  : 500,
       padding : 30,
     };
@@ -114,24 +118,31 @@ export class DataView extends React.Component {
     var columnVar = [];
     for (var i = 1; i < keyAggregate.length; ++i) {
         keyAggregate[i] != "Colors" && keyAggregate[i] != "PCA1" && keyAggregate[i] != "PCA2"  ?
-        columnVar.push({"Key": keyAggregate[i]+i ,
+        columnVar.push({
+                  "key": keyAggregate[i]+i ,
                   "name" : keyAggregate[i] ,
                   "fieldName" : keyAggregate[i],
-                  "maxWidth" : 200,
+                  "isResizable" : true,
+                  "minWidth" : 1600/keyAggregate.length,
+                  "isGrouped" : true,
+
       }) : null ;
     }
 
-    const table = <div>
+    const table = <div className="tableCore">
                     <TextField placeholder='Search'/>
                     <MarqueeSelection selection={this._selection}>
                       <DetailsList
                         items={data}
                         columns={columnVar}
                         setKey='set'
+                        canResizeColumns = {true}
+                        constrainMode = {ConstrainMode.unconstrained}
                         layoutMode={DetailsListLayoutMode.fixedColumns}
                         selection={this._selection}
                         isLazyLoaded = {true}
-                        checkboxVisibility = {false}
+                        columnActionsMode = {ColumnActionsMode.hasDropdown}
+                        checkboxVisibility = {CheckboxVisibility.hidden}
                         selectionPreservedOnEmptyClick={true}
                         onItemInvoked={ (item, index) => this.setState({ activeKey : index }) }
                       />
@@ -205,27 +216,23 @@ export class DataView extends React.Component {
                text='Comments'
            />
       </div>
-      <div className="headerPlaceholder">
-        <p>  </p>
-      </div>
+
       <div className="choiceGroup">
-        <div className="choiceChild">
-           Profile
+        <div className="choiceChild" onClick={ () => this.setState({ plotProfile : !this.state.plotProfile }) }>
+         Profile
+        </div>
+      </div>
+      <div className="choiceGroup" >
+        <div className="choiceChild" onClick={ () => this.setState({ plotTSNE : !this.state.plotTSNE }) }>
+         T-SNE
         </div>
       </div>
       <div className="choiceGroup">
-        <div className="choiceChild">
-          T-SNE
+        <div className="choiceChild" onClick={ () => this.setState({ plotPCA : !this.state.plotPCA }) }>
+         PCA
         </div>
       </div>
-      <div className="choiceGroup">
-        <div className="choiceChild">
-          PCA
-        </div>
-      </div>
-      <div className="headerPlaceholder">
-        <p>  </p>
-      </div>
+
       </div>
       <div className="mainPlot">
           {d3Container}
