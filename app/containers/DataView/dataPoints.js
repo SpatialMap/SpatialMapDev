@@ -32,16 +32,17 @@ const renderCircles = (props) => {
 
     const textProps = {
       x: xPOS,
-      y: yPOS,
+      y: yPOS - props.radius*1.4,
+      textAnchor: "middle",
       //index + number to generate a unique key
       key: index+0.1
       //textsize defined in css
     };
 
-    var output = props.labels == false ? <circle {...circleProps} onClick={() => props.SetActiveKey(index)}/>
+    var output = markSelected == "none" ? <circle {...circleProps} onClick={() => props.SetActiveKey(index)}/>
                                            : <g className="circleText" key={index+0.2}>
-                                          <circle {...circleProps} onClick={() => console.log(index)}/>
-                                          <text {...textProps}> {textVar} </text>
+                                          <circle {...circleProps} onClick={() => props.SetActiveKey(index)}/>
+                                          <text style={{fontSize: props.radius }}{...textProps}> {textVar} </text>
                                           </g>;
 
     return output;

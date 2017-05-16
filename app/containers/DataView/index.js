@@ -142,7 +142,6 @@ export class DataView extends React.Component {
                       <DetailsList
                         items={data}
                         columns={columnVar}
-                        setKey='set'
                         canResizeColumns = {true}
                         constrainMode = {ConstrainMode.unconstrained}
                         layoutMode={DetailsListLayoutMode.fixedColumns}
