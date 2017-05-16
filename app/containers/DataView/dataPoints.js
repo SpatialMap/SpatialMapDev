@@ -38,7 +38,7 @@ const renderCircles = (props) => {
       //textsize defined in css
     };
 
-    var output = props.labels == false ? <circle {...circleProps} onClick={() => console.log(index)}/>
+    var output = props.labels == false ? <circle {...circleProps} onClick={() => props.SetActiveKey(index)}/>
                                            : <g className="circleText" key={index+0.2}>
                                           <circle {...circleProps} onClick={() => console.log(index)}/>
                                           <text {...textProps}> {textVar} </text>

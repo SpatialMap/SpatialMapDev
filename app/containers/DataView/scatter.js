@@ -40,5 +40,5 @@ const colScale = (props) => {
 
 export default (props) => {
   const scales = { xScale: xScale(props), yScale: yScale(props), colScale: colScale(props) };
-  return <DataCircles {...props} {...scales} />
+  return <DataCircles {...props} {...scales} SetActiveKey={props.SetActiveKey} />
 };

@@ -50,9 +50,13 @@ export class DataView extends React.Component {
       plotPCA: true,
       plotTSNE: true,
       plotProfile: false,
-      colorSelect: ['ProteinCoverage'],
+      colorSelect: ['PSMs'],
     };
   }
+
+  setActiveKey(index) {
+      return this.setState({activeKey: index});
+  };
 
   //svg zoom initialization
   componentDidMount() {
@@ -70,6 +74,8 @@ export class DataView extends React.Component {
           });
     })
   };
+
+
 
     //  @keydown( 'enter' ) // or specify `which` code directly, in this case 13
     //    submit( event ) {
@@ -104,7 +110,7 @@ export class DataView extends React.Component {
                         detectAutoPan={false}
                         >
                         <svg width={styles.width} height={styles.height}>
-                          <ScatterPlot {...this.state} {...styles}  />
+                          <ScatterPlot {...this.state} {...styles} SetActiveKey={(index) => this.setActiveKey(index)} />
                         </svg>
                     </ReactSVGPanZoom>
                   </div>
@@ -132,7 +138,7 @@ export class DataView extends React.Component {
 
     const table = <div className="tableCore">
                     <TextField placeholder='Search'/>
-                    <MarqueeSelection selection={this._selection}>
+                    <MarqueeSelection>
                       <DetailsList
                         items={data}
                         columns={columnVar}
@@ -140,7 +146,6 @@ export class DataView extends React.Component {
                         canResizeColumns = {true}
                         constrainMode = {ConstrainMode.unconstrained}
                         layoutMode={DetailsListLayoutMode.fixedColumns}
-                        selection={this._selection}
                         isLazyLoaded = {true}
                         columnActionsMode = {ColumnActionsMode.hasDropdown}
                         checkboxVisibility = {CheckboxVisibility.hidden}
@@ -217,9 +222,8 @@ export class DataView extends React.Component {
                text='Comments'
            />
       </div>
-
       <div className="choiceGroup">
-        <div className="choiceChild" onClick={ () => this.setState({ plotProfile : !this.state.plotProfile }) }>
+        <div className="choiceChild"  onClick={() => this.setActiveKey()}>
          Profile
         </div>
       </div>
