@@ -28,7 +28,9 @@ import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/Choi
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { DetailsList, DetailsListLayoutMode, Selection, CheckboxVisibility, buildColumns,
-  IColumn, ConstrainMode, ColumnActionsMode } from 'office-ui-fabric-react/lib/DetailsList';
+         IColumn, ConstrainMode, ColumnActionsMode } from 'office-ui-fabric-react/lib/DetailsList';
+import { IContextualMenuProps, IContextualMenuItem, DirectionalHint,
+         ContextualMenu } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Callout } from 'office-ui-fabric-react/lib/Callout';
 
@@ -50,12 +52,29 @@ export class DataView extends React.Component {
       plotPCA: true,
       plotTSNE: true,
       plotProfile: false,
-      colorSelect: ['PSMs'],
+      colorSelect: ['No-peptide-quantified'],
+      radiusSelect : ['No-peptide-quantified'],
+      transpSelect : ['Mascot-score'],
     };
   }
 
   setActiveKey(index) {
       return this.setState({activeKey: index});
+  };
+
+  setActiveColor(){
+    this.state.colorSelect == '' ? this.setState({colorSelect: ['No-peptide-quantified']}):
+                                   this.setState({colorSelect : ['']});
+  };
+
+  setActiveRadius(){
+    this.state.radiusSelect == '' ? this.setState({radiusSelect: ['No-peptide-quantified']}):
+                                   this.setState({radiusSelect : ['']});
+  };
+
+  setActiveTransp(){
+    this.state.transpSelect == '' ? this.setState({transpSelect: ['Mascot-score']}):
+                                   this.setState({transpSelect: ['']});
   };
 
   //svg zoom initialization
@@ -99,8 +118,6 @@ export class DataView extends React.Component {
     const d3Plot =  <div className="scatterContainer">
                       <ReactSVGPanZoom
                         width={styles.width} height={styles.height} ref={Viewer => this.Viewer = Viewer}
-                        onClick={event => console.log('click', event.x, event.y, event.originalEvent)}
-                        onMouseMove={event => console.log('move', event.x, event.y)}
                         SVGBackground="white"
                         background="white"
                         detectWheel={true}
@@ -142,6 +159,7 @@ export class DataView extends React.Component {
                       <DetailsList
                         items={data}
                         columns={columnVar}
+                        setKey={this.state.activeKey}
                         canResizeColumns = {true}
                         constrainMode = {ConstrainMode.unconstrained}
                         layoutMode={DetailsListLayoutMode.fixedColumns}
@@ -169,7 +187,7 @@ export class DataView extends React.Component {
           >
             <DefaultButton
                 description='Opens the Sample Dialog'
-                text='Citation'
+                text='Comments'
             />
           </div>
           <div className="buttons">
@@ -215,14 +233,23 @@ export class DataView extends React.Component {
              onChange={ () => this.setState({ dispUnknown : !this.state.dispUnknown }) }
             />
        </div>
-       <div className="buttons last">
-           <DefaultButton
-               description='Opens the Sample Dialog'
-               text='Comments'
-           />
-      </div>
+       <div className="choiceGroup">
+         <div className="choiceChild"  onClick={() => this.setActiveColor()}>
+          [Color]
+         </div>
+       </div>
+       <div className="choiceGroup">
+         <div className="choiceChild"  onClick={() => this.setActiveRadius()}>
+          [Radius]
+         </div>
+       </div>
+       <div className="choiceGroup">
+         <div className="choiceChild"  onClick={() => this.setActiveTransp()}>
+          [Transp]
+         </div>
+       </div>
       <div className="choiceGroup">
-        <div className="choiceChild"  onClick={() => this.setActiveKey()}>
+        <div className="choiceChild"  onClick={ () => this.setState({ plotTSNE : !this.state.plotProfile }) }>
          Profile
         </div>
       </div>

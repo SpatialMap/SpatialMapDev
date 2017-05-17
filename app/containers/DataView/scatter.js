@@ -18,6 +18,24 @@ const colMax = function(data,props) {
   return d3.max(data, (d) => d[props.colorSelect]);
 };
 
+//radius gradient
+const radMin = function(data,props) {
+  return d3.min(data, (d) => d[props.radiusSelect]);
+};
+
+const radMax = function(data,props) {
+  return d3.max(data, (d) => d[props.radiusSelect]);
+};
+
+//transparency gradient
+const transpMin = function(data,props) {
+  return d3.min(data, (d) => d[props.transpSelect]);
+};
+
+const transpMax = function(data,props) {
+  return d3.max(data, (d) => d[props.transpSelect]);
+};
+
 //scaling dimensions
 const xScale = (props) => {
   return d3.scale.linear()
@@ -31,14 +49,32 @@ const yScale = (props) => {
     .range([props.height - props.padding, props.padding]);
 };
 
-//scaling gradient
+//scaling functions
+//color scaling , radius scaling, transparency scaling
 const colScale = (props) => {
   return d3.scale.linear()
          .domain([colMin(props.data, props),colMax(props.data, props)])
          .range(["blue","red"]);
 };
 
+const radiusScale = (props) => {
+  return d3.scale.linear()
+         .domain([radMin(props.data, props),radMax(props.data, props)])
+         .range([0.4,5.5]);
+};
+
+const transparencyScale = (props) => {
+  return d3.scale.linear()
+         .domain([transpMin(props.data, props),transpMax(props.data, props)])
+         .range([0.1,1]);
+};
+
+//export set of dataCircles
 export default (props) => {
-  const scales = { xScale: xScale(props), yScale: yScale(props), colScale: colScale(props) };
+  const scales = { xScale: xScale(props),
+                   yScale: yScale(props),
+                   colScale: colScale(props),
+                   radiusScale: radiusScale(props),
+                   transparencyScale : transparencyScale(props)};
   return <DataCircles {...props} {...scales} SetActiveKey={props.SetActiveKey} />
 };
