@@ -89,7 +89,6 @@
   float: left;
 }
 
-
 .toggle {
   float: left;
   text-align: center;
@@ -114,10 +113,6 @@ circle:hover{
 
 svg{
   overflow: hidden;
-}
-
-text{
-  font-size: 0.15em;
 }
 
 text:hover{

@@ -53,8 +53,10 @@ export class DataView extends React.Component {
       plotTSNE: true,
       plotProfile: false,
       colorSelect: ['No-peptide-quantified'],
-      radiusSelect : ['No-peptide-quantified'],
-      transpSelect : ['Mascot-score'],
+      radiusSelect: ['No-peptide-quantified'],
+      transpSelect: ['Mascot-score'],
+      sortedBy: ['FBgn'],
+      sortedAscending: true,
     };
   }
 
@@ -77,6 +79,23 @@ export class DataView extends React.Component {
                                    this.setState({transpSelect: ['']});
   };
 
+  setOrderBy(ascending = true){
+    this.setState({sortedAscending : !this.state.sortedAscending});
+    if(typeof Object.entries(this.state.data)[0][1][this.state.sortedBy] === "number"){
+      this.setState({data : this.state.data.sort((a,b) => {
+              return ascending ? a[this.state.sortedBy] - b[this.state.sortedBy]:
+                                 b[this.state.sortedBy] - a[this.state.sortedBy];
+         })
+      })
+    } else {
+      this.setState({data : this.state.data.sort((a, b) => {
+        return ascending ? a[this.state.sortedBy].localeCompare(b[this.state.sortedBy]):
+                           b[this.state.sortedBy].localeCompare(a[this.state.sortedBy]);
+        })
+      })
+    }
+  };
+
   //svg zoom initialization
   componentDidMount() {
     this.Viewer.fitToViewer();
@@ -86,14 +105,15 @@ export class DataView extends React.Component {
   componentDidMount(){
     var data = [];
     firebase.database().ref('data/' + this.props.params.uid + '/fSet').once("value", (snapshot) => {
-          let data = snapshot.val();
-          this.setState({
-            data,
-            loading : false
-          });
+      let data = snapshot.val();
+      this.setState({
+        data: data,
+        loading : false,
+      });
     })
   };
 
+  //sortedAscending
 
 
     //  @keydown( 'enter' ) // or specify `which` code directly, in this case 13
@@ -106,14 +126,11 @@ export class DataView extends React.Component {
 
   render() {
 
-
     const styles = {
       width   : 1900/2.1,
       height  : 500,
       padding : 30,
     };
-
-    const data = this.state.data;
 
     const d3Plot =  <div className="scatterContainer">
                       <ReactSVGPanZoom
@@ -137,19 +154,17 @@ export class DataView extends React.Component {
                       </div>;
 
     const d3Container = this.state.loading == true ? loader : d3Plot;
-
-    const keyAggregate = this.state.loading == true ? [] : Object.keys(data[1]);
+    const keyAggregate = this.state.loading == true ? [] : Object.keys(this.state.data[1]);
     var columnVar = [];
     for (var i = 1; i < keyAggregate.length; ++i) {
         keyAggregate[i] != "Colors" && keyAggregate[i] != "PCA1" && keyAggregate[i] != "PCA2"  ?
         columnVar.push({
-                  "key": keyAggregate[i]+i ,
-                  "name" : keyAggregate[i] ,
+                  "key": keyAggregate[i]+i,
+                  "name" : keyAggregate[i],
                   "fieldName" : keyAggregate[i],
                   "isResizable" : true,
                   "minWidth" : 1600/keyAggregate.length,
                   "isGrouped" : true,
-
       }) : null ;
     }
 
@@ -157,7 +172,8 @@ export class DataView extends React.Component {
                     <TextField placeholder='Search'/>
                     <MarqueeSelection>
                       <DetailsList
-                        items={data}
+                        items={this.state.data}
+                        initialFocusedIndex = {''}
                         columns={columnVar}
                         setKey={this.state.activeKey}
                         canResizeColumns = {true}
@@ -206,7 +222,7 @@ export class DataView extends React.Component {
             <Slider
               label='Scatter Point Size'
               min={ 0.5 }
-              max={ 8 }
+              max={ 10 }
               step={ 0.5 }
               defaultValue={ 4 }
               onChange={ radius => this.setState({ radius }) }
@@ -246,6 +262,11 @@ export class DataView extends React.Component {
        <div className="choiceGroup">
          <div className="choiceChild"  onClick={() => this.setActiveTransp()}>
           [Transp]
+         </div>
+       </div>
+       <div className="choiceGroup">
+         <div className="choiceChild" onClick={() => this.setOrderBy(this.state.sortedAscending)}>
+          [SortBy]
          </div>
        </div>
       <div className="choiceGroup">

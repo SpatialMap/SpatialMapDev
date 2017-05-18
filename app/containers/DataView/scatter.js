@@ -66,7 +66,7 @@ const radiusScale = (props) => {
 const transparencyScale = (props) => {
   return d3.scale.linear()
          .domain([transpMin(props.data, props),transpMax(props.data, props)])
-         .range([0.1,1]);
+         .range([0.5,1]);
 };
 
 //export set of dataCircles
