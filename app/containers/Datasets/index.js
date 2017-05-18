@@ -28,9 +28,8 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
 
   componentDidMount(){
     var msnsets = [];
-    firebase.database().ref('meta').orderByChild('tissue').on("child_added", (snapshot) => {
+    firebase.database().ref('meta').on("child_added", (snapshot) => {
           let set = snapshot.val();
-          // console.log(set,'snapshot.val()');
           msnsets.push({
             id: snapshot.getKey(),
             Description: set.Description,
@@ -43,25 +42,23 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
             tissue: set.tissue,
             title:set.title,
             varName: set.varName,
-          });
-    });
-    this.setState({
-      msnsets : msnsets
-    });
-    this.setState({
-      loading : false
-    });
-  }
+          })
+
+          this.setState({
+            msnsets : msnsets,
+            loading: false,
+          })
+    })
+  };
 
   render() {
 
     const DataSetItem = this.state.msnsets.map((detail)=>
-     <DataChild key={'dataChild'+detail.id} item={detail} />
+      <DataChild key={'dataChild'+detail.id} item={detail} />
     );
 
     const loader =  <div className="loader">
-                        <p> fetching dataset </p>
-                        <Spinner size={SpinnerSize.large} />
+                      <Spinner size={SpinnerSize.large} />
                     </div>;
 
     const flexTiles = <div className="flexTiles"> {DataSetItem} </div>;
@@ -75,14 +72,13 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
             { name: 'description', content: 'Description of Datasets' },
           ]}
         />
-      <div className="sidebar">
+      <div className="headBar">
         <SearchBox
           onChange={ (newValue) => console.log('SearchBox onChange fired: ' + newValue) }
           onSearch={ (newValue) => console.log('SearchBox onSearch fired: ' + newValue) }
         />
-        <p>Sort</p>
       </div>
-        {itemContainer}
+      {itemContainer}
       </div>
     );
   }

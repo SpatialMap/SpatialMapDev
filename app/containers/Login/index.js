@@ -23,7 +23,7 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
   constructor(props) {
     super(props);
     this.state = {
-      switch: "Login",
+      loginSwitch: "Login",
       error: false,
       email: "",
       password: "",
@@ -113,7 +113,7 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
                                 />
                          </div>;
 
-    const textMsg = this.state.switch == "Login" ? loginContent : registerContent;
+    const textMsg = this.state.loginSwitch == "Login" ? loginContent : registerContent;
 
     console.log(this.state.login);
 
@@ -126,7 +126,7 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
           ]}
         />
       <div className="mainContent">
-        <Pivot onLinkClick={ (PivotItem) => this.setState({ switch : PivotItem.props.linkText })}>
+        <Pivot onLinkClick={ (PivotItem) => this.setState({ loginSwitch : PivotItem.props.linkText })}>
           <PivotItem linkText='Login'   />
           <PivotItem linkText='Register'/>
         </Pivot>

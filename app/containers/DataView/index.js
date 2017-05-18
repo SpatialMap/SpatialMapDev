@@ -70,7 +70,7 @@ export class DataView extends React.Component {
   };
 
   setActiveRadius(){
-    this.state.radiusSelect == '' ? this.setState({radiusSelect: ['No-peptide-quantified']}):
+    this.state.radiusSelect == '' ? this.setState({radiusSelect: ['Mascot-score']}):
                                    this.setState({radiusSelect : ['']});
   };
 
@@ -134,24 +134,25 @@ export class DataView extends React.Component {
 
     const d3Plot =  <div className="scatterContainer">
                       <ReactSVGPanZoom
-                        width={styles.width} height={styles.height} ref={Viewer => this.Viewer = Viewer}
+                        width = {styles.width}
+                        height = {styles.height}
+                        ref = {Viewer => this.Viewer = Viewer}
                         SVGBackground="white"
                         background="white"
-                        detectWheel={true}
+                        detectWheel = {true}
                         miniaturePosition = {"none"}
-                        toolbarPosition={"none"}
-                        tool={"auto"}
-                        detectAutoPan={false}
-                        >
-                        <svg width={styles.width} height={styles.height}>
+                        toolbarPosition = {"none"}
+                        tool = {"auto"}
+                        detectAutoPan = {false}>
+                        <svg width = {styles.width} height = {styles.height}>
                           <ScatterPlot {...this.state} {...styles} SetActiveKey={(index) => this.setActiveKey(index)} />
                         </svg>
-                    </ReactSVGPanZoom>
-                  </div>
+                      </ReactSVGPanZoom>
+                    </div>
 
     const loader =  <div className="loader">
                         <Spinner size={SpinnerSize.large} label='dataset' />
-                      </div>;
+                    </div>;
 
     const d3Container = this.state.loading == true ? loader : d3Plot;
     const keyAggregate = this.state.loading == true ? [] : Object.keys(this.state.data[1]);
@@ -164,7 +165,8 @@ export class DataView extends React.Component {
                   "fieldName" : keyAggregate[i],
                   "isResizable" : true,
                   "minWidth" : 1600/keyAggregate.length,
-                  "isGrouped" : true,
+                  "isSorted" : this.state.sortedBy == keyAggregate[i] ? true : false,
+                  "isSortedDescending" : this.state.sortedAscending,
       }) : null ;
     }
 
@@ -172,18 +174,18 @@ export class DataView extends React.Component {
                     <TextField placeholder='Search'/>
                     <MarqueeSelection>
                       <DetailsList
-                        items={this.state.data}
-                        initialFocusedIndex = {''}
-                        columns={columnVar}
-                        setKey={this.state.activeKey}
+                        items = {this.state.data}
+                        initialFocusedIndex = {1}
+                        columns = {columnVar}
+                        setKey = {this.state.activeKey}
                         canResizeColumns = {true}
                         constrainMode = {ConstrainMode.unconstrained}
-                        layoutMode={DetailsListLayoutMode.fixedColumns}
+                        layoutMode = {DetailsListLayoutMode.fixedColumns}
                         isLazyLoaded = {true}
                         columnActionsMode = {ColumnActionsMode.hasDropdown}
                         checkboxVisibility = {CheckboxVisibility.hidden}
-                        selectionPreservedOnEmptyClick={true}
-                        onItemInvoked={ (item, index) => this.setState({ activeKey : index }) }
+                        selectionPreservedOnEmptyClick = {true}
+                        onActiveItemChanged = { (item, index) => this.setState({ activeKey : index }) }
                       />
                     </MarqueeSelection>
                   </div>;
@@ -220,33 +222,33 @@ export class DataView extends React.Component {
          </div>
          <div className="slider">
             <Slider
-              label='Scatter Point Size'
-              min={ 0.5 }
-              max={ 10 }
-              step={ 0.5 }
-              defaultValue={ 4 }
-              onChange={ radius => this.setState({ radius }) }
-              showValue={ false }
+              label = 'Scatter Point Size'
+              min = {0.5}
+              max = {10}
+              step = {0.5}
+              defaultValue = {4}
+              onChange = {radius => this.setState({ radius }) }
+              showValue = {false}
             />
          </div>
          <div className="toggle">
              <Toggle
-              label='Display Labels'
-              onAriaLabel='This toggle is checked. Press to uncheck.'
-              offAriaLabel='This toggle is unchecked. Press to check.'
-              onText='On'
-              offText='Off'
-              onChange={ () => this.setState({ labels : !this.state.labels }) }
+              label = 'Color Unknown'
+              onAriaLabel = 'This toggle is checked. Press to uncheck.'
+              offAriaLabel = 'This toggle is unchecked. Press to check.'
+              onText = 'On'
+              offText = 'Off'
+              onChange = { () => this.setState({ labels : !this.state.labels }) }
         />
         </div>
         <div className="toggle">
             <Toggle
-             label='Hide Unknown'
-             onAriaLabel='This toggle is checked. Press to uncheck.'
-             offAriaLabel='This toggle is unchecked. Press to check.'
-             onText='On'
-             offText='Off'
-             onChange={ () => this.setState({ dispUnknown : !this.state.dispUnknown }) }
+             label = 'Hide Unknown'
+             onAriaLabel = 'This toggle is checked. Press to uncheck.'
+             offAriaLabel = 'This toggle is unchecked. Press to check.'
+             onText = 'On'
+             offText = 'Off'
+             onChange = { () => this.setState({ dispUnknown : !this.state.dispUnknown }) }
             />
        </div>
        <div className="choiceGroup">

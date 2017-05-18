@@ -8,7 +8,7 @@ const renderCircles = (props) => {
     //show/hide points with "unknown" markers
     const colorSpace = props.colorSelect == '' ? coords.Colors : props.colScale(coords[props.colorSelect]);
     const toggleUnknown = props.dispUnknown == true ? "rgba(100,100,100,0.1)" : "none";
-    const colorUnknown = coords.markers == "unknown" ? toggleUnknown : colorSpace;
+    const colorUnknown = coords.markers == "unknown" && props.labels != true ? toggleUnknown : colorSpace;
     //radius
     const radiusVar = props.radiusSelect == '' ? props.radius : props.radius * props.radiusScale(coords[props.radiusSelect]);
     //radius
