@@ -14,10 +14,8 @@ import { browserHistory } from 'react-router';
 import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/Pivot';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
-import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { PrimaryButton, IButtonProps, DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import './login.css';
-
 
 export class Profile extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {

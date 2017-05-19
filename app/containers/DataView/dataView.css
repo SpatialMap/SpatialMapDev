@@ -86,7 +86,7 @@
 .scatterContainer{
   height: 500px;
   width: 900px;
-  float: left;
+  float: right;
 }
 
 .toggle {

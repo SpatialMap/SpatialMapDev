@@ -55,9 +55,9 @@ export class DataView extends React.Component {
       plotPCA: true,
       plotTSNE: true,
       plotProfile: false,
-      colorSelect: ['No-peptide-quantified'],
-      radiusSelect: ['No-peptide-quantified'],
-      transpSelect: ['Mascot-score'],
+      colorSelect: [''],
+      radiusSelect: [''],
+      transpSelect: [''],
       sortedBy: ['FBgn'],
       sortedAscending: true,
     };
