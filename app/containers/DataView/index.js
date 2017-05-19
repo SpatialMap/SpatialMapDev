@@ -304,12 +304,7 @@ export class DataView extends React.Component {
       </div>
       <div className="mainPlot">
           {d3Container}
-          <ParallelCoordinatesComponent dimensions={dimensions}
-                                        data={foods}
-                                        rotateLabels={true}
-                                        width = {styles.width}
-                                        height = {styles.height}
-                                        />
+          {d3Container}
       </div>
       <div className="table">
           {table}
