@@ -33,6 +33,8 @@ import { IContextualMenuProps, IContextualMenuItem, DirectionalHint,
          ContextualMenu } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Callout } from 'office-ui-fabric-react/lib/Callout';
+var ParallelCoordinatesComponent=require('react-parallel-coordinates')
+
 
 var Dimensions = require('react-dimensions');
 
@@ -43,6 +45,7 @@ export class DataView extends React.Component {
     this.Viewer = null;
     this.state = {
       data: [],
+      exprsSet: [],
       loading: true,
       radius: 4,
       dispUnknown: true,
@@ -104,6 +107,7 @@ export class DataView extends React.Component {
   //loading scatterplot data from firebase
   componentDidMount(){
     var data = [];
+    var exprsSet = [];
     firebase.database().ref('data/' + this.props.params.uid + '/fSet').once("value", (snapshot) => {
       let data = snapshot.val();
       this.setState({
@@ -111,10 +115,15 @@ export class DataView extends React.Component {
         loading : false,
       });
     })
+    firebase.database().ref('data/' + this.props.params.uid + '/exprsSet').once("value", (snapshot) => {
+      let exprsSet = snapshot.val();
+      this.setState({
+        exprsSet: exprsSet,
+      });
+    })
   };
 
   //sortedAscending
-
 
     //  @keydown( 'enter' ) // or specify `which` code directly, in this case 13
     //    submit( event ) {
@@ -125,6 +134,11 @@ export class DataView extends React.Component {
     // / }
 
   render() {
+    const foods = this.state.exprsSet
+
+    const dimensions = {
+
+    };
 
     const styles = {
       width   : 1900/2.1,
@@ -290,7 +304,12 @@ export class DataView extends React.Component {
       </div>
       <div className="mainPlot">
           {d3Container}
-          {d3Container}
+          <ParallelCoordinatesComponent dimensions={dimensions}
+                                        data={foods}
+                                        rotateLabels={true}
+                                        width = {styles.width}
+                                        height = {styles.height}
+                                        />
       </div>
       <div className="table">
           {table}
