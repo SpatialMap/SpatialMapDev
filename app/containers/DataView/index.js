@@ -168,11 +168,11 @@ export class DataView extends React.Component {
                         <Spinner size={SpinnerSize.large} label='dataset' />
                     </div>;
 
-    const profileContainer = this.state.plotProfile && <ParallelCoordinatesComponent data={foods}
+    const profileContainer = this.state.plotProfile && <div className="scatterContainer"><ParallelCoordinatesComponent data={foods}
                                   dimensions={dimensions}
                                   width = {styles.width}
                                   height = {styles.height}
-                               />;
+                               /></div>;
     const d3Container = this.state.loading == true ? loader : this.state.plotPCA && d3Plot;
     const keyAggregate = this.state.loading == true ? [] : Object.keys(this.state.data[1]);
     var columnVar = [];
@@ -308,8 +308,8 @@ export class DataView extends React.Component {
 
       </div>
       <div className="mainPlot">
-        {d3Container}
         {profileContainer}
+        {d3Container}
       </div>
       <div className="table">
           {table}
