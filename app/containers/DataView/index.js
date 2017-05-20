@@ -53,8 +53,8 @@ export class DataView extends React.Component {
       activeKey: [],
       activeField: "PCA",
       plotPCA: true,
-      plotTSNE: true,
-      plotProfile: false,
+      plotTSNE: false,
+      plotProfile: true,
       colorSelect: [''],
       radiusSelect: [''],
       transpSelect: [''],
@@ -141,7 +141,7 @@ export class DataView extends React.Component {
     };
 
     const styles = {
-      width   : 1900/2.1,
+      width   : 1900/((this.state.plotPCA + this.state.plotProfile)*1.05),
       height  : 500,
       padding : 30,
     };
@@ -168,7 +168,12 @@ export class DataView extends React.Component {
                         <Spinner size={SpinnerSize.large} label='dataset' />
                     </div>;
 
-    const d3Container = this.state.loading == true ? loader : d3Plot;
+    const profileContainer = this.state.plotProfile && <ParallelCoordinatesComponent data={foods}
+                                  dimensions={dimensions}
+                                  width = {styles.width}
+                                  height = {styles.height}
+                               />;
+    const d3Container = this.state.loading == true ? loader : this.state.plotPCA && d3Plot;
     const keyAggregate = this.state.loading == true ? [] : Object.keys(this.state.data[1]);
     var columnVar = [];
     for (var i = 1; i < keyAggregate.length; ++i) {
@@ -286,7 +291,7 @@ export class DataView extends React.Component {
          </div>
        </div>
       <div className="choiceGroup">
-        <div className="choiceChild"  onClick={ () => this.setState({ plotTSNE : !this.state.plotProfile }) }>
+        <div className="choiceChild"  onClick={ () => this.setState({ plotProfile : !this.state.plotProfile }) }>
          Profile
         </div>
       </div>
@@ -303,8 +308,8 @@ export class DataView extends React.Component {
 
       </div>
       <div className="mainPlot">
-          {d3Container}
-          {d3Container}
+        {d3Container}
+        {profileContainer}
       </div>
       <div className="table">
           {table}
