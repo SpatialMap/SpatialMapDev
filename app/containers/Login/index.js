@@ -92,23 +92,19 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
     const registerContent = <div> <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
                                 <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password : value})}/>
                                 <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password2 : value})}/>
-                                <PrimaryButton className="buttons"
-                                  text='Create Account'
+                                <button className="buttons"
                                   onClick={ this.handleSubmit("CreateUserAccount") }
-                                />
+                                > Create Account </button>
                          </div>;
 
     const loginContent = <div> <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
                                 <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password : value})}/>
-                                <PrimaryButton className="buttons"
-                                  text='login'
+                                <button className="buttons"
                                   onClick={ this.handleSubmit("Login") }
-                                />
-                                <DefaultButton className="buttons"
-                                  text='reset password'
-                                  type= "hero"
+                                > login </button>
+                                <button className="buttons"
                                   onClick={ this.pwReset("resett") }
-                                />
+                                >reset password</button>
                          </div>;
 
     const textMsg = this.state.loginSwitch == "Login" ? loginContent : registerContent;
