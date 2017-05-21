@@ -133,12 +133,12 @@ export class DataView extends React.Component {
     //    }
     // / }
 
+
   render() {
-    const foods = this.state.exprsSet
 
-    const dimensions = {
 
-    };
+    let foods = this.state.exprsSet;
+
 
     const styles = {
       width   : 1900/((this.state.plotPCA + this.state.plotProfile)*1.05),
@@ -168,11 +168,24 @@ export class DataView extends React.Component {
                         <Spinner size={SpinnerSize.large} label='dataset' />
                     </div>;
 
-    const profileContainer = this.state.plotProfile && <div className="scatterContainer"><ParallelCoordinatesComponent data={foods}
+
+    const profileKeys = this.state.loading == true ? [] : Object.keys(this.state.exprsSet[1]);
+    var keyVar = {};
+    for (var i = 1; i < profileKeys.length; ++i) {
+        profileKeys[i] != "id"  ?
+                  keyVar[profileKeys[i]] = {type:"number"} : null ;
+    };
+
+    const dimensions = keyVar;
+    const profileContainer = this.state.plotProfile &&
+                    <div className="scatterContainer">
+                              <ParallelCoordinatesComponent
+                                  data={foods}
                                   dimensions={dimensions}
                                   width = {styles.width}
                                   height = {styles.height}
-                               /></div>;
+                              />
+                    </div>;
     const d3Container = this.state.loading == true ? loader : this.state.plotPCA && d3Plot;
     const keyAggregate = this.state.loading == true ? [] : Object.keys(this.state.data[1]);
     var columnVar = [];
@@ -188,6 +201,8 @@ export class DataView extends React.Component {
                   "isSortedDescending" : this.state.sortedAscending,
       }) : null ;
     }
+
+
 
     const table = <div className="tableCore">
                     <TextField placeholder='Search'/>
