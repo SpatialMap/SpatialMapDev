@@ -220,25 +220,9 @@ export class DataView extends React.Component {
         />
 
         <div className="configBar">
-          <div className="buttons first"
-          >
-            <DefaultButton
-                description='Opens the Sample Dialog'
-                text='Comments'
-            />
-          </div>
-          <div className="buttons">
-            <DefaultButton
-                description='Opens the Sample Dialog'
-                text='Download'
-            />
-          </div>
-          <div className="buttons">
-            <DefaultButton
-                description='Opens the Sample Dialog'
-                text='Meta Data'
-            />
-         </div>
+            <div className="leftButtons first">Comments </div>
+            <div className="leftButtons">Download </div>
+            <div className="leftButtons">Meta Data</div>
          <div className="slider">
             <Slider
               label = 'Scatter Point Size'
