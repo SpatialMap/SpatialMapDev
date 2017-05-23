@@ -35,10 +35,7 @@ h3 {
 }
 p {
   font-family: 'Open Sans', sans-serif;
-	font-size: 16px;
-	font-weight: 500;
-	line-height: 20px;
-  -webkit-font-smoothing: antialiased;
+	font-size: 15px;
 }
 blockquote {
 	font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
