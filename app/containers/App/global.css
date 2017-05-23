@@ -12,11 +12,6 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.footer {
-  height: 15vh;
-  background-color: #F2F2F2;
-}
-
 html {
   overflow-y: scroll;
 }

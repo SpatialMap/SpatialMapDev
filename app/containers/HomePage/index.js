@@ -69,6 +69,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
               <img className="headImage" src="http://frapbot.kohze.com/other/welcome_people.png"/>
             </div>
           </div>
+
           <div className="row container" style={{margin:"auto", marginTop: 30}}>
              <div className="col-sm-6">
             <img className="headImage" src="http://frapbot.kohze.com/other/people.png"/>
@@ -80,6 +81,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                takimata sanctus est Lorem.</p>
            </div>
           </div>
+
           <div className="row container" style={{margin:"auto", marginTop: 30}}>
             <div className="col-sm-6 bottomCard">
             <h2 className="bottomText"> Technology </h2>
@@ -97,13 +99,11 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         </div>
 
         <div className="container row continueBar">
-        <button className="continueButton"> About </button>
-        <button className="continueButton"> Datasets </button>
-        <button className="continueButton"> Login/Register </button>
+          <button className="continueButton"> About </button>
+          <button className="continueButton"> Datasets </button>
+          <button className="continueButton"> Login/Register </button>
         </div>
-        <div className="footer">
 
-        </div>
       </div>
     );
   }

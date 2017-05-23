@@ -13,6 +13,7 @@
 
 import React from 'react';
 import Header from 'components/Header';
+import Footer from 'components/Footer';
 import './global.css';
 export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -26,6 +27,7 @@ export default class App extends React.PureComponent { // eslint-disable-line re
       <div className="main">
         <Header />
         {React.Children.toArray(this.props.children)}
+        <Footer />
       </div>
     );
   }
