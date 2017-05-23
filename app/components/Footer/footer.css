@@ -1,9 +1,10 @@
 .footerContent {
-  margin: auto;
+  padding-left: 500px;
   padding: 30px;
-  text-align: center;
 }
 
 .footer {
+  margin: auto;
+  text-align: center;
   background-color: #F2F2F2;
 }

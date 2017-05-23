@@ -8,7 +8,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-import './main.css';
+import './header.css';
 import * as firebase from 'firebase';
 import { browserHistory } from 'react-router';
 
@@ -29,7 +29,6 @@ function Header() {
 
   var loggedIn = (null !== firebase.auth().currentUser);
 
-  const profileloggedin = false;
   return (
     <div className="navBar">
       <div className="row container" style={{margin: 'auto'}}>
@@ -38,16 +37,16 @@ function Header() {
           onChange={ (newValue) => console.log('SearchBox onChange fired: ' + newValue) }
           onSearch={ (newValue) => console.log('SearchBox onSearch fired: ' + newValue) }
         />
-        <span className="col-sm-5">
-        <Link className="navItem" to="/"> home </Link>
-        <Link className="navItem" to="/about"> about </Link>
-        <Link className="navItem" to="/datasets"> datasets </Link>
+        <div className="col-sm-5 rightNavItems">
+        <Link className="navItem" to="/"> Home </Link>
+        <Link className="navItem" to="/about"> About </Link>
+        <Link className="navItem" to="/datasets"> Datasets </Link>
 
         {loggedIn ? <span>
-        <Link className="navItem" to="/profile"> profile </Link>
-        <button className="navItem" onClick={logout.bind(this)}> Logout </button>
-        </span> : <Link className="navItem" to="/login"> login </Link>}
-        </span>
+        <Link className="navItem" to="/profile"> Profile </Link>
+        <Link className="navItem" onClick={logout.bind(this)}> Logout </Link>
+        </span> : <Link className="navItem" to="/login"> Login </Link>}
+        </div>
       </div>
     </div>
   );

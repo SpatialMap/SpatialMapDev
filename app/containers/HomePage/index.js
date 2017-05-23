@@ -42,6 +42,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
             <div className="col-sm-6 bottomCard">
             <h2 className="bottomText"> The problem </h2>
             <table>
+              <tbody>
               <tr>
                 <td><img
                 src="https://static2.sharepointonline.com/files/fabric/assets/brand-icons/document/png/xlsx_32x1.png"/>
@@ -63,6 +64,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
                 <td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
                 tempor invidunt ut labore et dolore magna aliquyam erat,</td>
               </tr>
+              </tbody>
             </table>
             </div>
             <div className="col-sm-6">
