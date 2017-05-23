@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import makeSelectAbout from './selectors';
 import messages from './messages';
+import './about.css';
 
 export class About extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
