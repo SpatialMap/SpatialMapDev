@@ -45,4 +45,5 @@ in case errors appear you might need to add
 ```
 npm install --save firebase
 npm install --save react-dimensions
+npm install --save react-parallel-coordinates
 ```
