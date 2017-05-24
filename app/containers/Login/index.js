@@ -89,7 +89,13 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
 
   render() {
 
-    const registerContent = <div> <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
+    const socialLogin = <div className="socialAuth">
+                          <button className="socialButton" onClick={this.googleLogin('google')}> Google </button>
+                          <button className="socialButton" onClick={this.googleLogin('google')}> Github </button>
+                          <button className="socialButton" onClick={this.googleLogin('google')}> Facebook </button>
+                        </div>;
+
+    const registerContent = <div> {socialLogin} <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
                                 <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password : value})}/>
                                 <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password2 : value})}/>
                                 <button className="buttons"
@@ -97,7 +103,7 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
                                 > Create Account </button>
                          </div>;
 
-    const loginContent = <div> <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
+    const loginContent = <div> {socialLogin} <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
                                 <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password : value})}/>
                                 <button className="buttons"
                                   onClick={ this.handleSubmit("Login") }
@@ -119,21 +125,17 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
             { name: 'description', content: 'Description of Profile' },
           ]}
         />
-      <div className="mainContent">
+      <div className="mainContent container row" style={{margin: 'auto'}}>
         <Pivot onLinkClick={ (PivotItem) => this.setState({ loginSwitch : PivotItem.props.linkText })}>
           <PivotItem linkText='Login'   />
           <PivotItem linkText='Register'/>
         </Pivot>
         <div className="inputArea">
           <div className="inputInnerField">
-
-        {textMsg}
-      </div>
+            {textMsg}
+          </div>
         </div>
-        <button onClick={this.googleLogin('google')}> Google </button>
-        <button onClick={this.googleLogin('google')}> Github </button>
-        <button onClick={this.googleLogin('google')}> Facebook </button>
-      </div>
+     </div>
     </div>
     );
   }

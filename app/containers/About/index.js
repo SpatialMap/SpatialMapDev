@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import makeSelectAbout from './selectors';
 import messages from './messages';
+import { Link } from 'react-router';
 import './about.css';
 
 export class About extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -133,9 +134,9 @@ export class About extends React.Component { // eslint-disable-line react/prefer
           </div>
 
           <div className="container row continueBar">
-            <button className="continueButton"> Home </button>
-            <button className="continueButton"> Datasets </button>
-            <button className="continueButton"> Login/Register </button>
+          <Link to="/"><button className="continueButton"> Home </button> </Link>
+          <Link to="/datasets"><button className="continueButton"> Datasets </button> </Link>
+          <Link to="/login"><button className="continueButton"> Login/Register </button> </Link>
           </div>
 
         </div>

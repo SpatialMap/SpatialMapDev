@@ -33,6 +33,5 @@
 }
 
 .navItem:hover {
-  color: rgb(210, 210, 210);
-    mix-blend-mode: exclusion;
+  color: rgb(0, 0, 0, 0.2);
 }

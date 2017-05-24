@@ -78,7 +78,7 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
-      path: '/datasets',
+      path: '/datasets(/:search)',
       name: 'datasets',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
