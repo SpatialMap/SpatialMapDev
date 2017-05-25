@@ -42,13 +42,21 @@ th, td {
 .continueBar {
   background-color: white;
   margin: auto;
+  margin-bottom: 20px;
+  margin-top: 20px;
   text-align: center;
+}
+
+.twoColumns {
+  -webkit-column-count: 3; /* Chrome, Safari, Opera */
+  -moz-column-count: 3; /* Firefox */
+  column-count: 3;
 }
 
 .bottomText {
   text-align: center;
   font-size: 22px;
-  margin: 0px;
+  margin: 10px;
   font-weight: 500;
   color: #327cad;
 }
@@ -64,6 +72,7 @@ th, td {
 .continueButton {
   margin: 20px;
   width: 150px;
+  text-decoration: none;
   color: #fff;
   background-color: #327cad;
   padding: 12px 20px 12px 20px;

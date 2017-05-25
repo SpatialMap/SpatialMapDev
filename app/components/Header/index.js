@@ -17,8 +17,6 @@ import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button'
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 
-import uploadModal from './uploadModal';
-
 function Header() {
 
   function logout() {
@@ -42,7 +40,7 @@ function Header() {
         <Link className="navItem" to="/about"> About </Link>
         <Link className="navItem" to="/datasets"> Datasets </Link>
         <Link className="navItem" to="/overview"> Documentation </Link>
-        <Link className="navItem" to="/documentation"> Documentation </Link>
+        <Link className="navItem" to="/documentation"> -doc- </Link>
 
 
         {loggedIn ? <span>

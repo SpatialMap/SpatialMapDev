@@ -79,8 +79,15 @@ export class About extends React.Component { // eslint-disable-line react/prefer
 
             <div className="row container" style={{margin:"auto", marginTop: 30, textAlign: 'left'}}>
             <h2 className="bottomText"> R and SpatialMaps </h2>
-               <div className="col-sm-6">
-               <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+               <div className="col-sm-12 twoColumns">
+               <p style={{margin: 0}}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
+                  eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+                  takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+                  consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+                  dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
+                  duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
+                  ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
                   tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
                   eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
                   takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
@@ -88,17 +95,6 @@ export class About extends React.Component { // eslint-disable-line react/prefer
                   dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
                   duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
                   ipsum dolor sit amet.</p>
-             </div>
-
-             <div className="col-sm-6">
-             <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
-                eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
-                duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-                ipsum dolor sit amet.</p>
            </div>
            </div>
 
@@ -134,10 +130,11 @@ export class About extends React.Component { // eslint-disable-line react/prefer
           </div>
 
           <div className="container row continueBar">
-          <Link to="/"><button className="continueButton"> Home </button> </Link>
-          <Link to="/datasets"><button className="continueButton"> Datasets </button> </Link>
-          <Link to="/login"><button className="continueButton"> Login/Register </button> </Link>
+            <Link className="continueButton" to="/"> Home </Link>
+            <Link className="continueButton" to="/datasets"> Datasets </Link>
+            <Link className="continueButton" to="/login"> Login/Register </Link>
           </div>
+
 
         </div>
       </div>

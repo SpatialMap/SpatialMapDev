@@ -71,7 +71,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
             </div>
           </div>
 
-          <div className="row container" style={{margin:"auto", marginTop: 30}}>
+          <div className="row container" style={{margin:"auto"}}>
              <div className="col-sm-6">
             <img className="headImage" src="http://frapbot.kohze.com/other/people.png"/>
              </div>
@@ -100,9 +100,9 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         </div>
 
         <div className="container row continueBar">
-          <Link to="/about"><button className="continueButton"> About </button> </Link>
-          <Link to="/datasets"><button className="continueButton"> Datasets </button> </Link>
-          <Link to="/login"><button className="continueButton"> Login/Register </button> </Link>
+          <Link className="continueButton" to="/about"> About </Link>
+          <Link className="continueButton" to="/datasets"> Datasets </Link>
+          <Link className="continueButton" to="/login"> Login/Register </Link>
         </div>
 
       </div>

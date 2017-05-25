@@ -8,11 +8,17 @@
 }
 
 .main {
+  font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 html {
   overflow-y: scroll;
+}
+
+td {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
 }
 
 h1 {
@@ -38,7 +44,7 @@ p {
 	font-size: 15px;
 }
 blockquote {
-	font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
 	font-size: 21px;
 	font-style: normal;
 	font-variant: normal;
@@ -46,7 +52,7 @@ blockquote {
 	line-height: 30px;
 }
 pre {
-	font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
 	font-size: 13px;
 	font-style: normal;
 	font-variant: normal;
