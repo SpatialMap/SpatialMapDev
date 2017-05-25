@@ -138,6 +138,14 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/overview',
+      name: 'docOverview',
+      getComponent(location, cb) {
+        import('containers/DocOverview')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
