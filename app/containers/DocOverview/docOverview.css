@@ -14,7 +14,7 @@
 
 h1 {
   font-size: 30px;
-  color: blue;
+  color: #327cad;
   text-align: center;
   padding: 20px;
   font-weight: 600;
@@ -26,7 +26,7 @@ ul {
 li {
   list-style-type: none;
   padding: 0px;
-  color: blue;
+  color: #327cad;
 }
 
 h2 {

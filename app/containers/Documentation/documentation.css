@@ -1,0 +1,15 @@
+.mainContent {
+  width: 100vh;
+}
+
+.iframe {
+  box-shadow: none;
+  margin-top: -17px;
+  width: 100%;
+  height: calc(100vh - 170px);
+}
+
+
+h1 {
+  color: blue;
+}

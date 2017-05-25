@@ -42,6 +42,7 @@ function Header() {
         <Link className="navItem" to="/about"> About </Link>
         <Link className="navItem" to="/datasets"> Datasets </Link>
         <Link className="navItem" to="/overview"> Documentation </Link>
+        <Link className="navItem" to="/documentation"> Documentation </Link>
 
 
         {loggedIn ? <span>

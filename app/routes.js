@@ -146,6 +146,14 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
+      path: '/documentation',
+      name: 'documentation',
+      getComponent(location, cb) {
+        import('containers/Documentation')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
