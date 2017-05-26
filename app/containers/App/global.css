@@ -9,7 +9,6 @@
 
 .main {
   font-family: 'Open Sans', sans-serif;
-  -webkit-font-smoothing: antialiased;
 }
 
 html {
@@ -17,32 +16,29 @@ html {
 }
 
 td {
-  font-family: 'Open Sans', sans-serif;
   font-size: 15px;
 }
 
 h1 {
-  font-family: 'Open Sans', sans-serif;
 	font-size: 24px;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 500;
 	line-height: 26.4px;
-  -webkit-font-smoothing: antialiased;
 }
+
 h3 {
-  font-family: 'Open Sans', sans-serif;
 	font-size: 14px;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 500;
 	line-height: 15.4px;
-  -webkit-font-smoothing: antialiased;
 }
+
 p {
-  font-family: 'Open Sans', sans-serif;
 	font-size: 15px;
 }
+
 blockquote {
   font-family: 'Open Sans', sans-serif;
 	font-size: 21px;
