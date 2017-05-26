@@ -31,7 +31,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
              <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
              tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
                takimata sanctus est Lorem.</p>
-             <button className="headButton"> get started </button>
+             <button className="headButton"> Get Started </button>
            </div>
           </div>
         </div>

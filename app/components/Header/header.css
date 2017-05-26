@@ -9,11 +9,16 @@
 
 .logo {
   text-align: left;
+  text-decoration: none;
   float: left;
   margin-top: -4px;
-  color: rgb(0, 0, 0,0.9);
+  color: black;
   font-weight: 700;
   font-size: 150%;
+}
+
+.logo:active {
+  color: black;
 }
 
 .rightNavItems {
@@ -31,9 +36,9 @@
   padding-left: 2px;
   font-weight: 600;
   text-decoration: none;
-  color: rgba(20,20,20,0.7);
+  color: rgba(20,20,20,0.9);
 }
 
 .navItem:hover {
-    color: rgba(20,20,20,0.9);
+    color: rgba(20,20,20,1);
 }

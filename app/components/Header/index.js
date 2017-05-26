@@ -30,7 +30,7 @@ function Header() {
   return (
     <div className="navBar">
       <div className="row container" style={{margin: 'auto'}}>
-        <div className="logo col-sm-3"> SpatialMaps </div>
+        <Link to="/"><div className="logo col-sm-3"> SpatialMaps </div></Link>
         <SearchBox className="search col-sm-4"
           onChange={ (newValue) => console.log('SearchBox onChange fired: ' + newValue) }
           onSearch={ (newValue) => console.log('SearchBox onSearch fired: ' + newValue) }

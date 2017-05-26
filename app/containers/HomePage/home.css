@@ -56,6 +56,7 @@ th, td {
 }
 
 .headButton {
+  font-weight: 600;
   color: #333333;
   background-color: #33D099;
   padding: 12px 20px 12px 20px;

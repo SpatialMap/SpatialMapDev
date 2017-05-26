@@ -1,10 +1,11 @@
 .mainContent {
-  width: 100vh;
+  width: 110vh;
+  margin: auto;
 }
 
 .iframe {
   box-shadow: none;
-  margin-top: -17px;
-  width: 100%;
-  height: calc(100vh - 170px);
+  margin-top: -15px;
+  width: 120vh;
+  height: calc(100vh - 145px);
 }

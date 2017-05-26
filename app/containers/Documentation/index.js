@@ -20,8 +20,7 @@ export class Documentation extends React.Component { // eslint-disable-line reac
           ]}
         />
 
-        <div className="row container" style={{margin: 'auto'}}>
-          
+      <div className="row container" style={{margin: 'auto'}}>
           <div className="mainContent">
            <iframe className="iframe" frameBorder="0" src="http://bioconductor.org/packages/release/bioc/vignettes/pRolocGUI/inst/doc/pRolocGUI.html" />
           </div>
