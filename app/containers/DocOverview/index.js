@@ -22,7 +22,7 @@ export class DocOverview extends React.Component { // eslint-disable-line react/
           ]}
         />
 
-        <div className='row container' style={{margin: 'auto'}}>
+      <div className='row container ' style={{margin: 'auto'}}>
           <h1> Documentation </h1>
           <p className='textContainer'> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
            tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero

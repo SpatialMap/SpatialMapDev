@@ -42,3 +42,43 @@
 .navItem:hover {
     color: rgba(20,20,20,1);
 }
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    text-align: left;
+}
+
+.tripplePoint{
+  padding-left: 6px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.dropdown-content {
+    border-radius: 4px;
+    display: none;
+    position: absolute;
+    margin-left: -50px;
+    padding: 5px;
+    background-color: rgba(230,230,230, 1);
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+ul {
+  padding: 0px;
+}
+
+li {
+  padding: 5px;
+  list-style-type: none;
+  padding: 0px;
+}
+
+li:hover {
+  background-color:  rgba(210,210,210, 1);
+}
