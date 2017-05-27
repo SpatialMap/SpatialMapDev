@@ -33,6 +33,7 @@ import { IContextualMenuProps, IContextualMenuItem, DirectionalHint,
          ContextualMenu } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Callout } from 'office-ui-fabric-react/lib/Callout';
+import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 var ParallelCoordinatesComponent=require('react-parallel-coordinates')
 
 
@@ -60,6 +61,7 @@ export class DataView extends React.Component {
       transpSelect: [''],
       sortedBy: ['FBgn'],
       sortedAscending: true,
+      showDownload: false,
     };
   }
 
@@ -236,7 +238,7 @@ export class DataView extends React.Component {
 
         <div className="configBar">
             <div className="leftButtons first">Comments </div>
-            <div className="leftButtons">Download </div>
+            <div className="leftButtons" onClick={() => this.setState({showDownload : true})}>Download </div>
             <div className="leftButtons">Meta Data</div>
          <div className="slider">
             <Slider
@@ -306,6 +308,22 @@ export class DataView extends React.Component {
       </div>
 
       </div>
+      <Dialog
+  isOpen={ this.state.showDownload }
+  type={ DialogType.normal }
+  onDismiss={() => this.setState({showDownload : !this.state.showDownload})}
+  title='All emails together'
+  subText='Your Inbox has changed. No longer does it include favorites, it is a singular destination for your emails.'
+  isBlocking={ false }
+  containerClassName='ms-dialogMainOverride'
+>
+
+  { null /** You can also include null values as the result of conditionals */ }
+  <DialogFooter>
+    <PrimaryButton text='Save' />
+    <DefaultButton text='Cancel' />
+  </DialogFooter>
+</Dialog>
       <div className="mainPlot">
         {profileContainer}
         {d3Container}

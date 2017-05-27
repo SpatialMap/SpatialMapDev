@@ -5,14 +5,15 @@
   column-count: 2;
 }
 
-
-
-
 .icon {
   height: 30px;
   float: left;
   margin-top: 4px;
   margin-right: 6px;
+}
+
+.leftPadding {
+  padding-left: 35px;
 }
 
 h1 {
@@ -23,9 +24,6 @@ h1 {
   font-weight: 600;
 }
 
-ul {
-  padding-left: 35px;
-}
 li {
   list-style-type: none;
   padding: 0px;
@@ -38,9 +36,6 @@ h2 {
   font-weight: 500;
 }
 
-p {
-
-}
 
 .tileContainer {
   display: flex;

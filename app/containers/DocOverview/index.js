@@ -38,7 +38,7 @@ export class DocOverview extends React.Component { // eslint-disable-line react/
           <div className="tile">
             <img className="icon" src="http://www.iconhot.com/icon/png/devine/256/circle-2-1.png" />
             <h2>SpatialMaps</h2>
-            <ul>
+            <ul className="leftPadding">
               <li> Get Started </li>
               <li> Examples </li>
               <li> References </li>
@@ -48,7 +48,7 @@ export class DocOverview extends React.Component { // eslint-disable-line react/
           <div className="tile">
             <img className="icon" src="http://www.iconhot.com/icon/png/devine/256/circle-2-1.png" />
             <h2>pRoloc</h2>
-            <ul>
+            <ul className="leftPadding">
               <li> Get Started </li>
               <li> Examples </li>
               <li> References </li>
@@ -58,7 +58,7 @@ export class DocOverview extends React.Component { // eslint-disable-line react/
           <div className="tile">
             <img className="icon" src="http://www.iconhot.com/icon/png/devine/256/circle-2-1.png" />
             <h2>MSnBase</h2>
-            <ul>
+            <ul className="leftPadding">
               <li> Get Started </li>
               <li> Examples </li>
               <li> References </li>
@@ -68,7 +68,7 @@ export class DocOverview extends React.Component { // eslint-disable-line react/
           <div className="tile">
             <img className="icon" src="http://www.iconhot.com/icon/png/devine/256/circle-2-1.png" />
             <h2>API</h2>
-            <ul>
+            <ul className="leftPadding">
               <li> Get Started </li>
               <li> Examples </li>
               <li> References </li>
@@ -78,7 +78,7 @@ export class DocOverview extends React.Component { // eslint-disable-line react/
           <div className="tile">
             <img className="icon" src="http://www.iconhot.com/icon/png/devine/256/circle-2-1.png" />
             <h2>Data Storage</h2>
-            <ul>
+            <ul className="leftPadding">
               <li> Get Started </li>
               <li> Examples </li>
               <li> References </li>
@@ -88,7 +88,7 @@ export class DocOverview extends React.Component { // eslint-disable-line react/
           <div className="tile">
             <img className="icon" src="http://www.iconhot.com/icon/png/devine/256/circle-2-1.png" />
             <h2>Accounts</h2>
-            <ul>
+            <ul className="leftPadding">
               <li> Get Started </li>
               <li> Examples </li>
               <li> References </li>

@@ -49,6 +49,9 @@ function Header() {
             <ul>
             <li><Link className="navItem" to="/overview"> Documentation </Link> </li>
             <li><Link className="navItem" to="/documentation"> -doc- </Link> </li>
+            <li><Link className="navItem" to="/documentation"> Impressum </Link> </li>
+            <li><Link className="navItem" to="/documentation"> Terms </Link> </li>
+            <li><Link className="navItem" to="/documentation"> Contact </Link> </li>
               {loggedIn && <li>
               <Link className="navItem" onClick={logout.bind(this)}> Logout </Link> </li>}
             </ul>

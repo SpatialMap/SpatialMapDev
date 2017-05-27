@@ -61,7 +61,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
                       <Spinner size={SpinnerSize.large} />
                     </div>;
 
-    const flexTiles = <div className="flexTiles"> {DataSetItem} </div>;
+    const flexTiles = <div className="flexTiles row container"> {DataSetItem} </div>;
     const itemContainer = this.state.loading == true ? loader : flexTiles;
 
     return (
@@ -72,7 +72,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
             { name: 'description', content: 'Description of Datasets' },
           ]}
         />
-      <div className="headBar">
+      <div className="headBar row container">
         <SearchBox
           onChange={ (newValue) => console.log('SearchBox onChange fired: ' + newValue) }
           onSearch={ (newValue) => console.log('SearchBox onSearch fired: ' + newValue) }
