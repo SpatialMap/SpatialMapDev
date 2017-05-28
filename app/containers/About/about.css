@@ -6,7 +6,11 @@
   margin-top: -91px;
   text-align: center;
   padding: 60px;
-  background-color: #327cad;
+  background: #327cad; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #327cad 0%, #329bad 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #327cad 0%, #329bad 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(115deg, #327cad 0%, #329bad 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87e0fd', endColorstr='#329bad',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 .textCard {

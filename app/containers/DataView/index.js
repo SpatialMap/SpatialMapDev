@@ -310,19 +310,19 @@ export class DataView extends React.Component {
       </div>
       <Dialog
   isOpen={ this.state.showDownload }
-  type={ DialogType.normal }
+  type={ DialogType.largeHeader }
   onDismiss={() => this.setState({showDownload : !this.state.showDownload})}
-  title='All emails together'
-  subText='Your Inbox has changed. No longer does it include favorites, it is a singular destination for your emails.'
+  title='Dataset Download'
   isBlocking={ false }
   containerClassName='ms-dialogMainOverride'
 >
-
+<code> library(pRolocdata) <br/> object = pRolocdata("9F2309SG3") </code>
+<p style={{textAlign: 'center'}}> <b> OR </b> </p>
+<p style={{textAlign: 'center'}}> Download the files directly </p>
   { null /** You can also include null values as the result of conditionals */ }
-  <DialogFooter>
-    <PrimaryButton text='Save' />
-    <DefaultButton text='Cancel' />
-  </DialogFooter>
+    <DefaultButton text='.RData' />
+    <DefaultButton text='.RDS' />
+    <DefaultButton text='.CSV' />
 </Dialog>
       <div className="mainPlot">
         {profileContainer}

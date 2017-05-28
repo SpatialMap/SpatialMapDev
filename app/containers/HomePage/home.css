@@ -6,7 +6,12 @@
   margin-top: -91px;
   text-align: center;
   padding: 60px;
-  background-color: #327cad;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#87e0fd+0,53cbf1+40,05abe0+100;Blue+3D+%23+16 */
+  background: #327cad; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #327cad 0%, #05abe0 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #327cad 0%, #05abe0 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(115deg, #327cad 0%, #05abe0 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87e0fd', endColorstr='#05abe0',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 .textCard {
@@ -27,11 +32,6 @@ th, td {
   color: black;
 }
 
-.svgOverlay{
-  width: 100%;
-  height: 400px;
-}
-
 .headText {
   font-size: 50px;
   font-weight: 700;
@@ -50,6 +50,17 @@ th, td {
   margin-bottom: 20px;
   margin-top: 20px;
   text-align: center;
+}
+
+.sepDiv {
+  overflow: hidden;
+  z-index: 9999;
+  margin-top: -60px;
+}
+
+.seperator {
+  height: 300px;
+  background-color: #fff;
 }
 
 .bottomText {

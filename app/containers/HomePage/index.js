@@ -35,7 +35,6 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
            </div>
           </div>
         </div>
-
         <div className="greyBG">
           <div className="row container" style={{margin:"auto", marginTop: 30}}>
             <div className="col-sm-6 bottomCard">
