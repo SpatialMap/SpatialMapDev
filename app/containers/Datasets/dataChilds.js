@@ -12,7 +12,8 @@ class DataChild extends React.Component {
     const species = this.props.item.species &&
                     <div className="tileText" key={'species' + this.props.item.id}> Species : {this.props.item.species} </div>;
 
-    const onlySearched = this.props.item.varName.toLowerCase().indexOf(this.props.searchTerm.toLowerCase()) !== -1;
+    const onlySearched = this.props.item.varName &&
+                         this.props.item.varName.toLowerCase().indexOf(this.props.searchTerm.toLowerCase()) !== -1;
 
     const mainContent = onlySearched ? <Link to={'/dataView/' + this.props.item.id} key={'link' + this.props.item.id}>
          <div  className="dataChild" key={'dataChild' + this.props.item.id}>
