@@ -23,6 +23,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
     this.state = {
       msnsets: [],
       loading: true,
+      searchTerm: '',
     }
   }
 
@@ -53,8 +54,8 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
 
   render() {
 
-    const DataSetItem = this.state.msnsets.map((detail)=>
-      <DataChild key={'dataChild'+detail.id} item={detail} />
+    const DataSetItem = this.state.msnsets.map((detail) =>
+      <DataChild key={'dataChild'+detail.id} item={detail} searchTerm={this.state.searchTerm} />
     );
 
     const loader =  <div className="loader">
@@ -74,7 +75,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
         />
       <div className="headBar row container">
         <SearchBox
-          onChange={ (newValue) => console.log('SearchBox onChange fired: ' + newValue) }
+          onChange={ (newValue) => this.setState({searchTerm : newValue}) }
           onSearch={ (newValue) => console.log('SearchBox onSearch fired: ' + newValue) }
         />
       </div>

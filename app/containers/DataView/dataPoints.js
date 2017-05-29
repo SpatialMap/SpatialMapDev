@@ -11,7 +11,7 @@ const renderCircles = (props) => {
     const colorUnknown = coords.markers == "unknown" && props.labels != true ? toggleUnknown : colorSpace;
     //radius
     const radiusVar = props.radiusSelect == '' ? props.radius : props.radius * props.radiusScale(coords[props.radiusSelect]);
-    //radius
+    //transparency
     const transpVar = props.transpSelect == '' ? 0.9 : props.transparencyScale(coords[props.transpSelect]);
     //attach accession id
     const textVar = coords.id ;
@@ -21,7 +21,6 @@ const renderCircles = (props) => {
     const xPOS = props.xScale(coords.PCA1);
     const yPOS = props.yScale(coords.PCA2);
     //col rendering
-    // fill: colorVar
     const circleProps = {
       cx: xPOS,
       cy: yPOS,

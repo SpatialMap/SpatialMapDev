@@ -167,7 +167,7 @@ export class DataView extends React.Component {
                     </div>
 
     const loader =  <div className="loader">
-                        <Spinner size={SpinnerSize.large} label='dataset' />
+                        <Spinner size={SpinnerSize.large} />
                     </div>;
 
 
@@ -309,21 +309,19 @@ export class DataView extends React.Component {
 
       </div>
       <Dialog
-  isOpen={ this.state.showDownload }
-  type={ DialogType.largeHeader }
-  onDismiss={() => this.setState({showDownload : !this.state.showDownload})}
-  title='Dataset Download'
-  isBlocking={ false }
-  containerClassName='ms-dialogMainOverride'
->
-<code> library(pRolocdata) <br/> object = pRolocdata("9F2309SG3") </code>
-<p style={{textAlign: 'center'}}> <b> OR </b> </p>
-<p style={{textAlign: 'center'}}> Download the files directly </p>
-  { null /** You can also include null values as the result of conditionals */ }
-    <DefaultButton text='.RData' />
-    <DefaultButton text='.RDS' />
-    <DefaultButton text='.CSV' />
-</Dialog>
+        isOpen={ this.state.showDownload }
+        type={ DialogType.largeHeader }
+        onDismiss={() => this.setState({showDownload : !this.state.showDownload})}
+        title='Dataset Download'
+        isBlocking={ false }
+        containerClassName='ms-dialogMainOverride'>
+        <code> library(pRolocdata) <br/> object = pRolocdata("9F2309SG3") </code>
+        <p style={{textAlign: 'center'}}> <b> OR </b> </p>
+        <p style={{textAlign: 'center'}}> Download the files directly </p>
+          <DefaultButton text='.RData' />
+          <DefaultButton text='.RDS' />
+          <DefaultButton text='.CSV' />
+      </Dialog>
       <div className="mainPlot">
         {profileContainer}
         {d3Container}
