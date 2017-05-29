@@ -33,7 +33,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
           let set = snapshot.val();
           msnsets.push({
             id: snapshot.getKey(),
-            Description: set.Description,
+            description: set.Description,
             author: set.author,
             contact: set.contact,
             email: set.email,
@@ -62,7 +62,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
                       <Spinner size={SpinnerSize.large} />
                     </div>;
 
-    const flexTiles = <div className="flexTiles row container"> {DataSetItem} </div>;
+    const flexTiles = <div> {DataSetItem} </div>;
     const itemContainer = this.state.loading == true ? loader : flexTiles;
 
     return (
@@ -76,10 +76,9 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
       <div className="headBar row container">
         <SearchBox
           onChange={ (newValue) => this.setState({searchTerm : newValue}) }
-          onSearch={ (newValue) => console.log('SearchBox onSearch fired: ' + newValue) }
         />
+        {itemContainer}
       </div>
-      {itemContainer}
       </div>
     );
   }

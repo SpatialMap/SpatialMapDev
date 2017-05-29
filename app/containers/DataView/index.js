@@ -75,7 +75,7 @@ export class DataView extends React.Component {
   };
 
   setActiveRadius(){
-    this.state.radiusSelect == '' ? this.setState({radiusSelect: ['Mascot-score']}):
+    this.state.radiusSelect == '' ? this.setState({radiusSelect: ['PSMs']}):
                                    this.setState({radiusSelect : ['']});
   };
 
@@ -170,7 +170,6 @@ export class DataView extends React.Component {
                         <Spinner size={SpinnerSize.large} />
                     </div>;
 
-
     const profileKeys = this.state.loading == true ? [] : Object.keys(this.state.exprsSet[1]);
     var keyVar = {};
     for (var i = 1; i < profileKeys.length; ++i) {
@@ -180,14 +179,13 @@ export class DataView extends React.Component {
 
     const dimensions = keyVar;
     const profileContainer = this.state.plotProfile &&
-                    <div className="scatterContainer">
-                              <ParallelCoordinatesComponent
-                                  data={foods}
-                                  dimensions={dimensions}
-                                  width = {styles.width}
-                                  height = {styles.height}
-                              />
-                    </div>;
+                             <div className="scatterContainer">
+                                      <ParallelCoordinatesComponent
+                                          data={foods}
+                                          dimensions={dimensions}
+                                          width = {styles.width}
+                                          height = {styles.height} />
+                             </div>;
     const d3Container = this.state.loading == true ? loader : this.state.plotPCA && d3Plot;
     const keyAggregate = this.state.loading == true ? [] : Object.keys(this.state.data[1]);
     var columnVar = [];
@@ -203,8 +201,6 @@ export class DataView extends React.Component {
                   "isSortedDescending" : this.state.sortedAscending,
       }) : null ;
     }
-
-
 
     const table = <div className="tableCore">
                     <TextField placeholder='Search'/>
