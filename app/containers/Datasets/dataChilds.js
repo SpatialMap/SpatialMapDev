@@ -22,7 +22,6 @@ class DataChild extends React.Component {
     const tissue = this.props.item.tissue &&
                     <div className="upperTileText" key={'tissue' + this.props.item.id}> Tissue : {this.props.item.tissue} </div>;
 
-
     let ImgUrl = '';
     switch(this.props.item.species) {
      case "Homo sapiens":
@@ -31,9 +30,12 @@ class DataChild extends React.Component {
      case "Mouse":
          ImgUrl = "http://frapbot.kohze.com/SpatialMaps/mouse.jpg";
           break;
-    case "Arabidopsis thaliana":
+     case "Arabidopsis thaliana":
         ImgUrl = "http://frapbot.kohze.com/SpatialMaps/arabidopsis.jpg";
          break;
+     case "Gallus gallus":
+       ImgUrl = "http://frapbot.kohze.com/SpatialMaps/gallus.jpg";
+        break;
      default:
          ImgUrl = "http://frapbot.kohze.com/SpatialMaps/placeholder.jpg";
           break;
@@ -42,7 +44,7 @@ class DataChild extends React.Component {
     const Image = ImgUrl && <img className="speciesImage" src={ImgUrl}/>;
 
     const onlySearched = this.props.item.varName &&
-                         this.props.item.varName.toLowerCase().indexOf(this.props.searchTerm.toLowerCase()) !== -1;
+                         Object.values(this.props.item).toString().toLowerCase().indexOf(this.props.searchTerm.toLowerCase()) !== -1;
 
     const mainContent = onlySearched ? <Link to={'/dataView/' + this.props.item.id} key={'link' + this.props.item.id}>
          <div  className="dataChild" key={'dataChild' + this.props.item.id}>

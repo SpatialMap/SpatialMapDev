@@ -19,20 +19,26 @@
   background-color: #f4f4f4;
 }
 
+
+.searchBox {
+  padding: 0px;
+}
+
 .loader {
   padding: 200px;
 }
 
 .upperBarChild {
   background-color: white;
-  width: 60%;
+  width: 70%;
 }
 
 .speciesImage {
   height: 100%;
 }
 .tileText {
-  padding: 15px;
+  padding-left: 35px;
+  padding-top: 15px;
   font-weight: 600;
   color: #000;
 }

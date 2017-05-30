@@ -16,6 +16,8 @@ import * as firebase from 'firebase';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import './datasets.css';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
+import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
+
 
 export class Datasets extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -74,9 +76,14 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
           ]}
         />
       <div className="headBar row container">
-        <SearchBox
-          onChange={ (newValue) => this.setState({searchTerm : newValue}) }
-        />
+        <div className="searchBox col-sm-6">
+          <SearchBox
+            onChange={ (newValue) => this.setState({searchTerm : newValue}) }
+          />
+        </div>
+        <div className="topButtons col-sm-2 col-sm-offset-4">
+          <button>  </button>
+        </div>
         {itemContainer}
       </div>
       </div>

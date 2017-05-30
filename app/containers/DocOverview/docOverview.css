@@ -6,14 +6,18 @@
 }
 
 .icon {
-  height: 30px;
+  height: 40px;
   float: left;
-  margin-top: 4px;
+  margin-top: -1px;
   margin-right: 6px;
 }
 
 .leftPadding {
   padding-left: 35px;
+}
+
+a {
+  text-decoration: none;
 }
 
 h1 {
@@ -46,7 +50,7 @@ h2 {
 }
 
 .tile {
-  height: 200px;
+  height: 250px;
   background-color: rgba(180,180,180,0.2);
   padding: 20px;
   margin: 5px;
