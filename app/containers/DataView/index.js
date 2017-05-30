@@ -143,7 +143,7 @@ export class DataView extends React.Component {
 
 
     const styles = {
-      width   : 1900/((this.state.plotPCA + this.state.plotProfile)*1.05),
+      width   : 1920/((this.state.plotPCA + this.state.plotProfile)*1.05),
       height  : 500,
       padding : 30,
     };

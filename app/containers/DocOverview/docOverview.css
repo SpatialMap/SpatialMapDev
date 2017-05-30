@@ -13,7 +13,7 @@
 }
 
 .leftPadding {
-  padding-left: 35px;
+  padding-left: 45px;
 }
 
 a {
@@ -50,7 +50,7 @@ h2 {
 }
 
 .tile {
-  height: 250px;
+  height: 230px;
   background-color: rgba(180,180,180,0.2);
   padding: 20px;
   margin: 5px;
