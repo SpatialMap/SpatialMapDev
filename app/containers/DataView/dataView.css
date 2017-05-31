@@ -7,6 +7,7 @@
 .configBar {
   background-color: #f2e4d8;
   color: black;
+  margin: auto;
   width: 100%;
   height: 60px;
   margin-top: -20px;
@@ -14,6 +15,26 @@
   padding: 0px 0px 0px 0px;
   z-index: 6000;
   box-shadow: 1px 0px 3px 1px rgba(0,0,0,0.3);
+}
+
+.sourceDownloadButtons {
+  text-align: center;
+}
+
+.belowMainPlot {
+  width: 100%;
+  margin: auto;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  height: 32px;
+  background-color: #f2e4d8;
+  overflow: hidden;
+  box-shadow: 0px 0.5px 3px 1px rgba(0,0,0,0.3);
+}
+
+.RCode {
+  font-size: 12.5px;
+  white-space: nowrap;
 }
 
 .loader {
@@ -46,11 +67,6 @@
 
 .last {
   float: right;
-}
-
-.choiceGroup {
-  float: right;
-  margin-left: 2px;
 }
 
 .leftButtons,
@@ -94,7 +110,6 @@
 }
 
 .scatterContainer{
-  height: 500px;
   width: 900px;
   float: left;
 }

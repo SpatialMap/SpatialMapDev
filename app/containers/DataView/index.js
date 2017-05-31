@@ -36,7 +36,6 @@ import { Callout } from 'office-ui-fabric-react/lib/Callout';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 var ParallelCoordinatesComponent=require('react-parallel-coordinates')
 
-
 var Dimensions = require('react-dimensions');
 
 export class DataView extends React.Component {
@@ -46,6 +45,7 @@ export class DataView extends React.Component {
     this.Viewer = null;
     this.state = {
       data: [],
+      rndKey: '',
       exprsSet: [],
       loading: true,
       radius: 4,
@@ -117,6 +117,7 @@ export class DataView extends React.Component {
         loading : false,
       });
     })
+
     firebase.database().ref('data/' + this.props.params.uid + '/exprsSet').once("value", (snapshot) => {
       let exprsSet = snapshot.val();
       this.setState({
@@ -139,8 +140,7 @@ export class DataView extends React.Component {
   render() {
 
 
-    let foods = this.state.exprsSet;
-
+    const exprSet = this.state.exprsSet;
 
     const styles = {
       width   : 1920/((this.state.plotPCA + this.state.plotProfile)*1.05),
@@ -181,7 +181,7 @@ export class DataView extends React.Component {
     const profileContainer = this.state.plotProfile &&
                              <div className="scatterContainer">
                                       <ParallelCoordinatesComponent
-                                          data={foods}
+                                          data={exprSet}
                                           dimensions={dimensions}
                                           width = {styles.width}
                                           height = {styles.height} />
@@ -202,8 +202,19 @@ export class DataView extends React.Component {
       }) : null ;
     }
 
+    let arr = Object.keys(this.state.data).map((k) => this.state.data[k]);
+    console.log(arr);
+    const uniqueFactors =  arr.filter((x, i, a) => a.indexOf(x) == i);
+
     const table = <div className="tableCore">
-                    <TextField placeholder='Search'/>
+                    <div className="belowMainPlot row">
+                      <div className="col-sm-3">
+                        <TextField style={{backgroundColor: '#f2e4d8'}} placeholder='Search'/>
+                      </div>
+                      <div className="col-sm-9">
+                        Test
+                      </div>
+                    </div>
                     <MarqueeSelection>
                       <DetailsList
                         items = {this.state.data}
@@ -267,41 +278,32 @@ export class DataView extends React.Component {
              onChange = { () => this.setState({ dispUnknown : !this.state.dispUnknown }) }
             />
        </div>
-       <div className="choiceGroup">
          <div className="choiceChild"  onClick={() => this.setActiveColor()}>
           [Color]
          </div>
-       </div>
-       <div className="choiceGroup">
          <div className="choiceChild"  onClick={() => this.setActiveRadius()}>
           [Radius]
          </div>
-       </div>
-       <div className="choiceGroup">
+
          <div className="choiceChild"  onClick={() => this.setActiveTransp()}>
           [Transp]
          </div>
-       </div>
-       <div className="choiceGroup">
+
          <div className="choiceChild" onClick={() => this.setOrderBy(this.state.sortedAscending)}>
           [SortBy]
          </div>
-       </div>
-      <div className="choiceGroup">
+
         <div className="choiceChild"  onClick={ () => this.setState({ plotProfile : !this.state.plotProfile }) }>
          Profile
         </div>
-      </div>
-      <div className="choiceGroup" >
+
         <div className="choiceChild" onClick={ () => this.setState({ plotTSNE : !this.state.plotTSNE }) }>
          T-SNE
         </div>
-      </div>
-      <div className="choiceGroup">
+
         <div className="choiceChild" onClick={ () => this.setState({ plotPCA : !this.state.plotPCA }) }>
          PCA
         </div>
-      </div>
 
       </div>
       <Dialog
@@ -311,12 +313,14 @@ export class DataView extends React.Component {
         title='Dataset Download'
         isBlocking={ false }
         containerClassName='ms-dialogMainOverride'>
-        <code> library(pRolocdata) <br/> object = pRolocdata("9F2309SG3") </code>
+        <p style={{textAlign: 'center'}}> Load the dataset object directly into R or download the source file</p>
+        <code className="RCode"> library(pRolocdata) <br/> object = pRolocdata("{this.props.params.uid}") </code>
         <p style={{textAlign: 'center'}}> <b> OR </b> </p>
-        <p style={{textAlign: 'center'}}> Download the files directly </p>
+        <div className="sourceDownloadButtons">
           <DefaultButton text='.RData' />
           <DefaultButton text='.RDS' />
           <DefaultButton text='.CSV' />
+        </div>
       </Dialog>
       <div className="mainPlot">
         {profileContainer}
