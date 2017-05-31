@@ -139,9 +139,7 @@ export class DataView extends React.Component {
 
   render() {
 
-
     const exprSet = this.state.exprsSet;
-
     const styles = {
       width   : 1920/((this.state.plotPCA + this.state.plotProfile)*1.05),
       height  : 500,
@@ -184,10 +182,11 @@ export class DataView extends React.Component {
                                           data={exprSet}
                                           dimensions={dimensions}
                                           width = {styles.width}
-                                          height = {styles.height} />
+                                          height = {styles.height}
+                                       />
                              </div>;
-    const d3Container = this.state.loading == true ? loader : this.state.plotPCA && d3Plot;
-    const keyAggregate = this.state.loading == true ? [] : Object.keys(this.state.data[1]);
+    const d3Container = this.state.loading ? loader : this.state.plotPCA && d3Plot;
+    const keyAggregate = this.state.loading ? [] : Object.keys(this.state.data[1]);
     var columnVar = [];
     for (var i = 1; i < keyAggregate.length; ++i) {
         keyAggregate[i] != "Colors" && keyAggregate[i] != "PCA1" && keyAggregate[i] != "PCA2"  ?
@@ -202,9 +201,14 @@ export class DataView extends React.Component {
       }) : null ;
     }
 
-    let arr = Object.keys(this.state.data).map((k) => this.state.data[k]);
-    console.log(arr);
+    let arr = Object.entries(this.state.data).map((k) => this.state.data[k]);
     const uniqueFactors =  arr.filter((x, i, a) => a.indexOf(x) == i);
+    console.log(uniqueFactors);
+
+    let fillContent = ['Unknown','Mitochondrion','Plasma membrane','60s Ribosome','Endoplasmatic reticulum'];
+    const legendItems = fillContent.map((number) =>
+      <button className="lengendItems" key={number.toString()}>{number}</button>
+    );
 
     const table = <div className="tableCore">
                     <div className="belowMainPlot row">
@@ -212,7 +216,7 @@ export class DataView extends React.Component {
                         <TextField style={{backgroundColor: '#f2e4d8'}} placeholder='Search'/>
                       </div>
                       <div className="col-sm-9">
-                        Test
+                        {legendItems}
                       </div>
                     </div>
                     <MarqueeSelection>
@@ -233,9 +237,9 @@ export class DataView extends React.Component {
                     </MarqueeSelection>
                   </div>;
 
-    // const data = this.state.data;
     return (
       <div>
+
         <Helmet
           title="DataView"
           meta={[
@@ -284,27 +288,21 @@ export class DataView extends React.Component {
          <div className="choiceChild"  onClick={() => this.setActiveRadius()}>
           [Radius]
          </div>
-
          <div className="choiceChild"  onClick={() => this.setActiveTransp()}>
           [Transp]
          </div>
-
-         <div className="choiceChild" onClick={() => this.setOrderBy(this.state.sortedAscending)}>
+        <div className="choiceChild" onClick={() => this.setOrderBy(this.state.sortedAscending)}>
           [SortBy]
-         </div>
-
+        </div>
         <div className="choiceChild"  onClick={ () => this.setState({ plotProfile : !this.state.plotProfile }) }>
-         Profile
+          Profile
         </div>
-
         <div className="choiceChild" onClick={ () => this.setState({ plotTSNE : !this.state.plotTSNE }) }>
-         T-SNE
+          T-SNE
         </div>
-
         <div className="choiceChild" onClick={ () => this.setState({ plotPCA : !this.state.plotPCA }) }>
-         PCA
+          PCA
         </div>
-
       </div>
       <Dialog
         isOpen={ this.state.showDownload }
@@ -314,7 +312,9 @@ export class DataView extends React.Component {
         isBlocking={ false }
         containerClassName='ms-dialogMainOverride'>
         <p style={{textAlign: 'center'}}> Load the dataset object directly into R or download the source file</p>
-        <code className="RCode"> library(pRolocdata) <br/> object = pRolocdata("{this.props.params.uid}") </code>
+        <div className="codeBox">
+          <code className="RCode"> library(pRolocdata) <br/> object = pRolocdata("{this.props.params.uid}") </code>
+        </div>
         <p style={{textAlign: 'center'}}> <b> OR </b> </p>
         <div className="sourceDownloadButtons">
           <DefaultButton text='.RData' />
