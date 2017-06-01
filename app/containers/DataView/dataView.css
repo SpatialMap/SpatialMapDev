@@ -35,6 +35,7 @@
   padding: 3px 10px 3px 10px;
 }
 
+
 .belowMainPlot {
   width: 100%;
   margin: auto;
@@ -53,6 +54,14 @@
 
 .loader {
   padding: 200px;
+}
+
+.heightToggle {
+  background-color: #f4f4f4;
+  padding-top:  2px;
+  margin: 0px 0px 0px 16px;
+  height:  32px;
+  float:  right;
 }
 
 .slider {
@@ -118,6 +127,7 @@
   width: 294px;
 }
 
+.heightToggle:hover,
 .leftButtons:hover,
 .choiceChild:hover {
   background-color: #DFCFBF;

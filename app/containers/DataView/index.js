@@ -222,8 +222,8 @@ export class DataView extends React.Component {
                         <TextField style={{backgroundColor: '#f2e4d8'}} placeholder='Search'/>
                       </div>
                       <div className="col-sm-9">
+                        <button className="heightToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v"></i></button>
                         {legendItems}
-                        <button onClick={() => this.togglePlotHeight()}> toggle Height </button>
                       </div>
                     </div>
                     <MarqueeSelection>
@@ -255,60 +255,60 @@ export class DataView extends React.Component {
         />
 
         <div className="configBar">
-            <div className="leftButtons first">Comments </div>
-            <div className="leftButtons" onClick={() => this.setState({showDownload : true})}>Download </div>
-            <div className="leftButtons">Meta Data</div>
-         <div className="slider">
-            <Slider
-              label = 'Scatter Point Size'
-              min = {0.5}
-              max = {10}
-              step = {0.5}
-              defaultValue = {4}
-              onChange = {radius => this.setState({ radius }) }
-              showValue = {false}
-            />
-         </div>
-         <div className="toggle">
-             <Toggle
-              label = 'Color Unknown'
-              onAriaLabel = 'This toggle is checked. Press to uncheck.'
-              offAriaLabel = 'This toggle is unchecked. Press to check.'
-              onText = 'On'
-              offText = 'Off'
-              onChange = { () => this.setState({ labels : !this.state.labels }) }
+          <div className="leftButtons first">Comments </div>
+          <div className="leftButtons" onClick={() => this.setState({showDownload : true})}>Download </div>
+          <div className="leftButtons">Meta Data</div>
+        <div className="slider">
+          <Slider
+            label = 'Scatter Point Size'
+            min = {0.5}
+            max = {10}
+            step = {0.5}
+            defaultValue = {4}
+            onChange = {radius => this.setState({ radius }) }
+            showValue = {false}
+          />
+        </div>
+        <div className="toggle">
+           <Toggle
+            label = 'Color Unknown'
+            onAriaLabel = 'This toggle is checked. Press to uncheck.'
+            offAriaLabel = 'This toggle is unchecked. Press to check.'
+            onText = 'On'
+            offText = 'Off'
+            onChange = { () => this.setState({ labels : !this.state.labels }) }
         />
         </div>
         <div className="toggle">
-            <Toggle
-             label = 'Hide Unknown'
-             onAriaLabel = 'This toggle is checked. Press to uncheck.'
-             offAriaLabel = 'This toggle is unchecked. Press to check.'
-             onText = 'On'
-             offText = 'Off'
-             onChange = { () => this.setState({ dispUnknown : !this.state.dispUnknown }) }
-            />
-       </div>
-         <div className="choiceChild"  onClick={() => this.setActiveColor()}>
-          [Color]
-         </div>
-         <div className="choiceChild"  onClick={() => this.setActiveRadius()}>
-          [Radius]
-         </div>
-         <div className="choiceChild"  onClick={() => this.setActiveTransp()}>
-          [Transp]
-         </div>
+          <Toggle
+           label = 'Hide Unknown'
+           onAriaLabel = 'This toggle is checked. Press to uncheck.'
+           offAriaLabel = 'This toggle is unchecked. Press to check.'
+           onText = 'On'
+           offText = 'Off'
+           onChange = { () => this.setState({ dispUnknown : !this.state.dispUnknown }) }
+          />
+        </div>
+        <div className="choiceChild"  onClick={() => this.setActiveColor()}>
+        [Color]
+        </div>
+        <div className="choiceChild"  onClick={() => this.setActiveRadius()}>
+        [Radius]
+        </div>
+        <div className="choiceChild"  onClick={() => this.setActiveTransp()}>
+        [Transp]
+        </div>
         <div className="choiceChild" onClick={() => this.setOrderBy(this.state.sortedAscending)}>
-          [SortBy]
+        [SortBy]
         </div>
         <div className="choiceChild"  onClick={ () => this.setState({ plotProfile : !this.state.plotProfile }) }>
-          Profile
+        Profile
         </div>
         <div className="choiceChild" onClick={ () => this.setState({ plotTSNE : !this.state.plotTSNE }) }>
-          T-SNE
+        T-SNE
         </div>
         <div className="choiceChild" onClick={ () => this.setState({ plotPCA : !this.state.plotPCA }) }>
-          PCA
+        PCA
         </div>
       </div>
       <Dialog
