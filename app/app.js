@@ -44,7 +44,6 @@ import './global-styles';
 // Import root routes
 import createRoutes from './routes';
 
-
 // init firebase API
 var firebase = require('firebase');
 

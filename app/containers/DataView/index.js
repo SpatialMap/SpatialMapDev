@@ -48,6 +48,7 @@ export class DataView extends React.Component {
       rndKey: '',
       exprsSet: [],
       loading: true,
+      plotHeight: 500,
       radius: 4,
       dispUnknown: true,
       labels: false,
@@ -68,6 +69,11 @@ export class DataView extends React.Component {
   setActiveKey(index) {
       return this.setState({activeKey: index});
   };
+
+  togglePlotHeight(){
+    this.state.plotHeight == 500 ? this.setState({plotHeight: 820}) :
+                                   this.setState({plotHeight: 500});
+  }
 
   setActiveColor(){
     this.state.colorSelect == '' ? this.setState({colorSelect: ['No-peptide-quantified']}):
@@ -142,7 +148,7 @@ export class DataView extends React.Component {
     const exprSet = this.state.exprsSet;
     const styles = {
       width   : 1920/((this.state.plotPCA + this.state.plotProfile)*1.05),
-      height  : 500,
+      height  : this.state.plotHeight,
       padding : 30,
     };
 
@@ -201,7 +207,7 @@ export class DataView extends React.Component {
       }) : null ;
     }
 
-    let arr = Object.entries(this.state.data).map((k) => this.state.data[k]);
+    let arr = Object.values(this.state.data).map((k) => this.state.data[k]);
     const uniqueFactors =  arr.filter((x, i, a) => a.indexOf(x) == i);
     console.log(uniqueFactors);
 
@@ -217,6 +223,7 @@ export class DataView extends React.Component {
                       </div>
                       <div className="col-sm-9">
                         {legendItems}
+                        <button onClick={() => this.togglePlotHeight()}> toggle Height </button>
                       </div>
                     </div>
                     <MarqueeSelection>
@@ -322,7 +329,7 @@ export class DataView extends React.Component {
           <DefaultButton text='.CSV' />
         </div>
       </Dialog>
-      <div className="mainPlot">
+      <div className="mainPlot" style={{height: this.state.plotHeight}}>
         {profileContainer}
         {d3Container}
       </div>
