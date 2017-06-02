@@ -41,9 +41,9 @@ const renderCircles = (props) => {
       key: index+0.1
     };
 
-    var output = markSelected == "none" ? <circle {...circleProps} onClick={() => props.SetActiveKey(index)}/>
+    var output = markSelected == "none" ? <circle {...circleProps} onClick={() => props.SetActiveKey(index, coords.id)}/>
                                            : <g className="circleText" key={index+0.2}>
-                                          <circle {...circleProps} onClick={() => props.SetActiveKey(index)}/>
+                                          <circle {...circleProps} onClick={() => props.SetActiveKey(index, coords.id)}/>
                                           <text style={{fontSize: props.radius }}{...textProps}> {textVar} </text>
                                           </g>;
 

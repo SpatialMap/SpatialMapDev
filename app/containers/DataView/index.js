@@ -53,7 +53,9 @@ export class DataView extends React.Component {
       dispUnknown: true,
       labels: false,
       activeKey: [],
+      activePeptideID: 'Q9Z2N8',
       activeField: "PCA",
+      showUniProt: false,
       plotPCA: true,
       plotTSNE: false,
       plotProfile: true,
@@ -66,8 +68,9 @@ export class DataView extends React.Component {
     };
   }
 
-  setActiveKey(index) {
-      return this.setState({activeKey: index});
+  setActiveKey(index, activePeptide) {
+    this.setState({activeKey: index});
+    this.setState({activePeptideID: activePeptide});
   };
 
   togglePlotHeight(){
@@ -147,7 +150,7 @@ export class DataView extends React.Component {
 
     const exprSet = this.state.exprsSet;
     const styles = {
-      width   : 1920/((this.state.plotPCA + this.state.plotProfile)*1.05),
+      width   : 1910/((this.state.plotPCA + this.state.plotProfile + this.state.showUniProt)),
       height  : this.state.plotHeight,
       padding : 30,
     };
@@ -165,7 +168,7 @@ export class DataView extends React.Component {
                         tool = {"auto"}
                         detectAutoPan = {false}>
                         <svg width = {styles.width} height = {styles.height}>
-                          <ScatterPlot {...this.state} {...styles} SetActiveKey={(index) => this.setActiveKey(index)} />
+                          <ScatterPlot {...this.state} {...styles} SetActiveKey={(index, activePeptide) => this.setActiveKey(index, activePeptide)} />
                         </svg>
                       </ReactSVGPanZoom>
                     </div>
@@ -180,8 +183,17 @@ export class DataView extends React.Component {
         profileKeys[i] != "id"  ?
                   keyVar[profileKeys[i]] = {type:"number"} : null ;
     };
-
     const dimensions = keyVar;
+
+    const iframeLink = "http://www.uniprot.org/uniprot/" + this.state.activePeptideID;
+    const uniProtContainer = this.state.showUniProt &&
+                             <iframe
+                                       height = {styles.height}
+                                       width = {styles.width}
+                                       frameBorder = "0"
+                                       src = {iframeLink}
+                             />;
+
     const profileContainer = this.state.plotProfile &&
                              <div className="scatterContainer">
                                       <ParallelCoordinatesComponent
@@ -191,6 +203,7 @@ export class DataView extends React.Component {
                                           height = {styles.height}
                                        />
                              </div>;
+
     const d3Container = this.state.loading ? loader : this.state.plotPCA && d3Plot;
     const keyAggregate = this.state.loading ? [] : Object.keys(this.state.data[1]);
     var columnVar = [];
@@ -209,7 +222,6 @@ export class DataView extends React.Component {
 
     let arr = Object.values(this.state.data).map((k) => this.state.data[k]);
     const uniqueFactors =  arr.filter((x, i, a) => a.indexOf(x) == i);
-    console.log(uniqueFactors);
 
     let fillContent = ['Unknown','Mitochondrion','Plasma membrane','60s Ribosome','Endoplasmatic reticulum'];
     const legendItems = fillContent.map((number) =>
@@ -301,6 +313,9 @@ export class DataView extends React.Component {
         <div className="choiceChild" onClick={() => this.setOrderBy(this.state.sortedAscending)}>
         [SortBy]
         </div>
+          <div className="choiceChild"  onClick={ () => this.setState({ showUniProt : !this.state.showUniProt }) }>
+        UniProt
+        </div>
         <div className="choiceChild"  onClick={ () => this.setState({ plotProfile : !this.state.plotProfile }) }>
         Profile
         </div>
@@ -332,6 +347,7 @@ export class DataView extends React.Component {
       <div className="mainPlot" style={{height: this.state.plotHeight}}>
         {profileContainer}
         {d3Container}
+        {uniProtContainer}
       </div>
       <div className="table">
           {table}
