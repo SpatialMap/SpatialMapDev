@@ -85,12 +85,12 @@ export class DataView extends React.Component {
 
   setActiveRadius(){
     this.state.radiusSelect == '' ? this.setState({radiusSelect: ['PSMs']}):
-                                   this.setState({radiusSelect : ['']});
+                                    this.setState({radiusSelect : ['']});
   };
 
   setActiveTransp(){
     this.state.transpSelect == '' ? this.setState({transpSelect: ['Mascot-score']}):
-                                   this.setState({transpSelect: ['']});
+                                    this.setState({transpSelect: ['']});
   };
 
   setOrderBy(ascending = true){
@@ -149,6 +149,13 @@ export class DataView extends React.Component {
   render() {
 
     const exprSet = this.state.exprsSet;
+    console.log(exprSet);
+    const exprSet2 = this.state.exprsSet && this.state.exprsSet.filter(function(a) {
+      console.log(a.id)
+      return a.id.toString() == "P51648"
+    })
+    console.log(exprSet2);
+
     const styles = {
       width   : 1910/((this.state.plotPCA + this.state.plotProfile + this.state.showUniProt)),
       height  : this.state.plotHeight,
@@ -188,6 +195,7 @@ export class DataView extends React.Component {
     const iframeLink = "http://www.uniprot.org/uniprot/" + this.state.activePeptideID;
     const uniProtContainer = this.state.showUniProt &&
                              <iframe
+
                                        height = {styles.height}
                                        width = {styles.width}
                                        frameBorder = "0"
@@ -197,7 +205,7 @@ export class DataView extends React.Component {
     const profileContainer = this.state.plotProfile &&
                              <div className="scatterContainer">
                                       <ParallelCoordinatesComponent
-                                          data={exprSet}
+                                          data={exprSet2}
                                           dimensions={dimensions}
                                           width = {styles.width}
                                           height = {styles.height}
