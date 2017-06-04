@@ -20,13 +20,18 @@ const renderCircles = (props) => {
     //x,y coordinates
     const xPOS = props.xScale(coords.PCA1);
     const yPOS = props.yScale(coords.PCA2);
+
+    //filterInput - filtering based on the filterInput
+    const filterVar = coords['Protein-Description'].toLowerCase().indexOf(props.filterInput.toLowerCase()) !== -1;
+
+
     //col rendering
     const circleProps = {
       cx: xPOS,
       cy: yPOS,
       r: radiusVar,
       fill: colorUnknown,
-      opacity: transpVar,
+      opacity: transpVar*filterVar,
       stroke: markSelected,
       strokeWidth: props.radius/3,
       key: index,

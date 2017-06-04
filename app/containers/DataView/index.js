@@ -34,7 +34,8 @@ import { IContextualMenuProps, IContextualMenuItem, DirectionalHint,
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Callout } from 'office-ui-fabric-react/lib/Callout';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
-var ParallelCoordinatesComponent=require('react-parallel-coordinates')
+import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
+var ParallelCoordinatesComponent=require('react-parallel-coordinates');
 
 var Dimensions = require('react-dimensions');
 
@@ -47,6 +48,7 @@ export class DataView extends React.Component {
       data: [],
       rndKey: '',
       exprsSet: [],
+      filterInput: '',
       loading: true,
       plotHeight: 500,
       radius: 4,
@@ -149,12 +151,9 @@ export class DataView extends React.Component {
   render() {
 
     const exprSet = this.state.exprsSet;
-    console.log(exprSet);
-    const exprSet2 = this.state.exprsSet && this.state.exprsSet.filter(function(a) {
-      console.log(a.id)
-      return a.id.toString() == "P51648"
+    const exprsSet2 = this.state.exprsSet && this.state.exprsSet.filter(function(a) {
+      return a.id.toString() == ""
     })
-    console.log(exprSet2);
 
     const styles = {
       width   : 1910/((this.state.plotPCA + this.state.plotProfile + this.state.showUniProt)),
@@ -188,14 +187,13 @@ export class DataView extends React.Component {
     var keyVar = {};
     for (var i = 1; i < profileKeys.length; ++i) {
         profileKeys[i] != "id"  ?
-                  keyVar[profileKeys[i]] = {type:"number"} : null ;
+                  keyVar[profileKeys[i]] = {type:"number", "tickValues":[0,0.5,1]} : null ;
     };
     const dimensions = keyVar;
 
     const iframeLink = "http://www.uniprot.org/uniprot/" + this.state.activePeptideID;
     const uniProtContainer = this.state.showUniProt &&
                              <iframe
-
                                        height = {styles.height}
                                        width = {styles.width}
                                        frameBorder = "0"
@@ -205,7 +203,7 @@ export class DataView extends React.Component {
     const profileContainer = this.state.plotProfile &&
                              <div className="scatterContainer">
                                       <ParallelCoordinatesComponent
-                                          data={exprSet2}
+                                          data={exprSet}
                                           dimensions={dimensions}
                                           width = {styles.width}
                                           height = {styles.height}
@@ -239,7 +237,12 @@ export class DataView extends React.Component {
     const table = <div className="tableCore">
                     <div className="belowMainPlot row">
                       <div className="col-sm-3">
-                        <TextField style={{backgroundColor: '#f2e4d8'}} placeholder='Search'/>
+                        <SearchBox
+                          onSearch={ (newValue) => console.log('SearchBox onSearch fired: ' + newValue) }
+                          onChange={ (newValue) => this.setState({filterInput: newValue}) }
+                          style={{backgroundColor: '#f2e4d8'}} labelText='Filter'
+                        />
+
                       </div>
                       <div className="col-sm-9">
                         <button className="heightToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v"></i></button>
