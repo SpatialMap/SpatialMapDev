@@ -55,8 +55,8 @@ export class DataView extends React.Component {
       dispUnknown: true,
       labels: false,
       activeKey: [],
-      activePeptideID: 'Q9Z2N8',
-      activeField: "PCA",
+      activePeptideID: 'Q9JHU4',
+      brushedData: [],
       showUniProt: false,
       plotPCA: true,
       plotTSNE: false,
@@ -64,7 +64,7 @@ export class DataView extends React.Component {
       colorSelect: [''],
       radiusSelect: [''],
       transpSelect: [''],
-      sortedBy: ['FBgn'],
+      sortedBy: ['ProteinCoverage'],
       sortedAscending: true,
       showDownload: false,
     };
@@ -81,17 +81,17 @@ export class DataView extends React.Component {
   }
 
   setActiveColor(){
-    this.state.colorSelect == '' ? this.setState({colorSelect: ['No-peptide-quantified']}):
+    this.state.colorSelect == '' ? this.setState({colorSelect: ['Peptides']}):
                                    this.setState({colorSelect : ['']});
   };
 
   setActiveRadius(){
-    this.state.radiusSelect == '' ? this.setState({radiusSelect: ['PSMs']}):
+    this.state.radiusSelect == '' ? this.setState({radiusSelect: ['ProteinCoverage']}):
                                     this.setState({radiusSelect : ['']});
   };
 
   setActiveTransp(){
-    this.state.transpSelect == '' ? this.setState({transpSelect: ['Mascot-score']}):
+    this.state.transpSelect == '' ? this.setState({transpSelect: ['PSMs']}):
                                     this.setState({transpSelect: ['']});
   };
 
@@ -146,7 +146,6 @@ export class DataView extends React.Component {
     //      //this.setState({tool: fitSelection(})
     //    }
     // / }
-
 
   render() {
 
@@ -203,10 +202,11 @@ export class DataView extends React.Component {
     const profileContainer = this.state.plotProfile &&
                              <div className="scatterContainer">
                                       <ParallelCoordinatesComponent
-                                          data={exprSet}
-                                          dimensions={dimensions}
+                                          data = {exprSet}
+                                          dimensions = {dimensions}
                                           width = {styles.width}
                                           height = {styles.height}
+                                          onBrushEnd_data = {(out) => console.log(out)}
                                        />
                              </div>;
 
@@ -229,7 +229,7 @@ export class DataView extends React.Component {
     let arr = Object.values(this.state.data).map((k) => this.state.data[k]);
     const uniqueFactors =  arr.filter((x, i, a) => a.indexOf(x) == i);
 
-    let fillContent = ['Unknown','Mitochondrion','Plasma membrane','60s Ribosome','Endoplasmatic reticulum'];
+    let fillContent = ['more...','Unknown','Mitochondrion','Plasma membrane','60s Ribosome','Endoplasmatic reticulum'];
     const legendItems = fillContent.map((number) =>
       <button className="lengendItems" key={number.toString()}>{number}</button>
     );
@@ -238,8 +238,8 @@ export class DataView extends React.Component {
                     <div className="belowMainPlot row">
                       <div className="col-sm-3">
                         <SearchBox
-                          onSearch={ (newValue) => console.log('SearchBox onSearch fired: ' + newValue) }
-                          onChange={ (newValue) => this.setState({filterInput: newValue}) }
+                          onSearch={ (newValue) => this.setState({filterInput: newValue}) }
+                          onChange={(newValue) => newValue == '' && this.setState({filterInput: newValue}) }
                           style={{backgroundColor: '#f2e4d8'}} labelText='Filter'
                         />
 
@@ -313,28 +313,28 @@ export class DataView extends React.Component {
           />
         </div>
         <div className="choiceChild"  onClick={() => this.setActiveColor()}>
-        [Color]
+          [Color]
         </div>
         <div className="choiceChild"  onClick={() => this.setActiveRadius()}>
-        [Radius]
+          [Radius]
         </div>
         <div className="choiceChild"  onClick={() => this.setActiveTransp()}>
-        [Transp]
+          [Transp]
         </div>
         <div className="choiceChild" onClick={() => this.setOrderBy(this.state.sortedAscending)}>
-        [SortBy]
+          [SortBy]
         </div>
-          <div className="choiceChild"  onClick={ () => this.setState({ showUniProt : !this.state.showUniProt }) }>
-        UniProt
+        <div className="choiceChild"  onClick={ () => this.setState({ showUniProt : !this.state.showUniProt }) }>
+            UniProt
         </div>
         <div className="choiceChild"  onClick={ () => this.setState({ plotProfile : !this.state.plotProfile }) }>
-        Profile
+          Profile
         </div>
         <div className="choiceChild" onClick={ () => this.setState({ plotTSNE : !this.state.plotTSNE }) }>
-        T-SNE
+          T-SNE
         </div>
         <div className="choiceChild" onClick={ () => this.setState({ plotPCA : !this.state.plotPCA }) }>
-        PCA
+          PCA
         </div>
       </div>
       <Dialog

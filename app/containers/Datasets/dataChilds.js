@@ -36,6 +36,9 @@ class DataChild extends React.Component {
      case "Gallus gallus":
        ImgUrl = "http://frapbot.kohze.com/SpatialMaps/gallus.jpg";
         break;
+     case "Drosophila melanogaster":
+       ImgUrl = "http://frapbot.kohze.com/SpatialMaps/drosophila.jpg";
+        break;
      default:
          ImgUrl = "http://frapbot.kohze.com/SpatialMaps/placeholder.jpg";
           break;

@@ -22,7 +22,7 @@ const renderCircles = (props) => {
     const yPOS = props.yScale(coords.PCA2);
 
     //filterInput - filtering based on the filterInput
-    const filterVar = coords['Protein-Description'].toLowerCase().indexOf(props.filterInput.toLowerCase()) !== -1;
+    const filterVar = coords['ProteinDescription'].toLowerCase().indexOf(props.filterInput.toLowerCase()) !== -1;
 
 
     //col rendering
