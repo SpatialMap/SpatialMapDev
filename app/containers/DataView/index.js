@@ -67,6 +67,8 @@ export class DataView extends React.Component {
       sortedBy: ['ProteinCoverage'],
       sortedAscending: true,
       showDownload: false,
+      showToolBar: '',
+      plotTool: 'auto'
     };
   }
 
@@ -94,6 +96,11 @@ export class DataView extends React.Component {
     this.state.transpSelect == '' ? this.setState({transpSelect: ['PSMs']}):
                                     this.setState({transpSelect: ['']});
   };
+
+  switchPlotTools(){
+    this.state.showToolBar == '' ? this.setState({showToolBar: 'right', plotTools: ''}):
+                                   this.setState({showToolBar: '', plotTools: 'auto'});
+  }
 
   setOrderBy(ascending = true){
     this.setState({sortedAscending : !this.state.sortedAscending});
@@ -169,8 +176,8 @@ export class DataView extends React.Component {
                         background="white"
                         detectWheel = {true}
                         miniaturePosition = {"none"}
-                        toolbarPosition = {"none"}
-                        tool = {"auto"}
+                        toolbarPosition = {this.state.showToolBar}
+                        tool = {this.state.plotTool}
                         detectAutoPan = {false}>
                         <svg width = {styles.width} height = {styles.height}>
                           <ScatterPlot {...this.state} {...styles} SetActiveKey={(index, activePeptide) => this.setActiveKey(index, activePeptide)} />
@@ -246,6 +253,7 @@ export class DataView extends React.Component {
                       </div>
                       <div className="col-sm-9">
                         <button className="heightToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v"></i></button>
+                        <button className="heightToggle" onClick={() => this.switchPlotTools()}> <i className="fa fa-object-group"></i></button>
                         {legendItems}
                       </div>
                     </div>
