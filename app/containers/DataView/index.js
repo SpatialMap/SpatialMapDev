@@ -210,12 +210,15 @@ export class DataView extends React.Component {
                                           dimensions = {dimensions}
                                           width = {styles.width}
                                           height = {styles.height}
-                                          color = {function(d) {
-                                            if (d.PSMs < 0.1)
-                                                return "red";
-                                            else
-                                                return "green";
-                                          }}
+                                          colour = {function(d) {
+                                                      if(d.id == "Q9JH04"){
+                                                        return("#000")
+                                                      } else if(d.markers != "unknown") {
+                                            						return(d.Colors)
+                                            					} else {
+                                            						return("rgba(0,0,0,0.1)")
+                                            					}
+                                            			}}
                                           onBrushEnd_data = {(out) => console.log(out)}
                                        />
                              </div>;
