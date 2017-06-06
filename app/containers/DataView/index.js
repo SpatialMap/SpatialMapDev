@@ -46,6 +46,7 @@ export class DataView extends React.Component {
     this.Viewer = null;
     this.state = {
       data: [],
+      metaData: [],
       rndKey: '',
       exprsSet: [],
       filterInput: '',
@@ -67,7 +68,7 @@ export class DataView extends React.Component {
       sortedBy: ['ProteinCoverage'],
       sortedAscending: true,
       showDownload: false,
-      showToolBar: '',
+      showToolBar: 'none',
       plotTool: 'auto'
     };
   }
@@ -98,8 +99,8 @@ export class DataView extends React.Component {
   };
 
   switchPlotTools(){
-    this.state.showToolBar == '' ? this.setState({showToolBar: 'right', plotTools: ''}):
-                                   this.setState({showToolBar: '', plotTools: 'auto'});
+    this.state.showToolBar == 'none' ? this.setState({showToolBar: 'right', plotTool: ''}):
+                                   this.setState({showToolBar: 'none',  plotTool: 'auto'});
   }
 
   setOrderBy(ascending = true){
@@ -136,10 +137,11 @@ export class DataView extends React.Component {
       });
     })
 
-    firebase.database().ref('data/' + this.props.params.uid + '/exprsSet').once("value", (snapshot) => {
-      let exprsSet = snapshot.val();
+    firebase.database().ref('meta/' + this.props.params.uid).once("value", (snapshot) => {
+      let meta = snapshot.val();
       this.setState({
-        exprsSet: exprsSet,
+        metaData: meta,
+        profileColumns: meta.profileColumns
       });
     })
   };
@@ -155,11 +157,6 @@ export class DataView extends React.Component {
     // / }
 
   render() {
-
-    const exprSet = this.state.exprsSet;
-    const exprsSet2 = this.state.exprsSet && this.state.exprsSet.filter(function(a) {
-      return a.id.toString() == ""
-    })
 
     const styles = {
       width   : 1910/((this.state.plotPCA + this.state.plotProfile + this.state.showUniProt)),
@@ -189,12 +186,12 @@ export class DataView extends React.Component {
                         <Spinner size={SpinnerSize.large} />
                     </div>;
 
-    const profileKeys = this.state.loading == true ? [] : Object.keys(this.state.exprsSet[1]);
     var keyVar = {};
-    for (var i = 1; i < profileKeys.length; ++i) {
-        profileKeys[i] != "id"  ?
-                  keyVar[profileKeys[i]] = {type:"number", "tickValues":[0,0.5,1]} : null ;
-    };
+    const profileKeys2 = this.state.profileColumns && this.state.profileColumns.map(function(obj) {
+        keyVar[obj] = {type:"number", "tickValues":[0,0.5,1]};
+      }
+    );
+
     const dimensions = keyVar;
 
     const iframeLink = "http://www.uniprot.org/uniprot/" + this.state.activePeptideID;
@@ -209,10 +206,16 @@ export class DataView extends React.Component {
     const profileContainer = this.state.plotProfile &&
                              <div className="scatterContainer">
                                       <ParallelCoordinatesComponent
-                                          data = {exprSet}
+                                          data = {this.state.data}
                                           dimensions = {dimensions}
                                           width = {styles.width}
                                           height = {styles.height}
+                                          color = {function(d) {
+                                            if (d.PSMs < 0.1)
+                                                return "red";
+                                            else
+                                                return "green";
+                                          }}
                                           onBrushEnd_data = {(out) => console.log(out)}
                                        />
                              </div>;
