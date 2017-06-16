@@ -50,6 +50,7 @@ export class DataView extends React.Component {
       rndKey: '',
       exprsSet: [],
       filterInput: '',
+      profileOutput:[],
       loading: true,
       plotHeight: 500,
       radius: 4,
@@ -219,7 +220,7 @@ export class DataView extends React.Component {
                                             						return("rgba(0,0,0,0.1)")
                                             					}
                                             			}}
-                                          onBrushEnd_data = {(out) => console.log(out)}
+                                          onBrushEnd_data = {(out) => this.setState({data : out})}
                                        />
                              </div>;
 
@@ -280,6 +281,8 @@ export class DataView extends React.Component {
                       />
                     </MarqueeSelection>
                   </div>;
+
+                  console.log(this.state.profileOutput);
 
     return (
       <div>
