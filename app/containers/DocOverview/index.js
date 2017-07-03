@@ -50,7 +50,7 @@ export class DocOverview extends React.Component { // eslint-disable-line react/
             <img className="icon" src="https://github.com/Bioconductor/BiocStickers/raw/master/pRoloc/pRoloc.png" />
             <h2>pRoloc</h2>
             <ul className="leftPadding">
-              <Link><li> Get Started </li></Link>
+              <Link to="/documentation/pRoloc"><li> Get Started </li></Link>
               <Link><li> Examples </li></Link>
               <Link><li> References </li></Link>
               <a href="http://bioconductor.org/packages/release/bioc/html/pRoloc.html"><li> Bioconductor Page </li></a>
@@ -60,7 +60,7 @@ export class DocOverview extends React.Component { // eslint-disable-line react/
             <img className="icon" src="https://github.com/Bioconductor/BiocStickers/raw/master/MSnbase/MSnbase.png" />
             <h2>MSnbase</h2>
             <ul className="leftPadding">
-              <Link><li> Get Started </li></Link>
+              <Link to="/documentation/MSnbase"><li> Get Started </li></Link>
               <Link><li> Examples </li></Link>
               <Link><li> References </li></Link>
               <a href="https://bioconductor.org/packages/release/bioc/html/MSnbase.html"><li> Bioconductor Page </li></a>

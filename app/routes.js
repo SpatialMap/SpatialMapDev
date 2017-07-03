@@ -146,7 +146,7 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
-      path: '/documentation',
+      path: '/documentation/:id',
       name: 'documentation',
       getComponent(location, cb) {
         import('containers/Documentation')
