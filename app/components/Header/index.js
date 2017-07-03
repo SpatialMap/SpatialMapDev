@@ -48,8 +48,8 @@ function Header() {
           <div className="dropdown-content">
             <ul>
             <li><Link className="navItem" to="/overview"> Documentation </Link> </li>
-            <li><Link className="navItem" to="/documentation"> -doc- </Link> </li>
-            <li><Link className="navItem" to="/documentation"> Impressum </Link> </li>
+            <li><Link className="navItem" to="/documentation"> References </Link> </li>
+            <li><Link className="navItem" to="/documentation"> Funding </Link> </li>
             <li><Link className="navItem" to="/documentation"> Terms </Link> </li>
             <li><Link className="navItem" to="/documentation"> Contact </Link> </li>
               {loggedIn && <li>
