@@ -41,58 +41,58 @@ export class DocOverview extends React.Component { // eslint-disable-line react/
             <img className="icon" src="http://frapbot.kohze.com/SpatialMaps/SpatialMaps_f3.png" />
             <h2>SpatialMaps</h2>
             <ul className="leftPadding">
-              <Link><li> Get Started </li></Link>
-              <Link><li> Examples </li></Link>
-              <Link><li> References </li></Link>
+              <Link><li className="liStyle"> Get Started </li></Link>
+              <Link><li className="liStyle"> Examples </li></Link>
+              <Link><li className="liStyle"> References </li></Link>
             </ul>
           </div>
           <div className="tile">
             <img className="icon" src="https://github.com/Bioconductor/BiocStickers/raw/master/pRoloc/pRoloc.png" />
             <h2>pRoloc</h2>
             <ul className="leftPadding">
-              <Link to="/documentation/pRoloc"><li> Get Started </li></Link>
-              <Link><li> Examples </li></Link>
-              <Link><li> References </li></Link>
-              <a href="http://bioconductor.org/packages/release/bioc/html/pRoloc.html"><li> Bioconductor Page </li></a>
+              <Link to="/documentation/pRoloc"><li className="liStyle"> Get Started </li></Link>
+              <Link><li className="liStyle"> Examples </li></Link>
+              <Link><li className="liStyle"> References </li></Link>
+              <a href="http://bioconductor.org/packages/release/bioc/html/pRoloc.html"><li className="liStyle"> Bioconductor Page </li></a>
             </ul>
           </div>
           <div className="tile">
             <img className="icon" src="https://github.com/Bioconductor/BiocStickers/raw/master/MSnbase/MSnbase.png" />
             <h2>MSnbase</h2>
             <ul className="leftPadding">
-              <Link to="/documentation/MSnbase"><li> Get Started </li></Link>
-              <Link><li> Examples </li></Link>
-              <Link><li> References </li></Link>
-              <a href="https://bioconductor.org/packages/release/bioc/html/MSnbase.html"><li> Bioconductor Page </li></a>
+              <Link to="/documentation/MSnbase"><li className="liStyle"> Get Started </li></Link>
+              <Link><li className="liStyle"> Examples </li></Link>
+              <Link><li className="liStyle"> References </li></Link>
+              <a href="https://bioconductor.org/packages/release/bioc/html/MSnbase.html"><li className="liStyle"> Bioconductor Page </li></a>
             </ul>
           </div>
           <div className="tile">
             <img className="icon" src="https://github.com/Bioconductor/BiocStickers/raw/master/pRoloc/pRolocdata.png" />
             <h2>API</h2>
             <ul className="leftPadding">
-              <Link><li> Get Started </li></Link>
-              <Link><li> Examples </li></Link>
-              <Link><li> Security </li></Link>
-              <Link><li> References </li></Link>
+              <Link><li className="liStyle"> Get Started </li></Link>
+              <Link><li className="liStyle"> Examples </li></Link>
+              <Link><li className="liStyle"> Security </li></Link>
+              <Link><li className="liStyle"> References </li></Link>
             </ul>
           </div>
           <div className="tile">
             <img className="icon" src="http://www.iconhot.com/icon/png/devine/256/circle-2-1.png" />
             <h2>Data Storage</h2>
             <ul className="leftPadding">
-              <Link><li> Get Started </li></Link>
-              <Link><li> Examples </li></Link>
-              <Link><li> References </li></Link>
+              <Link><li className="liStyle"> Get Started </li></Link>
+              <Link><li className="liStyle"> Examples </li></Link>
+              <Link><li className="liStyle"> References </li></Link>
             </ul>
           </div>
           <div className="tile">
             <img className="icon" src="http://www.iconhot.com/icon/png/devine/256/circle-2-1.png" />
             <h2>Accounts</h2>
             <ul className="leftPadding">
-              <Link><li> Get Started </li></Link>
-              <Link><li> Examples </li></Link>
-              <Link><li> Security </li></Link>
-              <Link><li> References </li></Link>
+              <Link><li className="liStyle"> Get Started </li></Link>
+              <Link><li className="liStyle"> Examples </li></Link>
+              <Link><li className="liStyle"> Security </li></Link>
+              <Link><li className="liStyle"> References </li></Link>
             </ul>
           </div>
         </div>

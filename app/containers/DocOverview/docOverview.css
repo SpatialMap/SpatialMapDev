@@ -28,10 +28,14 @@ h1 {
   font-weight: 600;
 }
 
-li {
+.liStyle{
   list-style-type: none;
   padding: 0px;
   color: #327cad;
+}
+
+.liStyle:hover{
+  background-color: rgba(0,0,0,0);
 }
 
 h2 {

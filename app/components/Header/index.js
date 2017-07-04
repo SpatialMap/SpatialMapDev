@@ -47,12 +47,12 @@ function Header() {
           <div className="tripplePoint">&#9776;</div>
           <div className="dropdown-content">
             <ul>
-            <li><Link className="navItem" to="/overview"> Documentation </Link> </li>
-            <li><Link className="navItem" to="/documentation"> References </Link> </li>
-            <li><Link className="navItem" to="/documentation"> Funding </Link> </li>
-            <li><Link className="navItem" to="/documentation"> Terms </Link> </li>
-            <li><Link className="navItem" to="/documentation"> Contact </Link> </li>
-              {loggedIn && <li>
+            <li className="liHeadStyle"><Link className="navItem" to="/overview"> Documentation </Link> </li>
+            <li className="liHeadStyle"><Link className="navItem" to="/documentation"> References </Link> </li>
+            <li className="liHeadStyle"><Link className="navItem" to="/documentation"> Funding </Link> </li>
+            <li className="liHeadStyle"><Link className="navItem" to="/documentation"> Terms </Link> </li>
+            <li className="liHeadStyle"><Link className="navItem" to="/documentation"> Contact </Link> </li>
+              {loggedIn && <li className="liHeadStyle">
               <Link className="navItem" onClick={logout.bind(this)}> Logout </Link> </li>}
             </ul>
           </div>
