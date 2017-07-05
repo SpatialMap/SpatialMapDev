@@ -45,6 +45,8 @@ export class DataView extends React.Component {
     super(props, context);
     this.Viewer = null;
     this.state = {
+      width: window.innerWidth,
+      height: window.innerHeight,
       data: [],
       metaData: [],
       rndKey: '',
@@ -157,10 +159,12 @@ export class DataView extends React.Component {
     //    }
     // / }
 
+
+
   render() {
 
     const styles = {
-      width   : 1910/((this.state.plotPCA + this.state.plotProfile + this.state.showUniProt)),
+      width   : this.state.width/((this.state.plotPCA + this.state.plotProfile + this.state.showUniProt)),
       height  : this.state.plotHeight,
       padding : 30,
     };
@@ -234,9 +238,11 @@ export class DataView extends React.Component {
                   "name" : keyAggregate[i],
                   "fieldName" : keyAggregate[i],
                   "isResizable" : true,
-                  "minWidth" : 1600/keyAggregate.length,
+                  "isRowHeader" : true,
+                  "minWidth" : (this.state.width - 300)/keyAggregate.length,
                   "isSorted" : this.state.sortedBy == keyAggregate[i] ? true : false,
                   "isSortedDescending" : this.state.sortedAscending,
+                  "onColumnClick" : () => console.log(i),
       }) : null ;
     }
 
@@ -256,7 +262,6 @@ export class DataView extends React.Component {
                           onChange={(newValue) => newValue == '' && this.setState({filterInput: newValue}) }
                           style={{backgroundColor: '#f2e4d8'}} labelText='Filter'
                         />
-
                       </div>
                       <div className="col-sm-9">
                         <button className="heightToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v"></i></button>
@@ -274,16 +279,15 @@ export class DataView extends React.Component {
                         constrainMode = {ConstrainMode.unconstrained}
                         layoutMode = {DetailsListLayoutMode.fixedColumns}
                         isLazyLoaded = {true}
-                        columnActionsMode = {ColumnActionsMode.hasDropdown}
+                        columnActionsMode = {ColumnActionsMode.clickable}
                         checkboxVisibility = {CheckboxVisibility.hidden}
                         selectionPreservedOnEmptyClick = {true}
                         onActiveItemChanged = { (item, index) => this.setState({ activeKey : index }) }
+                        />
+
                       />
                     </MarqueeSelection>
                   </div>;
-
-                  console.log(this.state.profileOutput);
-
     return (
       <div>
 
