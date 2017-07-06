@@ -105,6 +105,24 @@
   font-size: 12px;
 }
 
+
+.modChoice {
+  background-color: #f2e4d8;
+  height: 60px;
+  width: 100%;
+  margin-top: 10px;
+  font-weight: 400;
+  text-align: center;
+  padding-top: 22px;
+  font-weight: bold;
+  font-size: 12px;
+  box-shadow: 0px 1px 2px 0.5px rgba(0,0,0,0.2);
+}
+
+.modChoice:hover{
+  background-color: #f2e4d0;
+}
+
 .choiceChild {
   float : right;
 }

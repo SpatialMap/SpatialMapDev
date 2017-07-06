@@ -68,7 +68,7 @@ export class DataView extends React.Component {
       colorSelect: [''],
       radiusSelect: [''],
       transpSelect: [''],
-      sortedBy: ['ProteinCoverage'],
+      sortedBy: '',
       sortedAscending: true,
       showDownload: false,
       showToolBar: 'none',
@@ -88,38 +88,38 @@ export class DataView extends React.Component {
                                    this.setState({plotHeight: 500});
   }
 
-  setActiveColor(){
-    this.state.colorSelect == '' ? this.setState({colorSelect: ['Peptides']}):
+  setActiveColor(reset = false){
+    !reset ? this.setState({colorSelect: this.state.nameColumnPopup}):
                                    this.setState({colorSelect : ['']});
   };
 
-  setActiveRadius(){
-    this.state.radiusSelect == '' ? this.setState({radiusSelect: ['ProteinCoverage']}):
+  setActiveRadius(reset = false){
+    !reset ? this.setState({radiusSelect: this.state.nameColumnPopup}):
                                     this.setState({radiusSelect : ['']});
   };
 
-  setActiveTransp(){
-    this.state.transpSelect == '' ? this.setState({transpSelect: ['PSMs']}):
+  setActiveTransp(reset = false){
+    !reset ? this.setState({transpSelect: this.state.nameColumnPopup}):
                                     this.setState({transpSelect: ['']});
   };
 
-  switchPlotTools(){
-    this.state.showToolBar == 'none' ? this.setState({showToolBar: 'right', plotTool: ''}):
+  switchPlotTools(reset = false){
+    !reset ? this.setState({showToolBar: 'right', plotTool: ''}):
                                    this.setState({showToolBar: 'none',  plotTool: 'auto'});
   }
 
   setOrderBy(ascending = true){
     this.setState({sortedAscending : !this.state.sortedAscending});
-    if(typeof Object.entries(this.state.data)[0][1][this.state.sortedBy] === "number"){
+    if(typeof Object.entries(this.state.data)[0][1][this.state.nameColumnPopup] === "number"){
       this.setState({data : this.state.data.sort((a,b) => {
-              return ascending ? a[this.state.sortedBy] - b[this.state.sortedBy]:
-                                 b[this.state.sortedBy] - a[this.state.sortedBy];
+              return ascending ? a[this.state.nameColumnPopup] - b[this.state.nameColumnPopup]:
+                                 b[this.state.nameColumnPopup] - a[this.state.nameColumnPopup];
          })
       })
     } else {
       this.setState({data : this.state.data.sort((a, b) => {
-        return ascending ? a[this.state.sortedBy].localeCompare(b[this.state.sortedBy]):
-                           b[this.state.sortedBy].localeCompare(a[this.state.sortedBy]);
+        return ascending ? a[this.state.nameColumnPopup].localeCompare(b[this.state.nameColumnPopup]):
+                           b[this.state.nameColumnPopup].localeCompare(a[this.state.nameColumnPopup]);
         })
       })
     }
@@ -354,39 +354,19 @@ export class DataView extends React.Component {
         title='Column Options'
         isBlocking={ false }
         containerClassName='ms-dialogMainOverride'>
-        <p style={{textAlign: 'center'}}> Load the dataset object directly into R or download the source file</p>
-          <ChoiceGroup
-          label='Choose a modifier'
-          onChange = {(i,j) => console.log(j.key)}
-          options={ [
-            {
-              key: 'day',
-              iconProps: { iconName: 'CalendarDay' },
-              text: 'Transparency'
-            },
-            {
-              key: 'week',
-              iconProps: { iconName: 'CalendarWeek' },
-              text: 'Radius'
-            },
-            {
-              key: 'month',
-              iconProps: { iconName: 'Calendar' },
-              text: 'Color',
-            }
-          ] }
-        />
-        <div className="choiceChild"  onClick={() => this.setActiveColor()}>
-          [Color]
+        <p style={{textAlign: 'center'}}> Use the column to display additional data in the plot with the help of modifiers</p>
+
+        <div className="modChoice"  onClick={() => this.setActiveColor()}>
+          Color
         </div>
-        <div className="choiceChild"  onClick={() => this.setActiveRadius()}>
-          [Radius]
+        <div className="modChoice"  onClick={() => this.setActiveRadius()}>
+          Radius
         </div>
-        <div className="choiceChild"  onClick={() => this.setActiveTransp()}>
-          [Transp]
+        <div className="modChoice"  onClick={() => this.setActiveTransp()}>
+          Transparency
         </div>
-        <div className="choiceChild" onClick={() => this.setOrderBy(this.state.sortedAscending)}>
-          [SortBy]
+        <div className="modChoice" onClick={() => this.setOrderBy(this.state.sortedAscending)}>
+          Sort Table by Column
         </div>
 
 
