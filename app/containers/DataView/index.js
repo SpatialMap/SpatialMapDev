@@ -72,7 +72,9 @@ export class DataView extends React.Component {
       sortedAscending: true,
       showDownload: false,
       showToolBar: 'none',
-      plotTool: 'auto'
+      plotTool: 'auto',
+      showColumnPopup: false,
+      nameColumnPopup: '',
     };
   }
 
@@ -159,8 +161,6 @@ export class DataView extends React.Component {
     //    }
     // / }
 
-
-
   render() {
 
     const styles = {
@@ -242,7 +242,7 @@ export class DataView extends React.Component {
                   "minWidth" : (this.state.width - 300)/keyAggregate.length,
                   "isSorted" : this.state.sortedBy == keyAggregate[i] ? true : false,
                   "isSortedDescending" : this.state.sortedAscending,
-                  "onColumnClick" : () => console.log(i),
+                  "onColumnClick" : (i,j) => this.setState({showColumnPopup: true, nameColumnPopup: j.fieldName}),
       }) : null ;
     }
 
@@ -284,8 +284,6 @@ export class DataView extends React.Component {
                         selectionPreservedOnEmptyClick = {true}
                         onActiveItemChanged = { (item, index) => this.setState({ activeKey : index }) }
                         />
-
-                      />
                     </MarqueeSelection>
                   </div>;
     return (
@@ -333,18 +331,8 @@ export class DataView extends React.Component {
            onChange = { () => this.setState({ dispUnknown : !this.state.dispUnknown }) }
           />
         </div>
-        <div className="choiceChild"  onClick={() => this.setActiveColor()}>
-          [Color]
-        </div>
-        <div className="choiceChild"  onClick={() => this.setActiveRadius()}>
-          [Radius]
-        </div>
-        <div className="choiceChild"  onClick={() => this.setActiveTransp()}>
-          [Transp]
-        </div>
-        <div className="choiceChild" onClick={() => this.setOrderBy(this.state.sortedAscending)}>
-          [SortBy]
-        </div>
+
+
         <div className="choiceChild"  onClick={ () => this.setState({ showUniProt : !this.state.showUniProt }) }>
             UniProt
         </div>
@@ -358,6 +346,52 @@ export class DataView extends React.Component {
           PCA
         </div>
       </div>
+
+      <Dialog
+        isOpen={ this.state.showColumnPopup }
+        type={ DialogType.normal }
+        onDismiss={() => this.setState({showColumnPopup : !this.state.showColumnPopup})}
+        title='Column Options'
+        isBlocking={ false }
+        containerClassName='ms-dialogMainOverride'>
+        <p style={{textAlign: 'center'}}> Load the dataset object directly into R or download the source file</p>
+          <ChoiceGroup
+          label='Choose a modifier'
+          onChange = {(i,j) => console.log(j.key)}
+          options={ [
+            {
+              key: 'day',
+              iconProps: { iconName: 'CalendarDay' },
+              text: 'Transparency'
+            },
+            {
+              key: 'week',
+              iconProps: { iconName: 'CalendarWeek' },
+              text: 'Radius'
+            },
+            {
+              key: 'month',
+              iconProps: { iconName: 'Calendar' },
+              text: 'Color',
+            }
+          ] }
+        />
+        <div className="choiceChild"  onClick={() => this.setActiveColor()}>
+          [Color]
+        </div>
+        <div className="choiceChild"  onClick={() => this.setActiveRadius()}>
+          [Radius]
+        </div>
+        <div className="choiceChild"  onClick={() => this.setActiveTransp()}>
+          [Transp]
+        </div>
+        <div className="choiceChild" onClick={() => this.setOrderBy(this.state.sortedAscending)}>
+          [SortBy]
+        </div>
+
+
+      </Dialog>
+
       <Dialog
         isOpen={ this.state.showDownload }
         type={ DialogType.largeHeader }
