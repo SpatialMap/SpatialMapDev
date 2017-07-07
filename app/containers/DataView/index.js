@@ -78,6 +78,27 @@ export class DataView extends React.Component {
     };
   }
 
+
+  resetAll(){
+  this.setState({
+      rndKey: '',
+      filterInput: '',
+      radius: 4,
+      dispUnknown: true,
+      labels: false,
+      brushedData: [],
+      showUniProt: false,
+      plotPCA: true,
+      plotTSNE: false,
+      plotProfile: true,
+      colorSelect: [''],
+      radiusSelect: [''],
+      transpSelect: [''],
+      sortedBy: '',
+      showToolBar: 'none',
+      plotTool: 'auto',
+    })
+  };
   setActiveKey(index, activePeptide) {
     this.setState({activeKey: index});
     this.setState({activePeptideID: activePeptide});
@@ -86,6 +107,7 @@ export class DataView extends React.Component {
   togglePlotHeight(){
     this.state.plotHeight == 500 ? this.setState({plotHeight: 820}) :
                                    this.setState({plotHeight: 500});
+    this.setState({plotPCA : true});
   }
 
   setActiveColor(reset = false){
@@ -266,6 +288,8 @@ export class DataView extends React.Component {
                       <div className="col-sm-9">
                         <button className="heightToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v"></i></button>
                         <button className="heightToggle" onClick={() => this.switchPlotTools()}> <i className="fa fa-object-group"></i></button>
+                        <button className="heightToggle" onClick={() => this.resetAll()}> <i className="fa fa-undo"></i></button>
+
                         {legendItems}
                       </div>
                     </div>
