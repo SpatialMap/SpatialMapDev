@@ -59,7 +59,7 @@ export class DataView extends React.Component {
       dispUnknown: true,
       labels: false,
       activeKey: [],
-      activePeptideID: 'Q9JHU4',
+      activePeptideID: '',
       brushedData: [],
       showUniProt: false,
       plotPCA: true,
@@ -78,27 +78,27 @@ export class DataView extends React.Component {
     };
   }
 
-
   resetAll(){
-  this.setState({
-      rndKey: '',
-      filterInput: '',
-      radius: 4,
-      dispUnknown: true,
-      labels: false,
-      brushedData: [],
-      showUniProt: false,
-      plotPCA: true,
-      plotTSNE: false,
-      plotProfile: true,
-      colorSelect: [''],
-      radiusSelect: [''],
-      transpSelect: [''],
-      sortedBy: '',
-      showToolBar: 'none',
-      plotTool: 'auto',
-    })
+    this.setState({
+        rndKey: '',
+        filterInput: '',
+        radius: 4,
+        dispUnknown: true,
+        labels: false,
+        brushedData: [],
+        showUniProt: false,
+        plotPCA: true,
+        plotTSNE: false,
+        plotProfile: true,
+        colorSelect: [''],
+        radiusSelect: [''],
+        transpSelect: [''],
+        sortedBy: '',
+        showToolBar: 'none',
+        plotTool: 'auto',
+      })
   };
+
   setActiveKey(index, activePeptide) {
     this.setState({activeKey: index});
     this.setState({activePeptideID: activePeptide});
