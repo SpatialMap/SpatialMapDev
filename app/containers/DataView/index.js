@@ -36,6 +36,8 @@ import { Callout } from 'office-ui-fabric-react/lib/Callout';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 var ParallelCoordinatesComponent=require('react-parallel-coordinates');
+import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
+
 
 var Dimensions = require('react-dimensions');
 
@@ -75,6 +77,7 @@ export class DataView extends React.Component {
       plotTool: 'auto',
       showColumnPopup: false,
       nameColumnPopup: '',
+      showComments: false,
     };
   }
 
@@ -237,9 +240,12 @@ export class DataView extends React.Component {
                                           dimensions = {dimensions}
                                           width = {styles.width}
                                           height = {styles.height}
-                                          colour = {function(d) {
-                                                      if(d.id == "Q9JH04"){
-                                                        return("#000")
+                                          highlights = {1}
+                                          colourHightlight = {this.state.activePeptideID}
+                                          colour = {function(d, dataHighlighted) {
+                                                      if(d.id == dataHighlighted){
+                                                        console.log("works");
+                                                        return("#ff0000")
                                                       } else if(d.markers != "unknown") {
                                             						return(d.Colors)
                                             					} else {
@@ -270,8 +276,8 @@ export class DataView extends React.Component {
 
     let arr = Object.values(this.state.data).map((k) => this.state.data[k]);
     const uniqueFactors =  arr.filter((x, i, a) => a.indexOf(x) == i);
-
-    let fillContent = ['more...','Unknown','Mitochondrion','Plasma membrane','60s Ribosome','Endoplasmatic reticulum'];
+    console.log(arr);
+    let fillContent = ['placeholder'];
     const legendItems = fillContent.map((number) =>
       <button className="lengendItems" key={number.toString()}>{number}</button>
     );
@@ -321,7 +327,7 @@ export class DataView extends React.Component {
         />
 
         <div className="configBar">
-          <div className="leftButtons first">Comments </div>
+          <div className="leftButtons first" onClick={() => this.setState({showComments : true})}>Comments </div>
           <div className="leftButtons" onClick={() => this.setState({showDownload : true})}>Download </div>
           <div className="leftButtons">Meta Data</div>
         <div className="slider">
@@ -380,7 +386,7 @@ export class DataView extends React.Component {
         containerClassName='ms-dialogMainOverride'>
         <p style={{textAlign: 'center'}}> Use the column to display additional data in the plot with the help of modifiers</p>
 
-        <div className="modChoice"  onClick={() => this.setActiveColor()}>
+        <div className="modChoice"  onClick={() => this.this.state.tActiveColor()}>
           Color
         </div>
         <div className="modChoice"  onClick={() => this.setActiveRadius()}>
@@ -395,6 +401,18 @@ export class DataView extends React.Component {
 
 
       </Dialog>
+
+      <Panel
+          isBlocking={ false }
+          isOpen={ this.state.showComments }
+          isLightDismiss={ true }
+          onDismiss={ () => this.setState({ showComments: false }) }
+          type={ PanelType.smallFixedNear }
+          headerText='Comments'
+          closeButtonAriaLabel='Close'
+        >
+          <span className='ms-font-m'>adding disqus commenting plugin here</span>
+        </Panel>
 
       <Dialog
         isOpen={ this.state.showDownload }
