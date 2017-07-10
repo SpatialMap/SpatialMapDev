@@ -78,6 +78,7 @@ export class DataView extends React.Component {
       showColumnPopup: false,
       nameColumnPopup: '',
       showComments: false,
+      showMetaData: false,
     };
   }
 
@@ -175,16 +176,6 @@ export class DataView extends React.Component {
       });
     })
   };
-
-  //sortedAscending
-
-    //  @keydown( 'enter' ) // or specify `which` code directly, in this case 13
-    //    submit( event ) {
-    //      // do something, or not, with the keydown event, maybe event.preventDefault()
-    //      this.Viewer.setTool("pan");
-    //      //this.setState({tool: fitSelection(})
-    //    }
-    // / }
 
   render() {
 
@@ -329,7 +320,7 @@ export class DataView extends React.Component {
         <div className="configBar">
           <div className="leftButtons first" onClick={() => this.setState({showComments : true})}>Comments </div>
           <div className="leftButtons" onClick={() => this.setState({showDownload : true})}>Download </div>
-          <div className="leftButtons">Meta Data</div>
+          <div className="leftButtons" onClick={() => this.setState({showMetaData : !this.state.showMetaData})}>Meta Data</div>
         <div className="slider">
           <Slider
             label = 'Scatter Point Size'
@@ -432,16 +423,22 @@ export class DataView extends React.Component {
           <DefaultButton text='.CSV' />
         </div>
       </Dialog>
+      {this.state.showMetaData ?
+        <div className="mainPlot" style={{height: this.state.plotHeight}}>
+          MetaDataPlaceholder
+      </div>
+      :
       <div className="mainPlot" style={{height: this.state.plotHeight}}>
         {profileContainer}
         {d3Container}
         {uniProtContainer}
       </div>
+      }
       <div className="table">
           {table}
       </div>
       </div>
-      )
+    );
   }
 }
 
