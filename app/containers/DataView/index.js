@@ -377,7 +377,7 @@ export class DataView extends React.Component {
         containerClassName='ms-dialogMainOverride'>
         <p style={{textAlign: 'center'}}> Use the column to display additional data in the plot with the help of modifiers</p>
 
-        <div className="modChoice"  onClick={() => this.this.state.tActiveColor()}>
+        <div className="modChoice"  onClick={() => this.setActiveColor()}>
           Color
         </div>
         <div className="modChoice"  onClick={() => this.setActiveRadius()}>
