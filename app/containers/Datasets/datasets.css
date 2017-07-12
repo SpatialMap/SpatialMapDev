@@ -19,7 +19,6 @@
   background-color: #f4f4f4;
 }
 
-
 .searchBox {
   padding: 0px;
 }
@@ -28,16 +27,11 @@
   padding: 200px;
 }
 
-.upperBarChild {
-  background-color: white;
-  width: 70%;
-}
-
 .speciesImage {
   height: 100%;
 }
 .tileText {
-  padding-left: 35px;
+  padding-left: 10px;
   padding-top: 15px;
   font-weight: 600;
   color: #000;

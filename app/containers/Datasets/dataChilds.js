@@ -49,16 +49,21 @@ class DataChild extends React.Component {
     const onlySearched = this.props.item.varName &&
                          Object.values(this.props.item).toString().toLowerCase().indexOf(this.props.searchTerm.toLowerCase()) !== -1;
 
-    const mainContent = onlySearched ? <Link to={'/dataView/' + this.props.item.id} key={'link' + this.props.item.id}>
-         <div  className="dataChild" key={'dataChild' + this.props.item.id}>
-           {Image}
-           <div className="upperBarChild">
+    const mainContent = onlySearched ?
+    <Link to={'/dataView/' + this.props.item.id} key={'link' + this.props.item.id}>
+         <div  className="dataChild row" key={'dataChild' + this.props.item.id}>
+           <div>
+             {Image}
+           </div>
+           <div className="col-sm-9">
              {lab}
              {species}
              {description}
              {tissue}
            </div>
+           <div className="col-sm-2" style={{backgroundColor: "#fff", textAlign: "left", padding: 0}}>
              {VarName}
+           </div>
          </div>
      </Link> : null;
 
