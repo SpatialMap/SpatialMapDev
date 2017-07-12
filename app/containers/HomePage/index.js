@@ -97,12 +97,6 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
           </div>
         </div>
 
-        <div className="container row continueBar">
-          <Link className="continueButton" to="/about"> About </Link>
-          <Link className="continueButton" to="/datasets"> Datasets </Link>
-          <Link className="continueButton" to="/login"> Login/Register </Link>
-        </div>
-
       </div>
     );
   }

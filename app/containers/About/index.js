@@ -129,12 +129,7 @@ export class About extends React.Component { // eslint-disable-line react/prefer
 
           </div>
 
-          <div className="container row continueBar">
-            <Link className="continueButton" to="/"> Home </Link>
-            <Link className="continueButton" to="/datasets"> Datasets </Link>
-            <Link className="continueButton" to="/login"> Login/Register </Link>
-          </div>
-
+          
 
         </div>
       </div>
