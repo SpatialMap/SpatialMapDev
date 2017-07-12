@@ -51,18 +51,19 @@ class DataChild extends React.Component {
 
     const mainContent = onlySearched ?
     <Link to={'/dataView/' + this.props.item.id} key={'link' + this.props.item.id}>
-         <div  className="dataChild row" key={'dataChild' + this.props.item.id}>
-           <div>
-             {Image}
-           </div>
+         <div  className="dataChild" key={'dataChild' + this.props.item.id}>
+
            <div className="col-sm-9">
              {lab}
              {species}
              {description}
              {tissue}
            </div>
-           <div className="col-sm-2" style={{backgroundColor: "#fff", textAlign: "left", padding: 0}}>
+           <div className="col-sm-2" style={{backgroundColor: "#fff", textAlign: "left", padding: 2}}>
              {VarName}
+           </div>
+           <div className="col-sm-1" style={{padding: 0}}>
+             {Image}
            </div>
          </div>
      </Link> : null;
