@@ -51,6 +51,7 @@ export class DataView extends React.Component {
       height: window.innerHeight,
       data: [],
       metaData: [],
+      markerClasses: [],
       rndKey: '',
       exprsSet: [],
       filterInput: '',
@@ -172,7 +173,8 @@ export class DataView extends React.Component {
       let meta = snapshot.val();
       this.setState({
         metaData: meta,
-        profileColumns: meta.profileColumns
+        profileColumns: meta.profileColumns,
+        markerClasses: meta.markerClasses
       });
     })
   };
@@ -265,12 +267,13 @@ export class DataView extends React.Component {
       }) : null ;
     }
 
-    let arr = Object.values(this.state.data).map((k) => this.state.data[k]);
+    let arr = Object.keys(this.state.data).map((k) => this.state.data[k]);
     const uniqueFactors =  arr.filter((x, i, a) => a.indexOf(x) == i);
-    console.log(arr);
+    let arr2 = this.state.markerClasses.split(',');
+    console.log(arr2)
     let fillContent = ['placeholder'];
-    const legendItems = fillContent.map((number) =>
-      <button className="lengendItems" key={number.toString()}>{number}</button>
+    const legendItems = arr2.map(obj =>
+      <button className="lengendItems" key={obj.toString()}>{obj}</button>
     );
 
     const table = <div className="tableCore">
