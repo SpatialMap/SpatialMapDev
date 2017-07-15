@@ -13,6 +13,8 @@ import makeSelectAbout from './selectors';
 import messages from './messages';
 import { Link } from 'react-router';
 import './about.css';
+import Footer from '../../components/Footer';
+
 
 export class About extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -129,9 +131,10 @@ export class About extends React.Component { // eslint-disable-line react/prefer
 
           </div>
 
-          
+
 
         </div>
+        <Footer />
       </div>
     );
   }

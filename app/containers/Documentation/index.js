@@ -8,6 +8,8 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import './documentation.css'
+import Footer from '../../components/Footer';
+
 
 export class Documentation extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -54,6 +56,7 @@ export class Documentation extends React.Component { // eslint-disable-line reac
             {iframeContainer}
           </div>
         </div>
+        <Footer />
       </div>
     );
   }
