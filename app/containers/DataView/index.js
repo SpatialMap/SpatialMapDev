@@ -52,6 +52,7 @@ export class DataView extends React.Component {
       data: [],
       metaData: [],
       markerClasses: [],
+      markerToggle: [],
       rndKey: '',
       exprsSet: [],
       filterInput: '',
@@ -133,6 +134,13 @@ export class DataView extends React.Component {
   switchPlotTools(reset = false){
     !reset ? this.setState({showToolBar: 'right', plotTool: ''}):
                                    this.setState({showToolBar: 'none',  plotTool: 'auto'});
+  }
+
+  toggleMarkers(marker){
+    ["test"].includes("test2") ?
+             this.setState({markerToggle: this.state.markerToggle.prototype.filter(item => item !== marker)}):
+             this.setState({markerToggle: this.state.markerToggle.push(marker)});
+             console.log(this.state.markerToggle);
   }
 
   setOrderBy(ascending = true){
@@ -267,13 +275,9 @@ export class DataView extends React.Component {
       }) : null ;
     }
 
-    let arr = Object.keys(this.state.data).map((k) => this.state.data[k]);
-    const uniqueFactors =  arr.filter((x, i, a) => a.indexOf(x) == i);
-    let arr2 = this.state.markerClasses.split(',');
-    console.log(arr2)
-    let fillContent = ['placeholder'];
-    const legendItems = arr2.map(obj =>
-      <button className="lengendItems" key={obj.toString()}>{obj}</button>
+    let markerClasses = !this.state.loading && this.state.markerClasses.split(',');
+    const legendItems = markerClasses && markerClasses.map(obj =>
+      <button className="lengendItems"  onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
     );
 
     const table = <div className="tableCore">
@@ -289,7 +293,6 @@ export class DataView extends React.Component {
                         <button className="heightToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v"></i></button>
                         <button className="heightToggle" onClick={() => this.switchPlotTools()}> <i className="fa fa-object-group"></i></button>
                         <button className="heightToggle" onClick={() => this.resetAll()}> <i className="fa fa-undo"></i></button>
-
                         {legendItems}
                       </div>
                     </div>
