@@ -56,7 +56,6 @@ export class Documentation extends React.Component { // eslint-disable-line reac
             {iframeContainer}
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
