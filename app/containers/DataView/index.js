@@ -84,6 +84,7 @@ export class DataView extends React.Component {
     };
   }
 
+  //function that resets the state functions to its original state
   resetAll(){
     this.setState({
         rndKey: '',
@@ -105,13 +106,14 @@ export class DataView extends React.Component {
       })
   };
 
+  //function defines which peptide is highlighted
   setActiveKey(index, activePeptide) {
     this.setState({activeKey: index});
     this.setState({activePeptideID: activePeptide});
   };
 
   togglePlotHeight(){
-    this.state.plotHeight == 500 ? this.setState({plotHeight: 820}) :
+    this.state.plotHeight == 500 ? this.setState({plotHeight: this.state.height - 150}) :
                                    this.setState({plotHeight: 500});
     this.setState({plotPCA : true});
   }
@@ -136,6 +138,7 @@ export class DataView extends React.Component {
                                    this.setState({showToolBar: 'none',  plotTool: 'auto'});
   }
 
+  //adds or deletes organelle names from array to show/hide those
   toggleMarkers(marker){
     ["test"].includes("test2") ?
              this.setState({markerToggle: this.state.markerToggle.prototype.filter(item => item !== marker)}):
@@ -143,6 +146,7 @@ export class DataView extends React.Component {
              console.log(this.state.markerToggle);
   }
 
+  //ordering function (called from colum header modal)
   setOrderBy(ascending = true){
     this.setState({sortedAscending : !this.state.sortedAscending});
     if(typeof Object.entries(this.state.data)[0][1][this.state.nameColumnPopup] === "number"){
@@ -165,7 +169,8 @@ export class DataView extends React.Component {
     this.Viewer.fitToViewer();
   }
 
-  //loading scatterplot data from firebase
+  //loading the fSet data from firebase
+  //the loading state is set to false once data is fetched
   componentDidMount(){
     var data = [];
     var exprsSet = [];
@@ -177,7 +182,8 @@ export class DataView extends React.Component {
       });
     })
 
-    firebase.database().ref('meta/' + this.props.params.uid).once("value", (snapshot) => {
+  //loading the meta data from firebase
+  firebase.database().ref('meta/' + this.props.params.uid).once("value", (snapshot) => {
       let meta = snapshot.val();
       this.setState({
         metaData: meta,
@@ -189,12 +195,14 @@ export class DataView extends React.Component {
 
   render() {
 
+    //styles defines the height and width of the plots
     const styles = {
       width   : this.state.width/((this.state.plotPCA + this.state.plotProfile + this.state.showUniProt)),
       height  : this.state.plotHeight,
       padding : 30,
     };
 
+    //the scatter plot component
     const d3Plot =  <div className="scatterContainer">
                       <ReactSVGPanZoom
                         width = {styles.width}
@@ -213,18 +221,20 @@ export class DataView extends React.Component {
                       </ReactSVGPanZoom>
                     </div>
 
+    //the loader that occurs before the dataset is fetched
     const loader =  <div className="loader">
                         <Spinner size={SpinnerSize.large} />
                     </div>;
 
+    //creating a json object that contains the column attributes for the parallels package
     var keyVar = {};
     const profileKeys2 = this.state.profileColumns && this.state.profileColumns.map(function(obj) {
         keyVar[obj] = {type:"number", "tickValues":[0,0.5,1]};
       }
     );
-
     const dimensions = keyVar;
 
+    //the uniprot routine - a simple iframe that combines a url with the peptideID
     const iframeLink = "http://www.uniprot.org/uniprot/" + this.state.activePeptideID;
     const uniProtContainer = this.state.showUniProt &&
                              <iframe
@@ -234,6 +244,7 @@ export class DataView extends React.Component {
                                        src = {iframeLink}
                              />;
 
+    // the profile plot
     const profileContainer = this.state.plotProfile &&
                              <div className="scatterContainer">
                                       <ParallelCoordinatesComponent
@@ -257,7 +268,10 @@ export class DataView extends React.Component {
                                        />
                              </div>;
 
+    //loader or plot logic
     const d3Container = this.state.loading ? loader : this.state.plotPCA && d3Plot;
+
+    //table colum JSON attributes
     const keyAggregate = this.state.loading ? [] : Object.keys(this.state.data[1]);
     var columnVar = [];
     for (var i = 1; i < keyAggregate.length; ++i) {
@@ -275,11 +289,13 @@ export class DataView extends React.Component {
       }) : null ;
     }
 
+    //extracts the markerClasses from the meta data and displays them as buttons
     let markerClasses = !this.state.loading && this.state.markerClasses.split(',');
     const legendItems = markerClasses && markerClasses.map(obj =>
       <button className="lengendItems"  onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
     );
 
+    //the data table inclusive the bar above the table
     const table = <div className="tableCore">
                     <div className="belowMainPlot row">
                       <div className="col-sm-3">
@@ -317,12 +333,13 @@ export class DataView extends React.Component {
       <div>
 
         <Helmet
-          title="DataView"
+          title="SpatialMaps - DataView"
           meta={[
             { name: 'description', content: 'Description of DataView' },
           ]}
         />
 
+        {/*Top left buttons & sliders */}
         <div className="configBar">
           <div className="leftButtons first" onClick={() => this.setState({showComments : true})}>Comments </div>
           <div className="leftButtons" onClick={() => this.setState({showDownload : true})}>Download </div>
@@ -359,7 +376,7 @@ export class DataView extends React.Component {
           />
         </div>
 
-
+        {/*Top right buttons */}
         <div className="choiceChild"  onClick={ () => this.setState({ showUniProt : !this.state.showUniProt }) }>
             UniProt
         </div>
@@ -374,6 +391,7 @@ export class DataView extends React.Component {
         </div>
       </div>
 
+      {/* The modal showing on colum header click */}
       <Dialog
         isOpen={ this.state.showColumnPopup }
         type={ DialogType.normal }
@@ -381,8 +399,9 @@ export class DataView extends React.Component {
         title='Column Options'
         isBlocking={ false }
         containerClassName='ms-dialogMainOverride'>
-        <p style={{textAlign: 'center'}}> Use the column to display additional data in the plot with the help of modifiers</p>
-
+        <p style={{textAlign: 'center'}}> Use the column to display additional data in the plot with
+          the help of modifiers
+        </p>
         <div className="modChoice"  onClick={() => this.setActiveColor()}>
           Color
         </div>
@@ -395,10 +414,9 @@ export class DataView extends React.Component {
         <div className="modChoice" onClick={() => this.setOrderBy(this.state.sortedAscending)}>
           Sort Table by Column
         </div>
-
-
       </Dialog>
 
+      {/* side modal for comment section */}
       <Panel
           isBlocking={ false }
           isOpen={ this.state.showComments }
@@ -411,6 +429,7 @@ export class DataView extends React.Component {
           <span className='ms-font-m'>adding disqus commenting plugin here</span>
         </Panel>
 
+      {/* download modal */}
       <Dialog
         isOpen={ this.state.showDownload }
         type={ DialogType.largeHeader }
@@ -429,6 +448,8 @@ export class DataView extends React.Component {
           <DefaultButton text='.CSV' />
         </div>
       </Dialog>
+
+      {/* metadata or plot logic */}
       {this.state.showMetaData ?
         <div className="mainPlot" style={{height: this.state.plotHeight}}>
           MetaDataPlaceholder
