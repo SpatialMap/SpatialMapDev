@@ -329,6 +329,8 @@ export class DataView extends React.Component {
                         />
                     </MarqueeSelection>
                   </div>;
+
+    const metaDataContent = <div> test content </div>
     return (
       <div>
         <Helmet
@@ -451,7 +453,7 @@ export class DataView extends React.Component {
       {/* metadata or plot logic */}
       {this.state.showMetaData ?
         <div className="mainPlot" style={{height: this.state.plotHeight}}>
-          MetaDataPlaceholder
+          {metaDataContent}
       </div>
       :
       <div className="mainPlot" style={{height: this.state.plotHeight}}>
