@@ -331,7 +331,6 @@ export class DataView extends React.Component {
                   </div>;
     return (
       <div>
-
         <Helmet
           title="SpatialMaps - DataView"
           meta={[
