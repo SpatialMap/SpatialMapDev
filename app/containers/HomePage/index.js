@@ -38,29 +38,28 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         <div className="greyBG">
           <div className="row container" style={{margin:"auto", marginTop: 30}}>
             <div className="col-sm-6 bottomCard">
-            <h2 className="bottomText"> The problem </h2>
             <table>
               <tbody>
               <tr>
                 <td><img
                 src="https://static2.sharepointonline.com/files/fabric/assets/brand-icons/document/png/xlsx_32x1.png"/>
                 </td>
-                <td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                tempor invidunt ut labore et dolore magna aliquyam erat,</td>
+                <td> <b> Connecting Research </b> <br/> While reproducable research in the proteomics field prospers,
+                we see an opportunity to better connect spatial proteomics data to accelerate the rate of scientific findings.  </td>
               </tr>
               <tr>
-              <td><img
-              src="https://static2.sharepointonline.com/files/fabric/assets/brand-icons/document/png/xlsx_32x1.png"/>
-              </td>
-                <td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                tempor invidunt ut labore et dolore magna aliquyam erat,</td>
+                <td><img
+                  src="https://static2.sharepointonline.com/files/fabric/assets/brand-icons/document/png/xlsx_32x1.png"/>
+                </td>
+                <td> <b> Data Science </b> <br/> We see spatial proteomics datasets as scarce scientific good, that can reveal scientificly relevant information beyond
+                initial findings. Applying the newest machine learning algorithms to explore new leads is only one of its use cases.   </td>
               </tr>
               <tr>
-              <td><img
-              src="https://static2.sharepointonline.com/files/fabric/assets/brand-icons/document/png/xlsx_32x1.png"/>
-              </td>
-                <td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                tempor invidunt ut labore et dolore magna aliquyam erat,</td>
+                <td><img
+                  src="https://static2.sharepointonline.com/files/fabric/assets/brand-icons/document/png/xlsx_32x1.png"/>
+                </td>
+                <td> <b> Accessability </b> <br/> With the pRoloc package, we provide a sophisticated solution to analyse spatial data. SpatialMaps is fully connected to the R environment
+                while providing a simplyfied and straigh forward solution to access and analyse a variety of proteomics datasets. </td>
               </tr>
               </tbody>
             </table>
@@ -76,9 +75,8 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
              </div>
              <div className="col-sm-6 bottomCard">
              <h2 className="bottomText"> Idea & Foundation </h2>
-             <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-             tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
-               takimata sanctus est Lorem.</p>
+             <p>After the creation of pRoloc and pRolocdata, SpatialMaps is an integral part of the pRoloc environment.
+             While the pRoloc universe was yet a purely R based frameworks, SpatialMaps lowers the treshhold for non-coding scientists to efficiently compare datasets.</p>
            </div>
           </div>
 
@@ -86,7 +84,8 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
             <div className="col-sm-6 bottomCard">
             <h2 className="bottomText"> Technology </h2>
             <p>The SpatialMaps platform is based on Google Firebase as secure cloud database and react.js. </p>
-              <p>Combining the cloud database with pRolocdata biocoductor package, we offer the opportunity access datasets both via R scripts as well as via the user friendly SpatialMaps web platform.</p>
+              <p>Combining the cloud database with pRolocdata biocoductor package, we offer the opportunity access
+                datasets both via R scripts as well as via the user friendly SpatialMaps web platform.</p>
             </div>
             <div className="col-sm-6">
               <img className="headImage" src="http://frapbot.kohze.com/other/welcome_first.png"/>
