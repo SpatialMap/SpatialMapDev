@@ -16,8 +16,6 @@ import { Link } from 'react-router';
 import './home.css'
 import Footer from '../../components/Footer';
 
-
-
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
@@ -41,22 +39,19 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
             <table>
               <tbody>
               <tr>
-                <td><img
-                src="https://static2.sharepointonline.com/files/fabric/assets/brand-icons/document/png/xlsx_32x1.png"/>
+                <td>
                 </td>
                 <td> <b> Connecting Research </b> <br/> While reproducable research in the proteomics field prospers,
                 we see an opportunity to better connect spatial proteomics data to accelerate the rate of scientific findings.  </td>
               </tr>
               <tr>
-                <td><img
-                  src="https://static2.sharepointonline.com/files/fabric/assets/brand-icons/document/png/xlsx_32x1.png"/>
+                <td>
                 </td>
                 <td> <b> Data Science </b> <br/> We see spatial proteomics datasets as scarce scientific good, that can reveal scientificly relevant information beyond
                 initial findings. Applying the newest machine learning algorithms to explore new leads is only one of its use cases.   </td>
               </tr>
               <tr>
-                <td><img
-                  src="https://static2.sharepointonline.com/files/fabric/assets/brand-icons/document/png/xlsx_32x1.png"/>
+                <td>
                 </td>
                 <td> <b> Accessability </b> <br/> With the pRoloc package, we provide a sophisticated solution to analyse spatial data. SpatialMaps is fully connected to the R environment
                 while providing a simplyfied and straigh forward solution to access and analyse a variety of proteomics datasets. </td>
