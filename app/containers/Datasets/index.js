@@ -25,7 +25,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
     this.state = {
       msnsets: [],
       loading: true,
-      searchTerm: '',
+      searchTerm: this.props.params.search ? this.props.params.search : '',
     }
   }
 
