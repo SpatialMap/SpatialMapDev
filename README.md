@@ -1,9 +1,6 @@
 ## SpatialMap.org Dev Repo
 
 ---
-Timeline and Feature Overview:
-
-https://docs.google.com/document/d/1sQHnNe_odBW0vSBw84WssDAUpl7G3-YnXSjLt5-Z59U/edit?usp=sharing
 
 ### Boilerplate:
 
