@@ -54,17 +54,21 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
           })
     })
     var keySet = [];
-    firebase.database().ref('keys/' + this.searchTerm).on("child_added", (snapshot) => {
+    if(this.state.searchTerm) {
+    firebase.database().ref('keys/' + this.state.searchTerm).on("child_added", (snapshot) => {
       if(snapshot.exists()) {
-      let keyNames = snapshot.val();
-      keySet.push({
-        matchedKeys: keyNames.key.name
-      })
-      this.setState({
-        matchedKeys : keySet
-      })
-      }
-    })
+        let keyNames = snapshot.val();
+        keySet.push({
+          matchedKeys: keyNames.key.name
+          })
+          console.log("exists");
+        }
+        this.setState({
+          keyMatches : Object.values(keySet)
+        })
+        })
+    }
+
   };
 
   render() {
@@ -95,7 +99,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
           />
         </div>
         <div className="topButtons col-sm-2 col-sm-offset-4">
-          <button onClick={() => console.log(this.state.matchedKeys)}>  test </button>
+          <button onClick={() => console.log(this.state.keyMatches)}>  test </button>
         </div>
         {itemContainer}
       </div>
