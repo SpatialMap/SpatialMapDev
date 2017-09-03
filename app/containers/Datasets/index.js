@@ -24,6 +24,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
     super(props);
     this.state = {
       msnsets: [],
+      keyMatches: [],
       loading: true,
       searchTerm: this.props.params.search ? this.props.params.search : '',
     }
@@ -51,6 +52,18 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
             msnsets : msnsets,
             loading: false,
           })
+    })
+    var keySet = [];
+    firebase.database().ref('keys/' + this.searchTerm).on("child_added", (snapshot) => {
+      if(snapshot.exists()) {
+      let keyNames = snapshot.val();
+      keySet.push({
+        matchedKeys: keyNames.key.name
+      })
+      this.setState({
+        matchedKeys : keySet
+      })
+      }
     })
   };
 
@@ -82,7 +95,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
           />
         </div>
         <div className="topButtons col-sm-2 col-sm-offset-4">
-          <button>  </button>
+          <button onClick={() => console.log(this.state.matchedKeys)}>  test </button>
         </div>
         {itemContainer}
       </div>
