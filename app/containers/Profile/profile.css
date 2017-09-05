@@ -1,9 +1,12 @@
 .profileData {
+  margin-top: -19px;
+  padding: 20px;
   text-align: center;
+  background-color: rgba(50,50,50,0.6);
 }
 
 .uploadData {
-  margin-top: 50px;
+  padding-top: 50px;
   height: 200px;
   padding: 30px;
   color: white;
@@ -17,4 +20,53 @@
   color: white;
   text-align: center;
   background-color: rgba(50,50,50,0.6);
+}
+
+.dataChild {
+  height: 100px;
+  width: 100%;
+  margin-bottom: 5px;
+  background-color: #f4f4f4;
+  box-shadow: 0px 1px 5px #888888;
+  display: flex;
+}
+
+.dataChild:hover {
+  background-color: #ebefee;
+}
+
+.headBar {
+  padding: 10px 25px 5px 25px;
+  margin: auto;
+  margin-bottom: 20px;
+  box-shadow: 0px 1px 5px #888888;
+  background-color: #f4f4f4;
+}
+
+.searchBox {
+  padding: 0px;
+}
+
+.loader {
+  padding: 200px;
+}
+
+.speciesImage {
+  height: 100%;
+}
+.tileText {
+  padding-left: 10px;
+  padding-top: 15px;
+  font-weight: 600;
+  color: #000;
+}
+
+.upperTileText {
+  float: left;
+  padding: 15px;
+  color: #000;
+}
+
+a:link {
+  text-decoration: none!important;
 }

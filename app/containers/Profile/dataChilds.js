@@ -1,7 +1,7 @@
 import React from 'react';
 import * as firebase from 'firebase';
 import { Link } from 'react-router';
-import './datasets.css';
+import './profile.css';
 
 class DataChild extends React.Component {
 
@@ -44,6 +44,7 @@ class DataChild extends React.Component {
           break;
     }
 
+});
 
     const Image = ImgUrl && <img className="speciesImage" src={ImgUrl}/>;
 

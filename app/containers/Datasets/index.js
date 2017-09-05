@@ -64,9 +64,11 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
           console.log("exists");
         }
         this.setState({
-          keyMatches : Object.values(keySet)
+          keyMatches : matchedKeys
         })
         })
+    } else {
+      this.setState({keyMatches : null})
     }
 
   };
@@ -83,6 +85,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
 
     const flexTiles = <div> {DataSetItem} </div>;
     const itemContainer = this.state.loading == true ? loader : flexTiles;
+    const keyContainer = <div> works </div>;
 
     return (
       <div>
@@ -101,6 +104,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
         <div className="topButtons col-sm-2 col-sm-offset-4">
           <button onClick={() => console.log(this.state.keyMatches)}>  test </button>
         </div>
+        {this.state.keyMatches && keyContainer}
         {itemContainer}
       </div>
       </div>
