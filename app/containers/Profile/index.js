@@ -12,6 +12,10 @@ import makeSelectProfile from './selectors';
 import * as firebase from 'firebase';
 import { browserHistory } from 'react-router';
 import "./profile.css"
+import DataChild from './dataChilds.js';
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
+import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
 
 
 export class Profile extends React.Component { // eslint-disable-line react/prefer-stateless-function

@@ -44,8 +44,6 @@ class DataChild extends React.Component {
           break;
     }
 
-});
-
     const Image = ImgUrl && <img className="speciesImage" src={ImgUrl}/>;
 
     const onlySearched = this.props.item.varName &&
