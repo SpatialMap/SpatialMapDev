@@ -79,6 +79,7 @@ export class DataView extends React.Component {
       plotTool: 'auto',
       showColumnPopup: false,
       nameColumnPopup: '',
+      showProfileDataColumn: false,
       showComments: false,
       showMetaData: false,
     };
@@ -136,6 +137,11 @@ export class DataView extends React.Component {
   switchPlotTools(reset = false){
     !reset ? this.setState({showToolBar: 'right', plotTool: ''}):
                                    this.setState({showToolBar: 'none',  plotTool: 'auto'});
+  }
+
+  toggleProfileColumn(reset = false){
+    !reset ? this.setState({showProfileDataColumn: !this.state.showProfileDataColumn}):
+                                   this.setState({showProfileDataColumn: false});
   }
 
   //adds or deletes organelle names from array to show/hide those
@@ -275,14 +281,14 @@ export class DataView extends React.Component {
     const keyAggregate = this.state.loading ? [] : Object.keys(this.state.data[1]);
     var columnVar = [];
     for (var i = 1; i < keyAggregate.length; ++i) {
-        keyAggregate[i] != "Colors" && keyAggregate[i] && !(this.state.profileColumns.indexOf(keyAggregate[i]) > -1) && keyAggregate[i] != "PCA1" && keyAggregate[i] != "PCA2"  ?
+        keyAggregate[i] != "Colors" && keyAggregate[i] && !(this.state.profileColumns.indexOf(keyAggregate[i]) > -1 && !this.state.showProfileDataColumn) && keyAggregate[i] != "PCA1" && keyAggregate[i] != "PCA2"  ?
         columnVar.push({
                   "key": keyAggregate[i]+i,
                   "name" : keyAggregate[i],
                   "fieldName" : keyAggregate[i],
                   "isResizable" : true,
                   "isRowHeader" : true,
-                  "minWidth" : (this.state.width - 300)/keyAggregate.length,
+                  "minWidth" : (this.state.width - 150)/(keyAggregate.length-this.state.profileColumns.length),
                   "isSorted" : this.state.sortedBy == keyAggregate[i] ? true : false,
                   "isSortedDescending" : this.state.sortedAscending,
                   "onColumnClick" : (i,j) => this.setState({showColumnPopup: true, nameColumnPopup: j.fieldName}),
@@ -309,6 +315,8 @@ export class DataView extends React.Component {
                         <button className="heightToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v"></i></button>
                         <button className="heightToggle" onClick={() => this.switchPlotTools()}> <i className="fa fa-object-group"></i></button>
                         <button className="heightToggle" onClick={() => this.resetAll()}> <i className="fa fa-undo"></i></button>
+                        <button className="heightToggle" onClick={() => this.toggleProfileColumn()}> <i className="fa fa-table"></i></button>
+
                         {legendItems}
                       </div>
                     </div>
