@@ -1,0 +1,9 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var TooltipDelay;
+(function (TooltipDelay) {
+    TooltipDelay[TooltipDelay["zero"] = 0] = "zero";
+    TooltipDelay[TooltipDelay["medium"] = 1] = "medium";
+})(TooltipDelay = exports.TooltipDelay || (exports.TooltipDelay = {}));
+
+//# sourceMappingURL=Tooltip.Props.js.map
