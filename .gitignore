@@ -2,6 +2,7 @@
 coverage
 build
 node_modules
+!node_modules/react-parallel-coordinates/
 stats.json
 
 # Cruft
