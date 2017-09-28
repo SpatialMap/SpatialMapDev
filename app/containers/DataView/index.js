@@ -234,8 +234,10 @@ export class DataView extends React.Component {
 
     //creating a json object that contains the column attributes for the parallels package
     var keyVar = {};
-    const profileKeys2 = this.state.profileColumns && this.state.profileColumns.map(function(obj) {
-        keyVar[obj] = {type:"number", "tickValues":[0,0.5,1]};
+    const profileKeys2 = this.state.profileColumns && this.state.profileColumns.map(function(obj, index) {
+        index == 0 ?
+        keyVar[obj] = {type:"number", "tickValues":[0,0.2,0.4,0.6,0.8,1]} :
+        keyVar[obj] = {type:"number", "tickValues":0};
       }
     );
     const dimensions = keyVar;
