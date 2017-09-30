@@ -145,11 +145,19 @@ export class DataView extends React.Component {
   }
 
   //adds or deletes organelle names from array to show/hide those
+  //this.setState({markerToggle: this.state.markerToggle.prototype.filter(item => item !== marker)}):
+  //this.setState({markerToggle: this.state.markerToggle.push(marker)});
   toggleMarkers(marker){
     ["test"].includes("test2") ?
              this.setState({markerToggle: this.state.markerToggle.prototype.filter(item => item !== marker)}):
-             this.setState({markerToggle: this.state.markerToggle.push(marker)});
+             this.setState({markerToggle: this.addToggleMarker(marker)});
              console.log(this.state.markerToggle);
+  }
+
+  addToggleMarker(marker){
+    var tempMarkerToggle = this.state.markerToggle;
+    tempMakerToggle.push(marker);
+    return(tempMakerToggle)
   }
 
   //ordering function (called from colum header modal)
@@ -236,7 +244,7 @@ export class DataView extends React.Component {
     var keyVar = {};
     const profileKeys2 = this.state.profileColumns && this.state.profileColumns.map(function(obj, index) {
         index == 0 ?
-        keyVar[obj] = {type:"number", "tickValues":[0,0.2,0.4,0.6,0.8,1]} :
+        keyVar[obj] = {type:"number", "tickValues":[0,0.2,0.4,0.6,0.8]} :
         keyVar[obj] = {type:"number", "tickValues":0};
       }
     );
@@ -283,7 +291,12 @@ export class DataView extends React.Component {
     const keyAggregate = this.state.loading ? [] : Object.keys(this.state.data[1]);
     var columnVar = [];
     for (var i = 1; i < keyAggregate.length; ++i) {
-        keyAggregate[i] != "Colors" && keyAggregate[i] && !(this.state.profileColumns.indexOf(keyAggregate[i]) > -1 && !this.state.showProfileDataColumn) && keyAggregate[i] != "PCA1" && keyAggregate[i] != "PCA2"  ?
+        keyAggregate[i] != "Colors"
+        && keyAggregate[i]
+        && !(this.state.profileColumns.indexOf(keyAggregate[i]) > -1
+        && !this.state.showProfileDataColumn)
+        && keyAggregate[i] != "PCA1"
+        && keyAggregate[i] != "PCA2"  ?
         columnVar.push({
                   "key": keyAggregate[i]+i,
                   "name" : keyAggregate[i],
@@ -448,15 +461,9 @@ export class DataView extends React.Component {
         title='Dataset Download'
         isBlocking={ false }
         containerClassName='ms-dialogMainOverride'>
-        <p style={{textAlign: 'center'}}> Load the dataset object directly into R or download the source file</p>
+        <p style={{textAlign: 'center'}}> Load the dataset object directly into R</p>
         <div className="codeBox">
           <code className="RCode"> library(pRolocdata) <br/> object = pRolocdata("{this.props.params.uid}") </code>
-        </div>
-        <p style={{textAlign: 'center'}}> <b> OR </b> </p>
-        <div className="sourceDownloadButtons">
-          <DefaultButton text='.RData' />
-          <DefaultButton text='.RDS' />
-          <DefaultButton text='.CSV' />
         </div>
       </Dialog>
 
