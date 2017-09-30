@@ -147,18 +147,26 @@ export class DataView extends React.Component {
   //adds or deletes organelle names from array to show/hide those
   //this.setState({markerToggle: this.state.markerToggle.prototype.filter(item => item !== marker)}):
   //this.setState({markerToggle: this.state.markerToggle.push(marker)});
-  toggleMarkers(marker){
-    ["test"].includes("test2") ?
-             this.setState({markerToggle: this.state.markerToggle.prototype.filter(item => item !== marker)}):
-             this.setState({markerToggle: this.addToggleMarker(marker)});
-             console.log(this.state.markerToggle);
+  addToggleMarkerArray(marker){
+    let tempMarkerToggle = this.state.markerToggle;
+    tempMarkerToggle.push(marker);
+    return(tempMarkerToggle);
   }
 
-  addToggleMarker(marker){
-    var tempMarkerToggle = this.state.markerToggle;
-    tempMakerToggle.push(marker);
-    return(tempMakerToggle)
+  deleteToggleMarkerArray(marker){
+    let tempMarkerToggle = this.state.markerToggle;
+    tempMarkerToggle = tempMarkerToggle.filter(item => item !== marker);
+    return(tempMarkerToggle);
   }
+
+
+  toggleMarkers(marker){
+    this.state.markerToggle.includes(marker.obj) ?
+             this.setState({markerToggle: this.deleteToggleMarkerArray(marker.obj)}):
+             this.setState({markerToggle: this.addToggleMarkerArray(marker.obj)});
+  }
+
+
 
   //ordering function (called from colum header modal)
   setOrderBy(ascending = true){
