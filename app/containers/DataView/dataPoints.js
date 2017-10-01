@@ -4,11 +4,13 @@ const renderCircles = (props) => {
   return (coords, index) => {
     // conditional statements inside variables to select certain elements
     // conditional for selected key
+    // this.state.markerToggle.includes(marker.obj)
     const markSelected = index == props.activeKey ? "rgba(0,0,0,0.3)" : "none";
     //show/hide points with "unknown" markers
     const colorSpace = props.colorSelect == '' ? coords.Colors : props.colScale(coords[props.colorSelect]);
     const toggleUnknown = props.dispUnknown == true ? "rgba(100,100,100,0.1)" : "none";
-    const colorUnknown = coords.markers == "unknown" && props.labels != true ? toggleUnknown : colorSpace;
+    const legendOrganelleSelection = !props.markerToggle.includes(coords.markers) ? colorSpace : "none";
+    const colorUnknown = coords.markers == "unknown" && props.labels != true ? toggleUnknown : legendOrganelleSelection;
     //radius
     const radiusVar = props.radiusSelect == '' ? props.radius : props.radius * props.radiusScale(coords[props.radiusSelect]);
     //transparency

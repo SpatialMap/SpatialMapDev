@@ -145,8 +145,6 @@ export class DataView extends React.Component {
   }
 
   //adds or deletes organelle names from array to show/hide those
-  //this.setState({markerToggle: this.state.markerToggle.prototype.filter(item => item !== marker)}):
-  //this.setState({markerToggle: this.state.markerToggle.push(marker)});
   addToggleMarkerArray(marker){
     let tempMarkerToggle = this.state.markerToggle;
     tempMarkerToggle.push(marker);
@@ -159,14 +157,11 @@ export class DataView extends React.Component {
     return(tempMarkerToggle);
   }
 
-
   toggleMarkers(marker){
     this.state.markerToggle.includes(marker.obj) ?
              this.setState({markerToggle: this.deleteToggleMarkerArray(marker.obj)}):
              this.setState({markerToggle: this.addToggleMarkerArray(marker.obj)});
   }
-
-
 
   //ordering function (called from colum header modal)
   setOrderBy(ascending = true){
@@ -319,7 +314,7 @@ export class DataView extends React.Component {
     }
 
     //extracts the markerClasses from the meta data and displays them as buttons
-    let markerClasses = !this.state.loading && this.state.markerClasses.split(',');
+    let markerClasses = !this.state.loading && this.state.markerClasses.split(', ');
     const legendItems = markerClasses && markerClasses.map(obj =>
       <button className="lengendItems"  onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
     );
@@ -339,7 +334,6 @@ export class DataView extends React.Component {
                         <button className="heightToggle" onClick={() => this.switchPlotTools()}> <i className="fa fa-object-group"></i></button>
                         <button className="heightToggle" onClick={() => this.resetAll()}> <i className="fa fa-undo"></i></button>
                         <button className="heightToggle" onClick={() => this.toggleProfileColumn()}> <i className="fa fa-table"></i></button>
-
                         {legendItems}
                       </div>
                     </div>
