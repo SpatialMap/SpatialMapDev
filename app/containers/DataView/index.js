@@ -404,7 +404,7 @@ export class DataView extends React.Component {
 
         {/*Top right buttons */}
         <div className="choiceChild"  onClick={ () => this.setState({ showUniProt : !this.state.showUniProt }) }>
-            UniProt
+          UniProt
         </div>
         <div className="choiceChild"  onClick={ () => this.setState({ plotProfile : !this.state.plotProfile }) }>
           Profile
@@ -453,7 +453,7 @@ export class DataView extends React.Component {
           closeButtonAriaLabel='Close'
         >
           <span className='ms-font-m'>adding disqus commenting plugin here</span>
-        </Panel>
+      </Panel>
 
       {/* download modal */}
       <Dialog

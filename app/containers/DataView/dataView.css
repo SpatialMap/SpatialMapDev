@@ -35,6 +35,13 @@
   padding: 3px 10px 3px 10px;
 }
 
+.lengendItems:checked {
+  float: right;
+  height: 32px;
+  background-color: #f00;
+  margin-left: 2px;
+  padding: 3px 10px 3px 10px;
+}
 
 .belowMainPlot {
   width: 100%;
