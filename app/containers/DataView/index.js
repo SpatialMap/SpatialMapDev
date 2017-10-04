@@ -163,20 +163,19 @@ export class DataView extends React.Component {
              this.setState({markerToggle: this.deleteToggleMarkerArray(marker.obj)}):
              this.setState({markerToggle: this.addToggleMarkerArray(marker.obj)});
     this.setState({filteredData: this.state.data.filter((dataRow) => {return !this.state.markerToggle.includes(dataRow.markers)})});
-    console.log(this.state.filteredData);
   };
 
   //ordering function (called from colum header modal)
   setOrderBy(ascending = true){
     this.setState({sortedAscending : !this.state.sortedAscending});
-    if(typeof Object.entries(this.state.data)[0][1][this.state.nameColumnPopup] === "number"){
-      this.setState({data : this.state.data.sort((a,b) => {
+    if(typeof Object.entries(this.state.filteredData)[0][1][this.state.nameColumnPopup] === "number"){
+      this.setState({filteredData : this.state.filteredData.sort((a,b) => {
               return ascending ? a[this.state.nameColumnPopup] - b[this.state.nameColumnPopup]:
                                  b[this.state.nameColumnPopup] - a[this.state.nameColumnPopup];
          })
       })
     } else {
-      this.setState({data : this.state.data.sort((a, b) => {
+      this.setState({filteredData : this.state.filteredData.sort((a, b) => {
         return ascending ? a[this.state.nameColumnPopup].localeCompare(b[this.state.nameColumnPopup]):
                            b[this.state.nameColumnPopup].localeCompare(a[this.state.nameColumnPopup]);
         })
@@ -326,14 +325,14 @@ export class DataView extends React.Component {
     //the data table inclusive the bar above the table
     const table = <div className="tableCore">
                     <div className="belowMainPlot row">
-                      <div className="col-sm-3">
+                      <div className="col-sm-2">
                         <SearchBox
                           onSearch={ (newValue) => this.setState({filterInput: newValue}) }
                           onChange={(newValue) => newValue == '' && this.setState({filterInput: newValue}) }
                           style={{backgroundColor: '#f2e4d8'}} labelText='Filter'
                         />
                       </div>
-                      <div className="col-sm-9">
+                      <div className="col-sm-10">
                         <button className="heightToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v"></i></button>
                         <button className="heightToggle" onClick={() => this.switchPlotTools()}> <i className="fa fa-object-group"></i></button>
                         <button className="heightToggle" onClick={() => this.resetAll()}> <i className="fa fa-undo"></i></button>
