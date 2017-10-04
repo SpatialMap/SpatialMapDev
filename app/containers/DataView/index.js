@@ -50,6 +50,7 @@ export class DataView extends React.Component {
       width: window.innerWidth,
       height: window.innerHeight,
       data: [],
+      filteredData: [],
       metaData: [],
       markerClasses: [],
       markerToggle: [],
@@ -137,31 +138,33 @@ export class DataView extends React.Component {
   switchPlotTools(reset = false){
     !reset ? this.setState({showToolBar: 'right', plotTool: ''}):
                                    this.setState({showToolBar: 'none',  plotTool: 'auto'});
-  }
+  };
 
   toggleProfileColumn(reset = false){
     !reset ? this.setState({showProfileDataColumn: !this.state.showProfileDataColumn}):
                                    this.setState({showProfileDataColumn: false});
-  }
+  };
 
   //adds or deletes organelle names from array to show/hide those
   addToggleMarkerArray(marker){
     let tempMarkerToggle = this.state.markerToggle;
     tempMarkerToggle.push(marker);
     return(tempMarkerToggle);
-  }
+  };
 
   deleteToggleMarkerArray(marker){
     let tempMarkerToggle = this.state.markerToggle;
     tempMarkerToggle = tempMarkerToggle.filter(item => item !== marker);
     return(tempMarkerToggle);
-  }
+  };
 
   toggleMarkers(marker){
     this.state.markerToggle.includes(marker.obj) ?
              this.setState({markerToggle: this.deleteToggleMarkerArray(marker.obj)}):
              this.setState({markerToggle: this.addToggleMarkerArray(marker.obj)});
-  }
+    this.setState({filteredData: this.state.data.filter((dataRow) => {return !this.state.markerToggle.includes(dataRow.markers)})});
+    console.log(this.state.filteredData);
+  };
 
   //ordering function (called from colum header modal)
   setOrderBy(ascending = true){
@@ -196,6 +199,7 @@ export class DataView extends React.Component {
       this.setState({
         data: data,
         loading : false,
+        filteredData: data.filter((dataRow) => {return !this.state.markerToggle.includes(dataRow.markers)}),
       });
     })
 
@@ -267,7 +271,7 @@ export class DataView extends React.Component {
     const profileContainer = this.state.plotProfile &&
                              <div className="scatterContainer">
                                       <ParallelCoordinatesComponent
-                                          data = {this.state.data}
+                                          data = {this.state.filteredData}
                                           dimensions = {dimensions}
                                           width = {styles.width}
                                           height = {styles.height}
@@ -339,7 +343,7 @@ export class DataView extends React.Component {
                     </div>
                     <MarqueeSelection>
                       <DetailsList
-                        items = {this.state.data}
+                        items = {this.state.filteredData}
                         initialFocusedIndex = {1}
                         columns = {columnVar}
                         setKey = {this.state.activeKey}
