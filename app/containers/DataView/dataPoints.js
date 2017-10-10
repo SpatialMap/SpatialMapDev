@@ -4,7 +4,6 @@ const renderCircles = (props) => {
   return (coords, index) => {
     // conditional statements inside variables to select certain elements
     // conditional for selected key
-    // this.state.markerToggle.includes(marker.obj)
     const markSelected = index == props.activeKey ? "rgba(0,0,0,0.3)" : "none";
     //show/hide points with "unknown" markers
     const colorSpace = props.colorSelect == '' ? coords.Colors : props.colScale(coords[props.colorSelect]);
@@ -24,9 +23,6 @@ const renderCircles = (props) => {
     const yPOS = props.yScale(coords.PCA2);
 
     //filterInput - filtering based on the filterInput
-    //const filterVar = coords['ProteinDescription'].toLowerCase().indexOf(props.filterInput.toLowerCase()) !== -1;
-
-
     //col rendering
     const circleProps = {
       cx: xPOS,

@@ -1,6 +1,7 @@
 import React from 'react';
 import d3 from 'd3';
 import DataCircles from './dataPoints.js';
+import plotAxis from './plotAxis.js';
 
 //min max values
 const xMax   = (data)  => d3.max(data, (d) => d.PCA1);
@@ -76,5 +77,5 @@ export default (props) => {
                    colScale: colScale(props),
                    radiusScale: radiusScale(props),
                    transparencyScale : transparencyScale(props)};
-  return <DataCircles {...props} {...scales} SetActiveKey={props.SetActiveKey} />
+  return <g><DataCircles {...props} {...scales} SetActiveKey={props.SetActiveKey} /><plotAxis {...props} {...scales} /></g>
 };
