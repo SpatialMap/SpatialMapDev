@@ -46,7 +46,7 @@ class DataChild extends React.Component {
 
     const Image = ImgUrl && <img className="speciesImage" src={ImgUrl}/>;
 
-    const onlySearched = this.props.item.varName &&
+  const onlySearched = this.props.item.varName && this.props.item.public == "TRUE" &&
                          Object.values(this.props.item).toString().toLowerCase().indexOf(this.props.searchTerm.toLowerCase()) !== -1;
 
     const mainContent = onlySearched ?

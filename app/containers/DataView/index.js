@@ -299,8 +299,7 @@ export class DataView extends React.Component {
     for (var i = 1; i < keyAggregate.length; ++i) {
         keyAggregate[i] != "Colors"
         && keyAggregate[i]
-        && !(this.state.profileColumns.indexOf(keyAggregate[i]) > -1
-        && !this.state.showProfileDataColumn)
+        && !(this.state.profileColumns.indexOf(keyAggregate[i]) > -1 && !this.state.showProfileDataColumn)
         && keyAggregate[i] != "PCA1"
         && keyAggregate[i] != "PCA2"  ?
         columnVar.push({
