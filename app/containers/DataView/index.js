@@ -467,7 +467,7 @@ export class DataView extends React.Component {
         containerClassName='ms-dialogMainOverride'>
         <p style={{textAlign: 'center'}}> Load the dataset object directly into R</p>
         <div className="codeBox">
-          <code className="RCode"> library(pRolocdata) <br/> object = pRolocdata("{this.props.params.uid}") </code>
+          <code className="RCode"> library(pRolocdata) <br/> object = download("{this.props.params.uid}") </code>
         </div>
       </Dialog>
 
