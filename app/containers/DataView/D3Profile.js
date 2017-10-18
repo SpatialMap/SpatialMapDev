@@ -4,11 +4,11 @@ import DataCircles from './dataPoints.js';
 import plotAxis from './plotAxis.js';
 
 //min max values
-const xMax   = (data)  => d3.max(data, (d) => d.PCA1);
-const xMin   = (data)  => d3.min(data, (d) => d.PCA1);
+const xMax   = (data)  => d3.max(data, (d) => props.plotPCA ? d.PCA1 : d.TSNE1;
+const xMin   = (data)  => d3.min(data, (d) => props.plotPCA ? d.PCA1 : d.TSNE1;
 
-const yMax   = (data)  => d3.max(data, (d) => d.PCA2);
-const yMin   = (data)  => d3.min(data, (d) => d.PCA2);
+const yMax   = (data)  => d3.max(data, (d) => props.plotPCA ? d.PCA2 : d.TSNE2);
+const yMin   = (data)  => d3.min(data, (d) => props.plotPCA ? d.PCA2 : d.TSNE2);
 
 //color gradient
 const colMin = function(data,props) {

@@ -19,8 +19,8 @@ const renderCircles = (props) => {
     //not used at the moment - activate to add a stroke circle around each unknown point
     const strokeVar = coords.markers == "unknown" ? "rgba(100,100,100,0)" : "none" ;
     //x,y coordinates
-    const xPOS = props.xScale(coords.PCA1);
-    const yPOS = props.yScale(coords.PCA2);
+    const xPOS = props.plotPCA ? props.xScale(coords.PCA1) : props.xScale(coords.TSNE1);
+    const yPOS = props.plotPCA ? props.yScale(coords.PCA2) : props.xScale(coords.TSNE2);
 
     //filterInput - filtering based on the filterInput
     //col rendering

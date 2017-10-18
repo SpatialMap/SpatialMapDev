@@ -411,9 +411,10 @@ export class DataView extends React.Component {
         <div className="choiceChild"  onClick={ () => this.setState({ plotProfile : !this.state.plotProfile }) }>
           Profile
         </div>
-        <div className="choiceChild" onClick={ () => this.setState({ plotTSNE : !this.state.plotTSNE }) }>
+        {/*}<div className="choiceChild" onClick={ () => this.setState({ plotTSNE : !this.state.plotTSNE }) }>
           T-SNE
         </div>
+        */}
         <div className="choiceChild" onClick={ () => this.setState({ plotPCA : !this.state.plotPCA }) }>
           PCA
         </div>

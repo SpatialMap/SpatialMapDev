@@ -1,6 +1,6 @@
 import React from 'react';
 
-const renderCircles = (props) => {
+const renderLegend = (props) => {
   return (coords, index) => {
 
     const pathProps = {
@@ -23,5 +23,5 @@ const renderCircles = (props) => {
 };
 
 export default (props) => {
-  return <g>{ props.data.map(renderCircles(props)) }</g>
+  return <g>{ props.data.map(renderLegend(props)) }</g>
 }
