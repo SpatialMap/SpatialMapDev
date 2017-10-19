@@ -167,8 +167,8 @@ export class DataView extends React.Component {
 
   legendColor(marker){
     let coloredBorder = {borderStyle: "solid", borderTopColor: "#ff0000"};
-    let whiteBorder = {borderStyle: "solid", borderTopColor: "#000000"};
-    coloredBorder;
+    let whiteBorder = {borderStyle: "solid", borderTopColor: "#f4f4f4"};
+    return this.state.markerToggle.includes(marker.obj) ? whiteBorder : coloredBorder;
   }
 
   //ordering function (called from colum header modal)
@@ -227,10 +227,6 @@ export class DataView extends React.Component {
       height  : this.state.plotHeight,
       padding : 30,
     };
-
-    const legendColor = {
-        borderStyle: "solid", borderTopColor: "#ff0000"
-      }
 
     //the scatter plot component
     const d3Plot =  <div className="scatterContainer">
@@ -328,7 +324,7 @@ export class DataView extends React.Component {
     //extracts the markerClasses from the meta data and displays them as buttons
     let markerClasses = !this.state.loading && this.state.markerClasses.split(', ');
     const legendItems = markerClasses && markerClasses.map(obj =>
-      <button className="lengendItems" style={legendColor}  onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
+      <button className="lengendItems" style={this.legendColor({obj})}  onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
     );
 
     //the data table inclusive the bar above the table
