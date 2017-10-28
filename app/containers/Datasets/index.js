@@ -102,7 +102,7 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
           />
         </div>
         <div className="topButtons col-sm-2 col-sm-offset-4">
-          <button onClick={() => console.log(this.state.keyMatches)}>  test </button>
+          <button onClick={() => console.log(this.state.keyMatches)}> show keyMatches </button>
         </div>
         {this.state.keyMatches && keyContainer}
         {itemContainer}

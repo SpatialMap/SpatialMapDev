@@ -82,6 +82,7 @@ export class DataView extends React.Component {
       nameColumnPopup: '',
       showProfileDataColumn: false,
       showComments: false,
+      showProfileFilter: false,
       showMetaData: false,
     };
   }
@@ -376,6 +377,7 @@ export class DataView extends React.Component {
         {/*Top left buttons & sliders */}
         <div className="configBar">
           <div className="leftButtons first" onClick={() => this.setState({showComments : true})}>Comments </div>
+          <div className="leftButtons first" onClick={() => this.setState({showProfileFilter : true})}>Profile Filter</div>
           <div className="leftButtons" onClick={() => this.setState({showDownload : true})}>Download </div>
           <div className="leftButtons" onClick={() => this.setState({showMetaData : !this.state.showMetaData})}>Meta Data</div>
         <div className="slider">
@@ -462,6 +464,34 @@ export class DataView extends React.Component {
           closeButtonAriaLabel='Close'
         >
           <span className='ms-font-m'>adding disqus commenting plugin here</span>
+      </Panel>
+
+      <Panel
+          isBlocking={ false }
+          isOpen={ this.state.showProfileFilter }
+          isLightDismiss={ true }
+          onDismiss={ () => this.setState({ showProfileFilter: false }) }
+          type={ PanelType.smallFixedFar }
+          headerText='Profile Plot Filter'
+          closeButtonAriaLabel='Close'
+        >
+        <span className='ms-font-m'></span>
+          <Checkbox
+            label='Test1'
+            defaultChecked={ true }
+            onChange={ this._onCheckboxChange }
+          />
+          <Checkbox
+            label='Test2'
+            defaultChecked={ true }
+            onChange={ this._onCheckboxChange }
+          />
+          <Checkbox
+            label='Test3'
+            defaultChecked={ true }
+            onChange={ this._onCheckboxChange }
+          />
+
       </Panel>
 
       {/* download modal */}
