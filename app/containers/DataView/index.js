@@ -51,9 +51,11 @@ export class DataView extends React.Component {
       height: window.innerHeight,
       data: [],
       filteredData: [],
+      filteredProfile: [],
       metaData: [],
       markerClasses: [],
       markerToggle: [],
+      profileToggle: [],
       rndKey: '',
       exprsSet: [],
       filterInput: '',
@@ -83,7 +85,7 @@ export class DataView extends React.Component {
       showProfileDataColumn: false,
       showComments: false,
       showProfileFilter: false,
-      showMetaData: false,
+      showMetaData: false
     };
   }
 
@@ -172,6 +174,26 @@ export class DataView extends React.Component {
     return this.state.markerToggle.includes(marker.obj) ? whiteBorder : coloredBorder;
   }
 
+  //add or delete profile column
+  addToggleProfileColumnArray(column){
+    let tempMarkerToggle = this.state.profileToggle;
+    tempMarkerToggle.push(column);
+    return(tempMarkerToggle);
+  };
+
+  deleteToggleProfileColumnArray(column){
+    let tempMarkerToggle = this.state.profileToggle;
+    tempMarkerToggle = tempMarkerToggle.filter(item => item !== column);
+    return(tempMarkerToggle);
+  };
+
+  toggleMarkers(column){
+    this.state.profileToggle.includes(column.obj) ?
+             this.setState({profileToggle: this.deleteToggleProfileColumnArray(column.obj)}):
+             this.setState({profileToggle: this.addToggleProfileColumnArray(column.obj)});
+    this.setState({filteredProfile: this.state.profileColumns.filter((dataRow) => {return !this.state.profileToggle.includes(dataRow.markers)})});
+  };
+
   //ordering function (called from colum header modal)
   setOrderBy(ascending = true){
     this.setState({sortedAscending : !this.state.sortedAscending});
@@ -215,7 +237,8 @@ export class DataView extends React.Component {
       this.setState({
         metaData: meta,
         profileColumns: meta.profileColumns,
-        markerClasses: meta.markerClasses
+        markerClasses: meta.markerClasses,
+        filteredMarkerClasses: meta.markerClasses.filter((dataRow) => {return !this.state.profileToggle.includes(dataRow.markers)})
       });
     })
   };
@@ -386,7 +409,7 @@ export class DataView extends React.Component {
         {/*Top left buttons & sliders */}
         <div className="configBar">
           <div className="leftButtons first" onClick={() => this.setState({showComments : true})}>Comments </div>
-          <div className="leftButtons first" onClick={() => this.setState({showProfileFilter : true})}>Profile Filter</div>
+          <div className="leftButtons first" onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter})}>Profile Filter</div>
           <div className="leftButtons" onClick={() => this.setState({showDownload : true})}>Download </div>
           <div className="leftButtons" onClick={() => this.setState({showMetaData : !this.state.showMetaData})}>Meta Data</div>
         <div className="slider">
