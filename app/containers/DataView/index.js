@@ -57,7 +57,7 @@ export class DataView extends React.Component {
       rndKey: '',
       exprsSet: [],
       filterInput: '',
-      profileOutput:[],
+      profileColumns:[],
       loading: true,
       plotHeight: 500,
       radius: 4,
@@ -328,6 +328,15 @@ export class DataView extends React.Component {
       <button className="lengendItems" style={this.legendColor({obj})}  onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
     );
 
+    let profileColumnsVar = this.state.profileColumns;
+    const profileFilterButtons = profileColumnsVar && profileColumnsVar.map(obj =>
+      <Checkbox
+        label={obj}
+        defaultChecked={ true }
+        onChange={ this._onCheckboxChange }
+      />
+    );
+
     //the data table inclusive the bar above the table
     const table = <div className="tableCore">
                     <div className="belowMainPlot row">
@@ -472,25 +481,12 @@ export class DataView extends React.Component {
           isLightDismiss={ true }
           onDismiss={ () => this.setState({ showProfileFilter: false }) }
           type={ PanelType.smallFixedFar }
-          headerText='Profile Plot Filter'
+          headerText='Profile Plot Columns'
           closeButtonAriaLabel='Close'
         >
         <span className='ms-font-m'></span>
-          <Checkbox
-            label='Test1'
-            defaultChecked={ true }
-            onChange={ this._onCheckboxChange }
-          />
-          <Checkbox
-            label='Test2'
-            defaultChecked={ true }
-            onChange={ this._onCheckboxChange }
-          />
-          <Checkbox
-            label='Test3'
-            defaultChecked={ true }
-            onChange={ this._onCheckboxChange }
-          />
+
+        {profileFilterButtons}
 
       </Panel>
 
