@@ -59,6 +59,7 @@ export class DataView extends React.Component {
       rndKey: '',
       exprsSet: [],
       filterInput: '',
+      profileOutput:[],
       profileColumns:[],
       loading: true,
       plotHeight: 500,
@@ -238,8 +239,10 @@ export class DataView extends React.Component {
         metaData: meta,
         profileColumns: meta.profileColumns,
         markerClasses: meta.markerClasses,
-        filteredMarkerClasses: meta.markerClasses.filter((dataRow) => {return !this.state.profileToggle.includes(dataRow.markers)})
       });
+      this.setState({
+        filteredMarkerClasses: meta.markerClasses.filter((dataRow) => {return !this.state.profileToggle.includes(dataRow.markers)})
+      })
     })
   };
 
@@ -350,7 +353,6 @@ export class DataView extends React.Component {
     const legendItems = markerClasses && markerClasses.map(obj =>
       <button className="lengendItems" style={this.legendColor({obj})}  onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
     );
-
     let profileColumnsVar = this.state.profileColumns;
     const profileFilterButtons = profileColumnsVar && profileColumnsVar.map(obj =>
       <Checkbox
