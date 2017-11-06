@@ -82,6 +82,7 @@ export class DataView extends React.Component {
       showToolBar: 'none',
       plotTool: 'auto',
       showColumnPopup: false,
+      showPlotConfigPopup: false,
       nameColumnPopup: '',
       showProfileDataColumn: false,
       showComments: false,
@@ -412,37 +413,8 @@ export class DataView extends React.Component {
           <div className="leftButtons first" onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter})}>Profile Filter</div>
           <div className="leftButtons" onClick={() => this.setState({showDownload : true})}>Download </div>
           <div className="leftButtons" onClick={() => this.setState({showMetaData : !this.state.showMetaData})}>Meta Data</div>
-        <div className="slider">
-          <Slider
-            label = 'Scatter Point Size'
-            min = {0.5}
-            max = {10}
-            step = {0.5}
-            defaultValue = {4}
-            onChange = {radius => this.setState({ radius }) }
-            showValue = {false}
-          />
-        </div>
-        <div className="toggle">
-           <Toggle
-            label = 'Color Unknown'
-            onAriaLabel = 'This toggle is checked. Press to uncheck.'
-            offAriaLabel = 'This toggle is unchecked. Press to check.'
-            onText = 'On'
-            offText = 'Off'
-            onChange = { () => this.setState({ labels : !this.state.labels }) }
-        />
-        </div>
-        <div className="toggle">
-          <Toggle
-           label = 'Hide Unknown'
-           onAriaLabel = 'This toggle is checked. Press to uncheck.'
-           offAriaLabel = 'This toggle is unchecked. Press to check.'
-           onText = 'On'
-           offText = 'Off'
-           onChange = { () => this.setState({ dispUnknown : !this.state.dispUnknown }) }
-          />
-        </div>
+          <div className="leftButtons" onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup})}>Plot Options</div>
+
 
         {/*Top right buttons */}
         <div className="choiceChild"  onClick={ () => this.setState({ showUniProt : !this.state.showUniProt }) }>
@@ -500,6 +472,45 @@ export class DataView extends React.Component {
 
       <Panel
           isBlocking={ false }
+          isOpen={ this.state.showPlotConfigPopup }
+          isLightDismiss={ true }
+          onDismiss={ () => this.setState({ showPlotConfigPopup: false }) }
+          type={ PanelType.smallFixedNear }
+          headerText='Profile Options'
+          closeButtonAriaLabel='Close'
+        >
+          <Slider
+            label = 'Scatter Point Size'
+            min = {0.5}
+            max = {10}
+            step = {0.5}
+            defaultValue = {4}
+            onChange = {radius => this.setState({ radius }) }
+            showValue = {false}
+          />
+           <Toggle
+            label = 'Color Unknown'
+            onAriaLabel = 'This toggle is checked. Press to uncheck.'
+            offAriaLabel = 'This toggle is unchecked. Press to check.'
+            onText = 'On'
+            offText = 'Off'
+            onChange = { () => this.setState({ labels : !this.state.labels }) }
+        />
+          <Toggle
+           label = 'Hide Unknown'
+           onAriaLabel = 'This toggle is checked. Press to uncheck.'
+           offAriaLabel = 'This toggle is unchecked. Press to check.'
+           onText = 'On'
+           offText = 'Off'
+           onChange = { () => this.setState({ dispUnknown : !this.state.dispUnknown }) }
+          />
+      </Panel>
+
+
+
+
+      <Panel
+          isBlocking={ false }
           isOpen={ this.state.showProfileFilter }
           isLightDismiss={ true }
           onDismiss={ () => this.setState({ showProfileFilter: false }) }
@@ -521,7 +532,6 @@ export class DataView extends React.Component {
         title='Dataset Download'
         isBlocking={ false }
         containerClassName='ms-dialogMainOverride'>
-        <p style={{textAlign: 'center'}}> Load the dataset object directly into R</p>
         <div className="codeBox">
           <code className="RCode"> library(pRolocdata) <br/> object = download("{this.props.params.uid}") </code>
         </div>
