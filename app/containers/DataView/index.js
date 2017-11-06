@@ -188,7 +188,7 @@ export class DataView extends React.Component {
     return(tempMarkerToggle);
   };
 
-  toggleMarkers(column){
+  toggleColumn(column){
     this.state.profileToggle.includes(column.obj) ?
              this.setState({profileToggle: this.deleteToggleProfileColumnArray(column.obj)}):
              this.setState({profileToggle: this.addToggleProfileColumnArray(column.obj)});
@@ -240,9 +240,6 @@ export class DataView extends React.Component {
         profileColumns: meta.profileColumns,
         markerClasses: meta.markerClasses,
       });
-      this.setState({
-        filteredMarkerClasses: meta.markerClasses.filter((dataRow) => {return !this.state.profileToggle.includes(dataRow.markers)})
-      })
     })
   };
 
@@ -349,7 +346,8 @@ export class DataView extends React.Component {
     }
 
     //extracts the markerClasses from the meta data and displays them as buttons
-    let markerClasses = !this.state.loading && this.state.markerClasses.split(', ');
+    let markerClasses = !this.state.loading && this.state.markerClasses.toString().split(', ');
+    console.log(markerClasses);
     const legendItems = markerClasses && markerClasses.map(obj =>
       <button className="lengendItems" style={this.legendColor({obj})}  onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
     );
