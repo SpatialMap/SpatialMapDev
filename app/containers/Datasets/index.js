@@ -18,8 +18,7 @@ import './datasets.css';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
 
-
-export class Datasets extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class Datasets extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +69,6 @@ export class Datasets extends React.Component { // eslint-disable-line react/pre
     } else {
       this.setState({keyMatches : null})
     }
-
   };
 
   render() {

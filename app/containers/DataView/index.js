@@ -87,6 +87,7 @@ export class DataView extends React.Component {
       showProfileDataColumn: false,
       showComments: false,
       showProfileFilter: false,
+      showMetaDataPopup: false,
       showMetaData: false
     };
   }
@@ -412,9 +413,8 @@ export class DataView extends React.Component {
           <div className="leftButtons first" onClick={() => this.setState({showComments : true})}>Comments </div>
           <div className="leftButtons first" onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter})}>Profile Filter</div>
           <div className="leftButtons" onClick={() => this.setState({showDownload : true})}>Download </div>
-          <div className="leftButtons" onClick={() => this.setState({showMetaData : !this.state.showMetaData})}>Meta Data</div>
+          <div className="leftButtons" onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup})}>Meta Data</div>
           <div className="leftButtons" onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup})}>Plot Options</div>
-
 
         {/*Top right buttons */}
         <div className="choiceChild"  onClick={ () => this.setState({ showUniProt : !this.state.showUniProt }) }>
@@ -506,8 +506,16 @@ export class DataView extends React.Component {
           />
       </Panel>
 
-
-
+      <Panel
+          isBlocking={ false }
+          isOpen={ this.state.showMetaDataPopup }
+          isLightDismiss={ true }
+          onDismiss={ () => this.setState({ showMetaDataPopup: false }) }
+          type={ PanelType.smallFixedFar }
+          headerText='Meta Data'
+          closeButtonAriaLabel='Close'
+        >
+      </Panel>
 
       <Panel
           isBlocking={ false }
@@ -518,10 +526,7 @@ export class DataView extends React.Component {
           headerText='Profile Plot Columns'
           closeButtonAriaLabel='Close'
         >
-        <span className='ms-font-m'></span>
-
         {profileFilterButtons}
-
       </Panel>
 
       {/* download modal */}
@@ -538,11 +543,7 @@ export class DataView extends React.Component {
       </Dialog>
 
       {/* metadata or plot logic */}
-      {this.state.showMetaData ?
-        <div className="mainPlot" style={{height: this.state.plotHeight}}>
-          {metaDataContent}
-      </div>
-      :
+      {
       <div className="mainPlot" style={{height: this.state.plotHeight}}>
         {profileContainer}
         {d3Container}
