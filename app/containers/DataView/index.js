@@ -254,6 +254,21 @@ export class DataView extends React.Component {
       padding : 30,
     };
 
+    //metaData entries
+    const MetaVarName = <div className="tileText"> VarName : {this.state.metaData.varName} </div>;
+
+    const MetaLab = this.state.metaData.lab &&
+                <div className="upperTileText"> Lab : {this.state.metaData.lab} </div>;
+
+    const MetaSpecies = this.state.metaData.species &&
+                    <div className="upperTileText"> Species : {this.state.metaData.species} </div>;
+
+    const MetaDescription = this.state.metaData.description &&
+                    <div className="upperTileText"> Description : {this.state.metaData.description} </div>;
+
+    const MetaTissue = this.state.metaData.tissue &&
+                    <div className="upperTileText"> Tissue : {this.state.metaData.tissue} </div>;
+
     //the scatter plot component
     const d3Plot =  <div className="scatterContainer">
                       <ReactSVGPanZoom
@@ -349,7 +364,6 @@ export class DataView extends React.Component {
 
     //extracts the markerClasses from the meta data and displays them as buttons
     let markerClasses = !this.state.loading && this.state.markerClasses.toString().split(', ');
-    console.log(markerClasses);
     const legendItems = markerClasses && markerClasses.map(obj =>
       <button className="lengendItems" style={this.legendColor({obj})}  onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
     );
@@ -398,7 +412,6 @@ export class DataView extends React.Component {
                     </MarqueeSelection>
                   </div>;
 
-    const metaDataContent = <div> test content </div>
     return (
       <div>
         <Helmet
@@ -515,6 +528,11 @@ export class DataView extends React.Component {
           headerText='Meta Data'
           closeButtonAriaLabel='Close'
         >
+        {MetaVarName}
+        {MetaLab}
+        {MetaSpecies}
+        {MetaDescription}
+        {MetaTissue}
       </Panel>
 
       <Panel
