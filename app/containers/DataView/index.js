@@ -35,10 +35,9 @@ import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Callout } from 'office-ui-fabric-react/lib/Callout';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
-var ParallelCoordinatesComponent=require('react-parallel-coordinates');
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 
-
+var ParallelCoordinatesComponent = require('react-parallel-coordinates');
 var Dimensions = require('react-dimensions');
 
 export class DataView extends React.Component {
@@ -78,7 +77,6 @@ export class DataView extends React.Component {
       transpSelect: [''],
       sortedBy: '',
       sortedAscending: true,
-      showDownload: false,
       showToolBar: 'none',
       plotTool: 'auto',
       showColumnPopup: false,
@@ -255,7 +253,7 @@ export class DataView extends React.Component {
     };
 
     //metaData entries
-    const MetaVarName = <div className="tileText"> VarName : {this.state.metaData.varName} </div>;
+    const MetaVarName = <div className="tileText"> Name : {this.state.metaData.varName} </div>;
 
     const MetaLab = this.state.metaData.lab &&
                 <div className="upperTileText"> Lab : {this.state.metaData.lab} </div>;
@@ -268,6 +266,18 @@ export class DataView extends React.Component {
 
     const MetaTissue = this.state.metaData.tissue &&
                     <div className="upperTileText"> Tissue : {this.state.metaData.tissue} </div>;
+
+    const MetaEmail = this.state.metaData.email &&
+                    <div className="upperTileText"> Email : {this.state.metaData.email} </div>;
+
+    const MetaContact = this.state.metaData.contact &&
+                      <div className="upperTileText"> Contact : {this.state.metaData.contact} </div>;
+
+    const MetaDataStamp = this.state.metaData.dataStamp &&
+                    <div className="upperTileText"> Date : {this.state.metaData.dataStamp} </div>;
+
+    const MetaAuthor = this.state.metaData.author &&
+                    <div className="upperTileText"> Author : {this.state.metaData.author} </div>;
 
     //the scatter plot component
     const d3Plot =  <div className="scatterContainer">
@@ -335,7 +345,7 @@ export class DataView extends React.Component {
                                             			}}
                                           onBrushEnd_data = {(out) => this.setState({data : out})}
                                        />
-                             </div>;
+                              </div>;
 
     //loader or plot logic
     const d3Container = this.state.loading ? loader : this.state.plotPCA && d3Plot;
@@ -370,11 +380,13 @@ export class DataView extends React.Component {
     let profileColumnsVar = this.state.profileColumns;
     const profileFilterButtons = profileColumnsVar && profileColumnsVar.map(obj =>
       <Checkbox
+        key={'key' + obj}
         label={obj}
-        defaultChecked={ true }
-        onChange={ this._onCheckboxChange }
+        defaultChecked={true}
+        onChange={this._onCheckboxChange}
       />
     );
+    console.log(this.state.metaData);
 
     //the data table inclusive the bar above the table
     const table = <div className="tableCore">
@@ -423,10 +435,9 @@ export class DataView extends React.Component {
 
         {/*Top left buttons & sliders */}
         <div className="configBar">
-          <div className="leftButtons first" onClick={() => this.setState({showComments : true})}>Comments </div>
+          <div className="leftButtons first" onClick={() => this.setState({showComments : !this.state.showComments})}>Comments </div>
           <div className="leftButtons first" onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter})}>Profile Filter</div>
-          <div className="leftButtons" onClick={() => this.setState({showDownload : true})}>Download </div>
-          <div className="leftButtons" onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup})}>Meta Data</div>
+          <div className="leftButtons" onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup})}>Dataset</div>
           <div className="leftButtons" onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup})}>Plot Options</div>
 
         {/*Top right buttons */}
@@ -476,7 +487,7 @@ export class DataView extends React.Component {
           isOpen={ this.state.showComments }
           isLightDismiss={ true }
           onDismiss={ () => this.setState({ showComments: false }) }
-          type={ PanelType.smallFixedNear }
+          type={ PanelType.smallFixedFar }
           headerText='Comments'
           closeButtonAriaLabel='Close'
         >
@@ -488,7 +499,7 @@ export class DataView extends React.Component {
           isOpen={ this.state.showPlotConfigPopup }
           isLightDismiss={ true }
           onDismiss={ () => this.setState({ showPlotConfigPopup: false }) }
-          type={ PanelType.smallFixedNear }
+          type={ PanelType.smallFixedFar }
           headerText='Profile Options'
           closeButtonAriaLabel='Close'
         >
@@ -524,15 +535,35 @@ export class DataView extends React.Component {
           isOpen={ this.state.showMetaDataPopup }
           isLightDismiss={ true }
           onDismiss={ () => this.setState({ showMetaDataPopup: false }) }
-          type={ PanelType.smallFixedFar }
-          headerText='Meta Data'
+          type={ PanelType.medium  }
+          headerText='Dataset'
           closeButtonAriaLabel='Close'
         >
+
+        <p> <b> Meta Data </b> </p>
         {MetaVarName}
-        {MetaLab}
+        {MetaDataStamp}
         {MetaSpecies}
         {MetaDescription}
         {MetaTissue}
+        <br/>
+
+        <p> <b> Download </b> </p>
+        <div className="codeBox">
+
+          <code className="RCode">
+            #load the data with the pRoloc R package <br/>
+            library(pRolocdata) <br/>
+            object = download("{this.props.params.uid}") </code>
+
+        </div>
+        <br/>
+
+        <p> <b> Contact </b> </p>
+        {MetaLab}
+        {MetaContact}
+        {MetaEmail}
+        {MetaAuthor}
       </Panel>
 
       <Panel
@@ -546,19 +577,6 @@ export class DataView extends React.Component {
         >
         {profileFilterButtons}
       </Panel>
-
-      {/* download modal */}
-      <Dialog
-        isOpen={ this.state.showDownload }
-        type={ DialogType.largeHeader }
-        onDismiss={() => this.setState({showDownload : !this.state.showDownload})}
-        title='Dataset Download'
-        isBlocking={ false }
-        containerClassName='ms-dialogMainOverride'>
-        <div className="codeBox">
-          <code className="RCode"> library(pRolocdata) <br/> object = download("{this.props.params.uid}") </code>
-        </div>
-      </Dialog>
 
       {/* metadata or plot logic */}
       {

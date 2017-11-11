@@ -20,11 +20,6 @@ const colMax = function(data,props) {
   return d3.max(data, (d) => d[props.colorSelect]);
 };
 
-const marshalProps = (props) => {
-  const scales = { xScale: xScale(props), yScale: yScale(props) };
-  return Object.assign({}, props, scales);
-};
-
 //radius gradient
 const radMin = function(data,props) {
   return d3.min(data, (d) => d[props.radiusSelect]);
@@ -83,6 +78,6 @@ export default (props) => {
                    colScale: colScale(props),
                    radiusScale: radiusScale(props),
                    transparencyScale : transparencyScale(props)};
-  return <g><XYAxis {...props}/><DataCircles {...props} {...scales} SetActiveKey={props.SetActiveKey} />
-             </g>
+  return <g> <DataCircles {...props} {...scales} SetActiveKey={props.SetActiveKey} />
+             <XYAxis {...props} {...scales}/></g>
 };
