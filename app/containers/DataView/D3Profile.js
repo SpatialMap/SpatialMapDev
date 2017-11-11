@@ -1,7 +1,8 @@
 import React from 'react';
 import d3 from 'd3';
 import DataCircles from './dataPoints.js';
-import plotAxis from './plotAxis.js';
+import DataCircles from './data-circles.js';
+import XYAxis from './x-y-axis.js';
 
 //min max values
 const xMax   = (data)  => d3.max(data, (d) => props.plotPCA ? d.PCA1 : d.TSNE1;
@@ -17,6 +18,11 @@ const colMin = function(data,props) {
 
 const colMax = function(data,props) {
   return d3.max(data, (d) => d[props.colorSelect]);
+};
+
+const marshalProps = (props) => {
+  const scales = { xScale: xScale(props), yScale: yScale(props) };
+  return Object.assign({}, props, scales);
 };
 
 //radius gradient
@@ -77,5 +83,6 @@ export default (props) => {
                    colScale: colScale(props),
                    radiusScale: radiusScale(props),
                    transparencyScale : transparencyScale(props)};
-  return <g><DataCircles {...props} {...scales} SetActiveKey={props.SetActiveKey} /><plotAxis {...props} {...scales} /></g>
+  return <g><XYAxis {...props}/><DataCircles {...props} {...scales} SetActiveKey={props.SetActiveKey} />
+             </g>
 };
