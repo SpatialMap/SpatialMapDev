@@ -55,5 +55,5 @@ const renderCircles = (props) => {
 };
 
 export default (props) => {
-  return <g>{ props.data.map(renderCircles(props)) }</g>
+  return <g>{ props.filteredData.map(renderCircles(props)) }</g>
 }

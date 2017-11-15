@@ -57,7 +57,6 @@ export class DataView extends React.Component {
       profileToggle: [],
       rndKey: '',
       exprsSet: [],
-      filterInput: '',
       profileOutput:[],
       profileColumns:[],
       loading: true,
@@ -94,7 +93,6 @@ export class DataView extends React.Component {
   resetAll(){
     this.setState({
         rndKey: '',
-        filterInput: '',
         radius: 4,
         dispUnknown: true,
         labels: false,
@@ -173,6 +171,16 @@ export class DataView extends React.Component {
     let coloredBorder = {borderStyle: "solid", borderTopColor: "#ff0000"};
     let whiteBorder = {borderStyle: "solid", borderTopColor: "#f4f4f4"};
     return this.state.markerToggle.includes(marker.obj) ? whiteBorder : coloredBorder;
+  }
+
+  //filter function
+  dataFilter(input){
+      input != "" ? this.setState({filteredData: this.state.data.filter((dataRow) => {return
+                                                                               dataRow.GOannotation == input ||
+                                                                               dataRow.id == input ||
+                                                                               dataRow.markers == input ||
+                                                                               dataRow['Protein-Description'] == input})})
+                  : this.setState({filteredData: this.state.data});
   }
 
   //add or delete profile column
@@ -386,16 +394,15 @@ export class DataView extends React.Component {
         onChange={this._onCheckboxChange}
       />
     );
-    console.log(this.state.metaData);
 
     //the data table inclusive the bar above the table
     const table = <div className="tableCore">
                     <div className="belowMainPlot row">
                       <div className="col-sm-2">
                         <SearchBox
-                          onSearch={ (newValue) => this.setState({filterInput: newValue}) }
-                          onChange={(newValue) => newValue == '' && this.setState({filterInput: newValue}) }
-                          style={{backgroundColor: '#f2e4d8'}} labelText='Filter'
+                          style={{backgroundColor: '#f2e4d8'}}
+                          labelText='Filter'
+                          onChange={(newValue) => this.dataFilter(newValue)}
                         />
                       </div>
                       <div className="col-sm-10">
@@ -535,7 +542,7 @@ export class DataView extends React.Component {
           isOpen={ this.state.showMetaDataPopup }
           isLightDismiss={ true }
           onDismiss={ () => this.setState({ showMetaDataPopup: false }) }
-          type={ PanelType.medium  }
+          type={ PanelType.smallFixedFar  }
           headerText='Dataset'
           closeButtonAriaLabel='Close'
         >
@@ -552,7 +559,7 @@ export class DataView extends React.Component {
         <div className="codeBox">
 
           <code className="RCode">
-            #load the data with the pRoloc R package <br/>
+            # with the pRoloc R package <br/>
             library(pRolocdata) <br/>
             object = download("{this.props.params.uid}") </code>
 
