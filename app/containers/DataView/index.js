@@ -168,7 +168,8 @@ export class DataView extends React.Component {
   };
 
   legendColor(marker){
-    let coloredBorder = {borderStyle: "solid", borderTopColor: "#ff0000"};
+    let legendColor = this.state.data.find((dataRow) => dataRow.markers == marker.obj).Colors
+    let coloredBorder = {borderStyle: "solid", borderTopColor: legendColor};
     let whiteBorder = {borderStyle: "solid", borderTopColor: "#f4f4f4"};
     return this.state.markerToggle.includes(marker.obj) ? whiteBorder : coloredBorder;
   }
