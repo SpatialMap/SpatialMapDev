@@ -28,19 +28,20 @@
 }
 
 .lengendItems {
-  float: right;
+  float: left;
   height: 32px;
   background-color: #f4f4f4;
   margin-left: 2px;
-  padding: 3px 10px 3px 10px;
+  overflow-x: auto;
+  font-size: 11px;
+  padding: 3px 5px 3px 5px;
 }
 
 .lengendItems:checked {
-  float: right;
   height: 32px;
   background-color: #f00;
   margin-left: 2px;
-  padding: 3px 10px 3px 10px;
+  padding: 3px 5px 3px 5px;
 }
 
 .belowMainPlot {
@@ -50,7 +51,6 @@
   margin-bottom: 2px;
   height: 32px;
   background-color: #f2e4d8;
-  overflow: hidden;
   box-shadow: 0px 0.5px 3px 1px rgba(0,0,0,0.3);
 }
 
@@ -111,7 +111,6 @@
   font-weight: bold;
   font-size: 12px;
 }
-
 
 .modChoice {
   background-color: #f2e4d8;

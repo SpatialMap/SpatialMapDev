@@ -168,9 +168,18 @@ export class DataView extends React.Component {
   };
 
   legendColor(marker){
-    let legendColor = this.state.data.find((dataRow) => dataRow.markers == marker.obj).Colors
-    let coloredBorder = {borderStyle: "solid", borderTopColor: legendColor};
-    let whiteBorder = {borderStyle: "solid", borderTopColor: "#f4f4f4"};
+    let legendColor = this.state.data.find((dataRow) => dataRow.markers == marker.obj) && this.state.data.find((dataRow) => dataRow.markers == marker.obj).Colors;
+    let coloredBorder = {borderStyle: "solid",
+                         borderWidth: "3px",
+                         borderBottomColor: "#f4f4f4",
+                         borderRightColor: "#f4f4f4",
+                         borderLeftColor: "#f4f4f4",
+                         borderTopColor: legendColor,
+                         outline: "none"};
+    let whiteBorder =   {borderStyle: "solid",
+                         borderWidth: "3px",
+                         outline: "none",
+                         borderColor: "#f4f4f4"};
     return this.state.markerToggle.includes(marker.obj) ? whiteBorder : coloredBorder;
   }
 
@@ -344,7 +353,6 @@ export class DataView extends React.Component {
                                           colourHightlight = {this.state.activePeptideID}
                                           colour = {function(d, dataHighlighted) {
                                                       if(d.id == dataHighlighted){
-                                                        console.log("works");
                                                         return("#ff0000")
                                                       } else if(d.markers != "unknown") {
                                             						return(d.Colors)
@@ -399,13 +407,14 @@ export class DataView extends React.Component {
     //the data table inclusive the bar above the table
     const table = <div className="tableCore">
                     <div className="belowMainPlot row">
-                      <div className="col-sm-2">
-                        <SearchBox
-                          style={{backgroundColor: '#f2e4d8'}}
-                          labelText='Filter'
-                          onChange={(newValue) => this.dataFilter(newValue)}
-                        />
-                      </div>
+                    <div className="col-sm-2">
+                      <SearchBox
+                        style={{backgroundColor: '#f2e4d8'}}
+                        underlined={true}
+                        labelText='Filter'
+                        onChange={(newValue) => this.dataFilter(newValue)}
+                      />
+                    </div>
                       <div className="col-sm-10">
                         <button className="heightToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v"></i></button>
                         <button className="heightToggle" onClick={() => this.switchPlotTools()}> <i className="fa fa-object-group"></i></button>
@@ -443,10 +452,9 @@ export class DataView extends React.Component {
 
         {/*Top left buttons & sliders */}
         <div className="configBar">
-          <div className="leftButtons first" onClick={() => this.setState({showComments : !this.state.showComments})}>Comments </div>
           <div className="leftButtons first" onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter})}>Profile Filter</div>
+          <div className="leftButtons" onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup})}>Options</div>
           <div className="leftButtons" onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup})}>Dataset</div>
-          <div className="leftButtons" onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup})}>Plot Options</div>
 
         {/*Top right buttons */}
         <div className="choiceChild"  onClick={ () => this.setState({ showUniProt : !this.state.showUniProt }) }>
@@ -501,7 +509,6 @@ export class DataView extends React.Component {
         >
           <span className='ms-font-m'>adding disqus commenting plugin here</span>
       </Panel>
-
       <Panel
           isBlocking={ false }
           isOpen={ this.state.showPlotConfigPopup }
