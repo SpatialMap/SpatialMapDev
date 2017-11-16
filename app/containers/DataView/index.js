@@ -62,6 +62,7 @@ export class DataView extends React.Component {
       loading: true,
       plotHeight: 500,
       radius: 4,
+      textSize: 3,
       dispUnknown: true,
       labels: false,
       activeKey: [],
@@ -94,6 +95,7 @@ export class DataView extends React.Component {
     this.setState({
         rndKey: '',
         radius: 4,
+        textSize: 3,
         dispUnknown: true,
         labels: false,
         brushedData: [],
@@ -382,7 +384,7 @@ export class DataView extends React.Component {
                   "fieldName" : keyAggregate[i],
                   "isResizable" : true,
                   "isRowHeader" : true,
-                  "minWidth" : (this.state.width - 150)/(keyAggregate.length-this.state.profileColumns.length),
+                  "minWidth" : (this.state.width - 150)/(keyAggregate.length-this.state.profileColumns.length)+10,
                   "isSorted" : this.state.sortedBy == keyAggregate[i] ? true : false,
                   "isSortedDescending" : this.state.sortedAscending,
                   "onColumnClick" : (i,j) => this.setState({showColumnPopup: true, nameColumnPopup: j.fieldName}),
@@ -407,7 +409,7 @@ export class DataView extends React.Component {
     //the data table inclusive the bar above the table
     const table = <div className="tableCore">
                     <div className="belowMainPlot row">
-                    <div className="col-sm-2">
+                    <div className="col-sm-2" style={{padding: "0px"}}>
                       <SearchBox
                         style={{backgroundColor: '#f2e4d8'}}
                         underlined={true}
@@ -419,7 +421,6 @@ export class DataView extends React.Component {
                         <button className="heightToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v"></i></button>
                         <button className="heightToggle" onClick={() => this.switchPlotTools()}> <i className="fa fa-object-group"></i></button>
                         <button className="heightToggle" onClick={() => this.resetAll()}> <i className="fa fa-undo"></i></button>
-                        <button className="heightToggle" onClick={() => this.toggleProfileColumn()}> <i className="fa fa-table"></i></button>
                         {legendItems}
                       </div>
                     </div>
@@ -451,8 +452,8 @@ export class DataView extends React.Component {
         />
 
         {/*Top left buttons & sliders */}
-        <div className="configBar">
-          <div className="leftButtons first" onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter})}>Profile Filter</div>
+        <div className="configBar" style={{paddingLeft: 10}}>
+          <div className="leftButtons first" onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter})}>Profile Columns</div>
           <div className="leftButtons" onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup})}>Options</div>
           <div className="leftButtons" onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup})}>Dataset</div>
 
@@ -463,10 +464,6 @@ export class DataView extends React.Component {
         <div className="choiceChild"  onClick={ () => this.setState({ plotProfile : !this.state.plotProfile }) }>
           Profile
         </div>
-        {/*}<div className="choiceChild" onClick={ () => this.setState({ plotTSNE : !this.state.plotTSNE }) }>
-          T-SNE
-        </div>
-        */}
         <div className="choiceChild" onClick={ () => this.setState({ plotPCA : !this.state.plotPCA }) }>
           PCA
         </div>
@@ -499,22 +496,22 @@ export class DataView extends React.Component {
 
       {/* side modal for comment section */}
       <Panel
-          isBlocking={ false }
-          isOpen={ this.state.showComments }
-          isLightDismiss={ true }
-          onDismiss={ () => this.setState({ showComments: false }) }
-          type={ PanelType.smallFixedFar }
+          isBlocking={false}
+          isOpen={this.state.showComments}
+          isLightDismiss={true}
+          onDismiss={() => this.setState({ showComments: false })}
+          type={PanelType.smallFixedFar}
           headerText='Comments'
           closeButtonAriaLabel='Close'
         >
           <span className='ms-font-m'>adding disqus commenting plugin here</span>
       </Panel>
       <Panel
-          isBlocking={ false }
-          isOpen={ this.state.showPlotConfigPopup }
-          isLightDismiss={ true }
-          onDismiss={ () => this.setState({ showPlotConfigPopup: false }) }
-          type={ PanelType.smallFixedFar }
+          isBlocking={false}
+          isOpen={this.state.showPlotConfigPopup}
+          isLightDismiss={true}
+          onDismiss={() => this.setState({showPlotConfigPopup: false})}
+          type={PanelType.smallFixedFar}
           headerText='Profile Options'
           closeButtonAriaLabel='Close'
         >
@@ -524,8 +521,25 @@ export class DataView extends React.Component {
             max = {10}
             step = {0.5}
             defaultValue = {4}
-            onChange = {radius => this.setState({ radius }) }
+            onChange = {radius => this.setState({radius}) }
             showValue = {false}
+          />
+          <Slider
+            label = 'Text Size'
+            min = {0.5}
+            max = {10}
+            step = {0.5}
+            defaultValue = {4}
+            onChange = {textSize => this.setState({textSize}) }
+            showValue = {false}
+          />
+          <Toggle
+           label = 'Show Profile Columns'
+           onAriaLabel = 'This toggle is checked. Press to uncheck.'
+           offAriaLabel = 'This toggle is unchecked. Press to check.'
+           onText = 'On'
+           offText = 'Off'
+           onChange={() => this.toggleProfileColumn()}
           />
            <Toggle
             label = 'Color Unknown'
