@@ -23,7 +23,6 @@ export class Datasets extends React.Component {
     super(props);
     this.state = {
       msnsets: [],
-      keyMatches: [],
       loading: true,
       searchTerm: this.props.params.search ? this.props.params.search : '',
     }
@@ -60,15 +59,9 @@ export class Datasets extends React.Component {
         keySet.push({
           matchedKeys: keyNames.key.name
           })
-          console.log("exists");
         }
-        this.setState({
-          keyMatches : matchedKeys
         })
-        })
-    } else {
-      this.setState({keyMatches : null})
-    }
+      }
   };
 
   render() {
@@ -83,7 +76,6 @@ export class Datasets extends React.Component {
 
     const flexTiles = <div> {DataSetItem} </div>;
     const itemContainer = this.state.loading == true ? loader : flexTiles;
-    const keyContainer = <div> works </div>;
 
     return (
       <div>
@@ -99,10 +91,6 @@ export class Datasets extends React.Component {
             onChange={ (newValue) => this.setState({searchTerm : newValue}) }
           />
         </div>
-        <div className="topButtons col-sm-2 col-sm-offset-4">
-          <button onClick={() => console.log(this.state.keyMatches)}> show keyMatches </button>
-        </div>
-        {this.state.keyMatches && keyContainer}
         {itemContainer}
       </div>
       </div>
