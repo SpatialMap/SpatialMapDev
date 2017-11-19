@@ -163,6 +163,18 @@
   float: left;
 }
 
+.axis {
+  font: 12px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+  stroke-width: 1px;
+}
+
 .toggle {
   float: left;
   text-align: center;
