@@ -38,10 +38,7 @@
 }
 
 .lengendItems:checked {
-  height: 32px;
   background-color: #f00;
-  margin-left: 2px;
-  padding: 3px 5px 3px 5px;
 }
 
 .belowMainPlot {
@@ -159,7 +156,6 @@
 
 .scatterContainer{
   width: 49%;
-  /* width: 630px; */
   float: left;
 }
 

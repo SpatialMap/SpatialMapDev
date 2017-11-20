@@ -70,7 +70,6 @@ export class DataView extends React.Component {
       brushedData: [],
       showUniProt: false,
       plotPCA: true,
-      plotTSNE: false,
       plotProfile: true,
       colorSelect: [''],
       radiusSelect: [''],
@@ -83,10 +82,8 @@ export class DataView extends React.Component {
       showPlotConfigPopup: false,
       nameColumnPopup: '',
       showProfileDataColumn: false,
-      showComments: false,
       showProfileFilter: false,
       showMetaDataPopup: false,
-      showMetaData: false
     };
   }
 
@@ -101,7 +98,6 @@ export class DataView extends React.Component {
         brushedData: [],
         showUniProt: false,
         plotPCA: true,
-        plotTSNE: false,
         plotProfile: true,
         colorSelect: [''],
         radiusSelect: [''],
@@ -110,6 +106,13 @@ export class DataView extends React.Component {
         showToolBar: 'none',
         plotTool: 'auto',
       })
+  };
+
+  //refresh ScatterPlot
+  
+
+  refreshPlot() {
+    this.setState({radius: this.state.radius});
   };
 
   //function defines which peptide is highlighted
@@ -121,7 +124,7 @@ export class DataView extends React.Component {
   togglePlotHeight(){
     this.state.plotHeight == 500 ? this.setState({plotHeight: this.state.height - 150}) :
                                    this.setState({plotHeight: 500});
-    this.setState({plotPCA : true});
+    console.log("toggled plotheight");
   }
 
   setActiveColor(reset = false){
@@ -169,6 +172,7 @@ export class DataView extends React.Component {
     this.setState({filteredData: this.state.data.filter((dataRow) => {return !this.state.markerToggle.includes(dataRow.markers)})});
   };
 
+  //organelle legend buttons
   legendColor(marker){
     let legendColor = this.state.data.find((dataRow) => dataRow.markers == marker.obj) && this.state.data.find((dataRow) => dataRow.markers == marker.obj).Colors;
     let coloredBorder = {borderStyle: "solid",
@@ -274,21 +278,13 @@ export class DataView extends React.Component {
 
     //metaData entries
     const MetaVarName = <div className="tileText"> Name : {this.state.metaData.varName} </div>;
-
     const MetaLab = this.state.metaData.lab && <div className="upperTileText"> Lab : {this.state.metaData.lab} </div>;
-
     const MetaSpecies = this.state.metaData.species && <div className="upperTileText"> Species : {this.state.metaData.species} </div>;
-
     const MetaDescription = this.state.metaData.description && <div className="upperTileText"> Description : {this.state.metaData.description} </div>;
-
     const MetaTissue = this.state.metaData.tissue && <div className="upperTileText"> Tissue : {this.state.metaData.tissue} </div>;
-
     const MetaEmail = this.state.metaData.email && <div className="upperTileText"> Email : {this.state.metaData.email} </div>;
-
     const MetaContact = this.state.metaData.contact && <div className="upperTileText"> Contact : {this.state.metaData.contact} </div>;
-
     const MetaDataStamp = this.state.metaData.dataStamp && <div className="upperTileText"> Date : {this.state.metaData.dataStamp} </div>;
-
     const MetaAuthor = this.state.metaData.author && <div className="upperTileText"> Author : {this.state.metaData.author} </div>;
 
     //the scatter plot component
@@ -439,7 +435,7 @@ export class DataView extends React.Component {
         <Helmet
           title="SpatialMaps - DataView"
           meta={[
-            { name: 'description', content: 'Description of DataView' },
+            { name: 'description', content: 'The SpatialMaps data viewer' },
           ]}
         />
 
@@ -486,18 +482,7 @@ export class DataView extends React.Component {
         </div>
       </Dialog>
 
-      {/* side modal for comment section */}
-      <Panel
-          isBlocking={false}
-          isOpen={this.state.showComments}
-          isLightDismiss={true}
-          onDismiss={() => this.setState({ showComments: false })}
-          type={PanelType.smallFixedFar}
-          headerText='Comments'
-          closeButtonAriaLabel='Close'
-        >
-          <span className='ms-font-m'>adding disqus commenting plugin here</span>
-      </Panel>
+      {/* The "option" panel */}
       <Panel
           isBlocking={false}
           isOpen={this.state.showPlotConfigPopup}
@@ -551,6 +536,7 @@ export class DataView extends React.Component {
           />
       </Panel>
 
+      {/* The "Dataset" panel */}
       <Panel
           isBlocking={ false }
           isOpen={ this.state.showMetaDataPopup }
@@ -587,6 +573,7 @@ export class DataView extends React.Component {
         {MetaAuthor}
       </Panel>
 
+    {/* The "Profile Column" panel */}
       <Panel
           isBlocking={ false }
           isOpen={ this.state.showProfileFilter }
