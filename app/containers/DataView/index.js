@@ -313,7 +313,7 @@ export class DataView extends React.Component {
 
     //creating a json object that contains the column attributes for the parallels package
     var keyVar = {};
-    const profileKeys2 = this.state.profileColumns && this.state.profileColumns.map(function(obj, index) {
+    this.state.profileColumns && this.state.profileColumns.map(function(obj, index) {
         index == 0 ?
         keyVar[obj] = {type:"number", "tickValues":[0,0.2,0.4,0.6,0.8]} :
         keyVar[obj] = {type:"number", "tickValues":0};
@@ -335,7 +335,7 @@ export class DataView extends React.Component {
     const profileContainer = this.state.plotProfile &&
                              <div className="scatterContainer">
                                       <ParallelCoordinatesComponent
-                                          data = {this.state.filteredData}
+                                          data = {this.state.data}
                                           dimensions = {dimensions}
                                           width = {styles.width}
                                           height = {styles.height}
@@ -350,7 +350,7 @@ export class DataView extends React.Component {
                                             						return("rgba(0,0,0,0.1)")
                                             					}
                                             			}}
-                                          onBrushEnd_data = {(out) => this.setState({data : out})}
+                                          onBrushEnd_data = {(out) => this.setState({filteredData : out})}
                                        />
                               </div>;
 
