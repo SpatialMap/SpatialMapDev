@@ -199,6 +199,12 @@ export class DataView extends React.Component {
                   : this.setState({filteredData: this.state.data});
   }
 
+  //toggle active/inactive button style
+  activeButton(boleanVar){
+    let active = {backgroundColor: "#f4f4f4"};
+    let inactive = {backgroundColor: "#f2e4d8"}; 
+    return boleanVar == true? active : inactive; 
+  }
   //add or delete profile column
   addToggleProfileColumnArray(column){
     let tempMarkerToggle = this.state.profileToggle;
@@ -441,18 +447,18 @@ export class DataView extends React.Component {
 
         {/*Top left buttons & sliders */}
         <div className="configBar" style={{paddingLeft: 10}}>
-          <div className="leftButtons first" onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter})}>Profile Columns</div>
-          <div className="leftButtons" onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup})}>Options</div>
-          <div className="leftButtons" onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup})}>Dataset</div>
+          <div className="leftButtons first" style={this.activeButton(this.state.showProfileFilter)} onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter})}>Profile Columns</div>
+          <div className="leftButtons" style={this.activeButton(this.state.showPlotConfigPopup)} onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup})}>Options</div>
+          <div className="leftButtons" style={this.activeButton(this.state.showMetaDataPopup)} onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup})}>Dataset</div>
 
         {/*Top right buttons */}
-        <div className="choiceChild"  onClick={ () => this.setState({ showUniProt : !this.state.showUniProt }) }>
+        <div className="choiceChild" style={this.activeButton(this.state.showUniProt)} onClick={ () => this.setState({ showUniProt : !this.state.showUniProt, plotProfile: false}) }>
           UniProt
         </div>
-        <div className="choiceChild"  onClick={ () => this.setState({ plotProfile : !this.state.plotProfile }) }>
+        <div className="choiceChild" style={this.activeButton(this.state.plotProfile)} onClick={ () => this.setState({ plotProfile : !this.state.plotProfile, showUniProt : false}) }>
           Profile
         </div>
-        <div className="choiceChild" onClick={ () => this.setState({ plotPCA : !this.state.plotPCA }) }>
+        <div className="choiceChild" style={this.activeButton(this.state.plotPCA)} onClick={ () => this.setState({ plotPCA : !this.state.plotPCA }) }>
           PCA
         </div>
       </div>
@@ -589,8 +595,8 @@ export class DataView extends React.Component {
       {/* metadata or plot logic */}
       {
       <div className="mainPlot" style={{height: this.state.plotHeight}}>
-        {profileContainer}
         {d3Container}
+        {profileContainer}
         {uniProtContainer}
       </div>
       }

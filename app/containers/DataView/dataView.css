@@ -96,6 +96,10 @@
   float: right;
 }
 
+.buttons:hover{
+  background-color:  #f4f4f4;
+}
+
 .leftButtons,
 .choiceChild {
   background-color: #f2e4d8;
@@ -123,11 +127,15 @@
 }
 
 .modChoice:hover{
-  background-color: #f2e4d0;
+  background-color: #f4f4f4;
 }
 
 .choiceChild {
   float : right;
+}
+
+.choiceChild:hover {
+  background-color:  #f4f4f4;
 }
 
 .leftButtons {
@@ -151,7 +159,7 @@
 .heightToggle:hover,
 .leftButtons:hover,
 .choiceChild:hover {
-  background-color: #DFCFBF;
+  background-color: #f4f4f4;
 }
 
 .scatterContainer{
