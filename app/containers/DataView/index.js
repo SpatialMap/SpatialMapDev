@@ -191,11 +191,7 @@ export class DataView extends React.Component {
 
   //filter function
   dataFilter(input){
-      input != "" ? this.setState({filteredData: this.state.data.filter((dataRow) => {return
-                                                                               dataRow.GOannotation == input ||
-                                                                               dataRow.id == input ||
-                                                                               dataRow.markers == input ||
-                                                                               dataRow['Protein-Description'] == input})})
+      input != "" ? this.setState({filteredData: this.state.data.filter((dataRow) => {return dataRow.GOannotation == input || dataRow.id == input || dataRow.markers == input || dataRow['Protein-Description'] == input})})
                   : this.setState({filteredData: this.state.data});
   }
 
@@ -283,15 +279,15 @@ export class DataView extends React.Component {
     };
 
     //metaData entries
-    const MetaVarName = <div className="tileText"> Name : {this.state.metaData.varName} </div>;
-    const MetaLab = this.state.metaData.lab && <div className="upperTileText"> Lab : {this.state.metaData.lab} </div>;
-    const MetaSpecies = this.state.metaData.species && <div className="upperTileText"> Species : {this.state.metaData.species} </div>;
+    const MetaVarName     = <div className="tileText"> Name : {this.state.metaData.varName} </div>;
+    const MetaLab         = this.state.metaData.lab && <div className="upperTileText"> Lab : {this.state.metaData.lab} </div>;
+    const MetaSpecies     = this.state.metaData.species && <div className="upperTileText"> Species : {this.state.metaData.species} </div>;
     const MetaDescription = this.state.metaData.description && <div className="upperTileText"> Description : {this.state.metaData.description} </div>;
-    const MetaTissue = this.state.metaData.tissue && <div className="upperTileText"> Tissue : {this.state.metaData.tissue} </div>;
-    const MetaEmail = this.state.metaData.email && <div className="upperTileText"> Email : {this.state.metaData.email} </div>;
-    const MetaContact = this.state.metaData.contact && <div className="upperTileText"> Contact : {this.state.metaData.contact} </div>;
-    const MetaDataStamp = this.state.metaData.dataStamp && <div className="upperTileText"> Date : {this.state.metaData.dataStamp} </div>;
-    const MetaAuthor = this.state.metaData.author && <div className="upperTileText"> Author : {this.state.metaData.author} </div>;
+    const MetaTissue      = this.state.metaData.tissue && <div className="upperTileText"> Tissue : {this.state.metaData.tissue} </div>;
+    const MetaEmail       = this.state.metaData.email && <div className="upperTileText"> Email : {this.state.metaData.email} </div>;
+    const MetaContact     = this.state.metaData.contact && <div className="upperTileText"> Contact : {this.state.metaData.contact} </div>;
+    const MetaDataStamp   = this.state.metaData.dataStamp && <div className="upperTileText"> Date : {this.state.metaData.dataStamp} </div>;
+    const MetaAuthor      = this.state.metaData.author && <div className="upperTileText"> Author : {this.state.metaData.author} </div>;
 
     //the scatter plot component
     const d3Plot =  <div className="scatterContainer">
