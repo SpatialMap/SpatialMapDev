@@ -337,7 +337,7 @@ export class DataView extends React.Component {
     const profileContainer = this.state.plotProfile &&
                              <div className="scatterContainer">
                                       <ParallelCoordinatesComponent
-                                          data = {this.state.data}
+                                          data = {this.state.filteredData}
                                           dimensions = {dimensions}
                                           width = {styles.width}
                                           height = {styles.height}
@@ -433,7 +433,7 @@ export class DataView extends React.Component {
                   </div>;
 
     return (
-      <div>
+    <div>
         <Helmet
           title="SpatialMaps - DataView"
           meta={[
@@ -446,18 +446,17 @@ export class DataView extends React.Component {
           <div className="leftButtons first" style={this.activeButton(this.state.showProfileFilter)} onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter})}>Profile Columns</div>
           <div className="leftButtons" style={this.activeButton(this.state.showPlotConfigPopup)} onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup})}>Options</div>
           <div className="leftButtons" style={this.activeButton(this.state.showMetaDataPopup)} onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup})}>Dataset</div>
-
-        {/*Top right buttons */}
-        <div className="choiceChild" style={this.activeButton(this.state.showUniProt)} onClick={ () => this.setState({ showUniProt : !this.state.showUniProt, plotProfile: false}) }>
-          UniProt
+          {/*Top right buttons */}
+          <div className="choiceChild" style={this.activeButton(this.state.showUniProt)} onClick={ () => this.setState({ showUniProt : !this.state.showUniProt, plotProfile: false}) }>
+            UniProt
+          </div>
+          <div className="choiceChild" style={this.activeButton(this.state.plotProfile)} onClick={ () => this.setState({ plotProfile : !this.state.plotProfile, showUniProt : false}) }>
+            Profile
+          </div>
+          <div className="choiceChild" style={this.activeButton(this.state.plotPCA)} onClick={ () => this.setState({ plotPCA : !this.state.plotPCA }) }>
+            PCA
+          </div>
         </div>
-        <div className="choiceChild" style={this.activeButton(this.state.plotProfile)} onClick={ () => this.setState({ plotProfile : !this.state.plotProfile, showUniProt : false}) }>
-          Profile
-        </div>
-        <div className="choiceChild" style={this.activeButton(this.state.plotPCA)} onClick={ () => this.setState({ plotPCA : !this.state.plotPCA }) }>
-          PCA
-        </div>
-      </div>
 
       {/* The modal showing on colum header click */}
       <Dialog
