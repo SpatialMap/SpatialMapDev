@@ -4,107 +4,110 @@
  *
  */
 
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import makeSelectDataView from './selectors';
-import messages from './messages';
-import ReactDOM from 'react-dom';
-import * as firebase from 'firebase';
+import React, { PropTypes }                 from 'react';
+import { connect }                          from 'react-redux';
+import Helmet                               from 'react-helmet';
+import { FormattedMessage }                 from 'react-intl';
+import { createStructuredSelector }         from 'reselect';
+import makeSelectDataView                   from './selectors';
+import messages                             from './messages';
+import ReactDOM                             from 'react-dom';
+import * as firebase                        from 'firebase';
 import './dataView.css';
-import ScatterPlot from './scatter.js';
-import { ReactSVGPanZoom } from 'react-svg-pan-zoom';
-import keydown, { Keys } from 'react-keydown';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
-import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
-import { Slider } from 'office-ui-fabric-react/lib/Slider';
-import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
-import { Label } from 'office-ui-fabric-react/lib/Label';
-import { CompoundButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
-import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
-import { autobind } from 'office-ui-fabric-react/lib/Utilities';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-import { DetailsList, DetailsListLayoutMode, Selection, CheckboxVisibility, buildColumns,
-         IColumn, ConstrainMode, ColumnActionsMode } from 'office-ui-fabric-react/lib/DetailsList';
-import { IContextualMenuProps, IContextualMenuItem, DirectionalHint,
-         ContextualMenu } from 'office-ui-fabric-react/lib/ContextualMenu';
-import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
-import { Callout } from 'office-ui-fabric-react/lib/Callout';
+import ScatterPlot                          from './scatter.js';
+import { ReactSVGPanZoom }                  from 'react-svg-pan-zoom';
+import keydown, { Keys }                    from 'react-keydown';
+import { PrimaryButton, DefaultButton }     from 'office-ui-fabric-react/lib/Button';
+import { Spinner, SpinnerSize }             from 'office-ui-fabric-react/lib/Spinner';
+import { Checkbox }                         from 'office-ui-fabric-react/lib/Checkbox';
+import { Slider }                           from 'office-ui-fabric-react/lib/Slider';
+import { Toggle }                           from 'office-ui-fabric-react/lib/Toggle';
+import { Label }                            from 'office-ui-fabric-react/lib/Label';
+import { CompoundButton, IButtonProps }     from 'office-ui-fabric-react/lib/Button';
+import { ChoiceGroup, IChoiceGroupOption }  from 'office-ui-fabric-react/lib/ChoiceGroup';
+import { autobind }                         from 'office-ui-fabric-react/lib/Utilities';
+import { TextField }                        from 'office-ui-fabric-react/lib/TextField';
+import { DetailsList, DetailsListLayoutMode, 
+         Selection, CheckboxVisibility, 
+         buildColumns, IColumn, 
+         ConstrainMode, ColumnActionsMode } from 'office-ui-fabric-react/lib/DetailsList';
+import { IContextualMenuProps, IContextualMenuItem, 
+          DirectionalHint, ContextualMenu } from 'office-ui-fabric-react/lib/ContextualMenu';
+import { MarqueeSelection }                 from 'office-ui-fabric-react/lib/MarqueeSelection';
+import { Callout }                          from 'office-ui-fabric-react/lib/Callout';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
-import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
-import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
+import { SearchBox }                        from 'office-ui-fabric-react/lib/SearchBox';
+import { Panel, PanelType }                 from 'office-ui-fabric-react/lib/Panel';
 
 var ParallelCoordinatesComponent = require('react-parallel-coordinates');
-var Dimensions = require('react-dimensions');
+var Dimensions                   = require('react-dimensions');
 
 export class DataView extends React.Component {
   // eslint-disable-line react/prefer-stateless-function
   constructor(props, context) {
     super(props, context);
     this.Viewer = null;
-    this.state = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-      data: [],
-      filteredData: [],
-      filteredProfile: [],
-      metaData: [],
-      markerClasses: [],
-      markerToggle: [],
-      profileToggle: [],
-      rndKey: '',
-      exprsSet: [],
-      profileOutput:[],
-      profileColumns:[],
-      loading: true,
-      plotHeight: 500,
-      radius: 4,
-      textSize: 3,
-      dispUnknown: true,
-      labels: false,
-      activeKey: [],
-      activePeptideID: '',
-      brushedData: [],
-      showUniProt: false,
-      plotPCA: true,
-      plotProfile: true,
-      colorSelect: [''],
-      radiusSelect: [''],
-      transpSelect: [''],
-      sortedBy: '',
-      sortedAscending: true,
-      showToolBar: 'none',
-      plotTool: 'auto',
-      showColumnPopup: false,
-      showPlotConfigPopup: false,
-      nameColumnPopup: '',
-      showProfileDataColumn: false,
-      showProfileFilter: false,
-      showMetaDataPopup: false,
+    this.state  = {
+      width                 : window.innerWidth,
+      height                : window.innerHeight,
+      data                  : [],
+      filteredData          : [],
+      filteredProfile       : [],
+      metaData              : [],
+      markerClasses         : [],
+      markerToggle          : [],
+      profileToggle         : [],
+      rndKey                : '',
+      exprsSet              : [],
+      profileOutput         : [],
+      profileColumns        : [],
+      loading               : true,
+      plotHeight            : 500,
+      radius                : 4,
+      textSize              : 3,
+      dispUnknown           : true,
+      labels                : false,
+      activeKey             : [],
+      activePeptideID       : '',
+      brushedData           : [],
+      showUniProt           : false,
+      plotPCA               : true,
+      plotProfile           : true,
+      colorSelect           : [''],
+      radiusSelect          : [''],
+      transpSelect          : [''],
+      sortedBy              : '',
+      sortedAscending       : true,
+      showToolBar           : 'none',
+      plotTool              : 'auto',
+      showColumnPopup       : false,
+      showPlotConfigPopup   : false,
+      nameColumnPopup       : '',
+      showProfileDataColumn : false,
+      showProfileFilter     : false,
+      showMetaDataPopup     : false,
     };
   }
 
   //function that resets the state functions to its original state
   resetAll(){
     this.setState({
-        rndKey: '',
-        radius: 4,
-        textSize: 3,
-        dispUnknown: true,
-        labels: false,
-        brushedData: [],
-        showUniProt: false,
-        plotPCA: true,
-        plotProfile: true,
-        colorSelect: [''],
-        radiusSelect: [''],
-        transpSelect: [''],
-        sortedBy: '',
-        showToolBar: 'none',
-        plotTool: 'auto',
+        rndKey              : '',
+        radius              : 4,
+        textSize            : 3,
+        dispUnknown         : true,
+        labels              : false,
+        brushedData         : [],
+        showUniProt         : false,
+        plotPCA             : true,
+        plotProfile         : true,
+        colorSelect         : [''],
+        radiusSelect        : [''],
+        transpSelect        : [''],
+        sortedBy            : '',
+        filteredData        : this.state.data,
+        showToolBar         : 'none',
+        plotTool            : 'auto',
       })
   };
 
@@ -124,32 +127,31 @@ export class DataView extends React.Component {
   togglePlotHeight(){
     this.state.plotHeight == 500 ? this.setState({plotHeight: this.state.height - 150}) :
                                    this.setState({plotHeight: 500});
-    console.log("toggled plotheight");
   }
 
   setActiveColor(reset = false){
     !reset ? this.setState({colorSelect: this.state.nameColumnPopup}):
-                                   this.setState({colorSelect : ['']});
+             this.setState({colorSelect : ['']});
   };
 
   setActiveRadius(reset = false){
     !reset ? this.setState({radiusSelect: this.state.nameColumnPopup}):
-                                    this.setState({radiusSelect : ['']});
+             this.setState({radiusSelect : ['']});
   };
 
   setActiveTransp(reset = false){
     !reset ? this.setState({transpSelect: this.state.nameColumnPopup}):
-                                    this.setState({transpSelect: ['']});
+             this.setState({transpSelect: ['']});
   };
 
   switchPlotTools(reset = false){
     !reset ? this.setState({showToolBar: 'right', plotTool: ''}):
-                                   this.setState({showToolBar: 'none',  plotTool: 'auto'});
+             this.setState({showToolBar: 'none',  plotTool: 'auto'});
   };
 
   toggleProfileColumn(reset = false){
     !reset ? this.setState({showProfileDataColumn: !this.state.showProfileDataColumn}):
-                                   this.setState({showProfileDataColumn: false});
+             this.setState({showProfileDataColumn: false});
   };
 
   //adds or deletes organelle names from array to show/hide those
@@ -174,22 +176,24 @@ export class DataView extends React.Component {
 
   //organelle legend buttons
   legendColor(marker){
-    let legendColor = this.state.data.find((dataRow) => dataRow.markers == marker.obj) && this.state.data.find((dataRow) => dataRow.markers == marker.obj).Colors;
-    let coloredBorder = {borderStyle: "solid",
-                         borderWidth: "3px",
-                         borderBottomColor: "#f4f4f4",
-                         borderRightColor: "#f4f4f4",
-                         borderLeftColor: "#f4f4f4",
-                         borderTopColor: legendColor,
-                         outline: "none"};
-    let whiteBorder =   {borderStyle: "solid",
-                         borderWidth: "3px",
-                         outline: "none",
-                         borderColor: "#f4f4f4"};
+    let legendColor   = this.state.data.find((dataRow) => dataRow.markers == marker.obj) && this.state.data.find((dataRow) => dataRow.markers == marker.obj).Colors;
+    let coloredBorder = {borderStyle       : "solid",
+                         borderWidth       : "3px",
+                         borderBottomColor : "#f4f4f4",
+                         borderRightColor  : "#f4f4f4",
+                         borderLeftColor   : "#f4f4f4",
+                         borderTopColor    : legendColor,
+                         outline           : "none"};
+    let whiteBorder   = {borderStyle       : "solid",
+                         borderWidth       : "3px",
+                         outline           : "none",
+                         borderColor       : "#f4f4f4"};
+
     return this.state.markerToggle.includes(marker.obj) ? whiteBorder : coloredBorder;
   }
 
   //filter function
+  //written as oneliner due to otherwise occuring synthax error
   dataFilter(input){
       input != "" ? this.setState({filteredData: this.state.data.filter((dataRow) => {return dataRow.GOannotation == input || dataRow.id == input || dataRow.markers == input || dataRow['Protein-Description'] == input})})
                   : this.setState({filteredData: this.state.data});
@@ -197,7 +201,7 @@ export class DataView extends React.Component {
 
   //toggle active/inactive button style
   activeButton(boleanVar){
-    let active = {backgroundColor: "#f4f4f4"};
+    let active   = {backgroundColor: "#f4f4f4"};
     let inactive = {backgroundColor: "#f2e4d8"}; 
     return boleanVar == true? active : inactive; 
   }
@@ -232,8 +236,8 @@ export class DataView extends React.Component {
       })
     } else {
       this.setState({filteredData : this.state.filteredData.sort((a, b) => {
-        return ascending ? a[this.state.nameColumnPopup].localeCompare(b[this.state.nameColumnPopup]):
-                           b[this.state.nameColumnPopup].localeCompare(a[this.state.nameColumnPopup]);
+              return ascending ? a[this.state.nameColumnPopup].localeCompare(b[this.state.nameColumnPopup]):
+                                 b[this.state.nameColumnPopup].localeCompare(a[this.state.nameColumnPopup]);
         })
       })
     }
@@ -247,14 +251,15 @@ export class DataView extends React.Component {
   //loading the fSet data from firebase
   //the loading state is set to false once data is fetched
   componentDidMount(){
-    var data = [];
+    var data     = [];
     var exprsSet = [];
+
     firebase.database().ref('data/' + this.props.params.uid + '/fSet').once("value", (snapshot) => {
       let data = snapshot.val();
       this.setState({
-        data: data,
-        loading : false,
-        filteredData: data.filter((dataRow) => {return !this.state.markerToggle.includes(dataRow.markers)}),
+        data           : data,
+        loading        : false,
+        filteredData   : data.filter((dataRow) => {return !this.state.markerToggle.includes(dataRow.markers)}),
       });
     })
 
@@ -262,9 +267,9 @@ export class DataView extends React.Component {
   firebase.database().ref('meta/' + this.props.params.uid).once("value", (snapshot) => {
       let meta = snapshot.val();
       this.setState({
-        metaData: meta,
-        profileColumns: meta.profileColumns,
-        markerClasses: meta.markerClasses,
+        metaData       : meta,
+        profileColumns : meta.profileColumns,
+        markerClasses  : meta.markerClasses,
       });
     })
   };
@@ -280,29 +285,29 @@ export class DataView extends React.Component {
 
     //metaData entries
     const MetaVarName     = <div className="tileText"> Name : {this.state.metaData.varName} </div>;
-    const MetaLab         = this.state.metaData.lab && <div className="upperTileText"> Lab : {this.state.metaData.lab} </div>;
-    const MetaSpecies     = this.state.metaData.species && <div className="upperTileText"> Species : {this.state.metaData.species} </div>;
+    const MetaLab         = this.state.metaData.lab         && <div className="upperTileText"> Lab         : {this.state.metaData.lab}         </div>;
+    const MetaSpecies     = this.state.metaData.species     && <div className="upperTileText"> Species     : {this.state.metaData.species}     </div>;
     const MetaDescription = this.state.metaData.description && <div className="upperTileText"> Description : {this.state.metaData.description} </div>;
-    const MetaTissue      = this.state.metaData.tissue && <div className="upperTileText"> Tissue : {this.state.metaData.tissue} </div>;
-    const MetaEmail       = this.state.metaData.email && <div className="upperTileText"> Email : {this.state.metaData.email} </div>;
-    const MetaContact     = this.state.metaData.contact && <div className="upperTileText"> Contact : {this.state.metaData.contact} </div>;
-    const MetaDataStamp   = this.state.metaData.dataStamp && <div className="upperTileText"> Date : {this.state.metaData.dataStamp} </div>;
-    const MetaAuthor      = this.state.metaData.author && <div className="upperTileText"> Author : {this.state.metaData.author} </div>;
+    const MetaTissue      = this.state.metaData.tissue      && <div className="upperTileText"> Tissue      : {this.state.metaData.tissue}      </div>;
+    const MetaEmail       = this.state.metaData.email       && <div className="upperTileText"> Email       : {this.state.metaData.email}       </div>;
+    const MetaContact     = this.state.metaData.contact     && <div className="upperTileText"> Contact     : {this.state.metaData.contact}     </div>;
+    const MetaDataStamp   = this.state.metaData.dataStamp   && <div className="upperTileText"> Date        : {this.state.metaData.dataStamp}   </div>;
+    const MetaAuthor      = this.state.metaData.author      && <div className="upperTileText"> Author      : {this.state.metaData.author}      </div>;
 
     //the scatter plot component
     const d3Plot =  <div className="scatterContainer">
                       <ReactSVGPanZoom
-                        width = {styles.width}
-                        height = {styles.height}
-                        ref = {Viewer => this.Viewer = Viewer}
-                        SVGBackground="white"
-                        background="white"
-                        detectWheel = {true}
+                        width             = {styles.width}
+                        height            = {styles.height}
+                        ref               = {Viewer => this.Viewer = Viewer}
+                        SVGBackground     = "white"
+                        background        = "white"
+                        detectWheel       = {true}
                         miniaturePosition = {"none"}
-                        toolbarPosition = {this.state.showToolBar}
-                        tool = {this.state.plotTool}
-                        detectAutoPan = {false}>
-                        <svg width = {styles.width} height = {styles.height}>
+                        toolbarPosition   = {this.state.showToolBar}
+                        tool              = {this.state.plotTool}
+                        detectAutoPan     = {false}>
+                        <svg width        = {styles.width} height = {styles.height}>
                           <ScatterPlot {...this.state} {...styles} SetActiveKey={(index, activePeptide) => this.setActiveKey(index, activePeptide)} />
                         </svg>
                       </ReactSVGPanZoom>
@@ -327,31 +332,31 @@ export class DataView extends React.Component {
     const iframeLink = "http://www.uniprot.org/uniprot/" + this.state.activePeptideID;
     const uniProtContainer = this.state.showUniProt &&
                              <iframe
-                                       height = {styles.height}
-                                       width = {styles.width}
+                                       height      = {styles.height}
+                                       width       = {styles.width}
                                        frameBorder = "0"
-                                       src = {iframeLink}
+                                       src         = {iframeLink}
                              />;
 
     // the profile plot
     const profileContainer = this.state.plotProfile &&
                              <div className="scatterContainer">
                                       <ParallelCoordinatesComponent
-                                          data = {this.state.filteredData}
-                                          dimensions = {dimensions}
-                                          width = {styles.width}
-                                          height = {styles.height}
-                                          highlights = {1}
+                                          data             = {this.state.filteredData}
+                                          dimensions       = {dimensions}
+                                          width            = {styles.width}
+                                          height           = {styles.height}
+                                          highlights       = {1}
                                           colourHightlight = {this.state.activePeptideID}
-                                          colour = {function(d, dataHighlighted) {
-                                                      if(d.id == dataHighlighted){
-                                                        return("#ff0000")
-                                                      } else if(d.markers != "unknown") {
-                                            						return(d.Colors)
-                                            					} else {
-                                            						return("rgba(0,0,0,0.1)")
-                                            					}
-                                            			}}
+                                          colour           = {function(d, dataHighlighted) {
+                                                                if(d.id == dataHighlighted){
+                                                                  return("#ff0000")
+                                                                } else if(d.markers != "unknown") {
+                                                      						return(d.Colors)
+                                                      					} else {
+                                                      						return("rgba(0,0,0,0.1)")
+                                                      					}
+                                            			           }}
                                           onBrushEnd_data = {(out) => this.setState({filteredData : out})}
                                        />
                               </div>;
@@ -369,13 +374,13 @@ export class DataView extends React.Component {
         && keyAggregate[i] != "PCA1"
         && keyAggregate[i] != "PCA2"  ?
         columnVar.push({
-                  "key": keyAggregate[i]+i,
-                  "name" : keyAggregate[i],
-                  "fieldName" : keyAggregate[i],
-                  "isResizable" : true,
-                  "isRowHeader" : true,
-                  "minWidth" : (this.state.width - 150)/(keyAggregate.length-this.state.profileColumns.length)+10,
-                  "isSorted" : this.state.sortedBy == keyAggregate[i] ? true : false,
+                  "key"                : keyAggregate[i]+i,
+                  "name"               : keyAggregate[i],
+                  "fieldName"          : keyAggregate[i],
+                  "isResizable"        : true,
+                  "isRowHeader"        : true,
+                  "minWidth"           : (this.state.width - 150)/(keyAggregate.length-this.state.profileColumns.length)+10,
+                  "isSorted"           : this.state.sortedBy == keyAggregate[i] ? true : false,
                   "isSortedDescending" : this.state.sortedAscending,
                   "onColumnClick" : (i,j) => this.setState({showColumnPopup: true, nameColumnPopup: j.fieldName}),
       }) : null ;
@@ -389,10 +394,10 @@ export class DataView extends React.Component {
     let profileColumnsVar = this.state.profileColumns;
     const profileFilterButtons = profileColumnsVar && profileColumnsVar.map(obj =>
       <Checkbox
-        key={'key' + obj}
-        label={obj}
-        defaultChecked={true}
-        onChange={this._onCheckboxChange}
+        key            = {'key' + obj}
+        label          = {obj}
+        defaultChecked = {true}
+        onChange       = {this._onCheckboxChange}
       />
     );
 
@@ -401,10 +406,9 @@ export class DataView extends React.Component {
                     <div className="belowMainPlot row">
                     <div className="col-sm-2" style={{padding: "0px"}}>
                       <SearchBox
-                        style={{backgroundColor: '#f2e4d8'}}
-                        underlined={true}
-                        labelText='Filter'
-                        onChange={(newValue) => this.dataFilter(newValue)}
+                        style     = {{backgroundColor: '#f2e4d8'}}
+                        labelText = 'Filter'
+                        onChange  = {(newValue) => this.dataFilter(newValue)}
                       />
                     </div>
                       <div className="col-sm-10">
@@ -416,18 +420,18 @@ export class DataView extends React.Component {
                     </div>
                     <MarqueeSelection>
                       <DetailsList
-                        items = {this.state.filteredData}
-                        initialFocusedIndex = {1}
-                        columns = {columnVar}
-                        setKey = {this.state.activeKey}
-                        canResizeColumns = {true}
-                        constrainMode = {ConstrainMode.unconstrained}
-                        layoutMode = {DetailsListLayoutMode.fixedColumns}
-                        isLazyLoaded = {true}
-                        columnActionsMode = {ColumnActionsMode.clickable}
-                        checkboxVisibility = {CheckboxVisibility.hidden}
-                        selectionPreservedOnEmptyClick = {true}
-                        onActiveItemChanged = { (item, index) => this.setState({ activeKey : index }) }
+                        items                           = {this.state.filteredData}
+                        initialFocusedIndex             = {1}
+                        columns                         = {columnVar}
+                        setKey                          = {this.state.activeKey}
+                        canResizeColumns                = {true}
+                        constrainMode                   = {ConstrainMode.unconstrained}
+                        layoutMode                      = {DetailsListLayoutMode.fixedColumns}
+                        isLazyLoaded                    = {true}
+                        columnActionsMode               = {ColumnActionsMode.clickable}
+                        checkboxVisibility              = {CheckboxVisibility.hidden}
+                        selectionPreservedOnEmptyClick  = {true}
+                        onActiveItemChanged             = {(item, index) => this.setState({ activeKey : index })}
                         />
                     </MarqueeSelection>
                   </div>;
@@ -435,10 +439,8 @@ export class DataView extends React.Component {
     return (
     <div>
         <Helmet
-          title="SpatialMaps - DataView"
-          meta={[
-            { name: 'description', content: 'The SpatialMaps data viewer' },
-          ]}
+          title = "SpatialMaps - DataView"
+          meta  = {[ {name : 'description', content : 'The SpatialMaps data viewer'}, ]}
         />
 
         {/*Top left buttons & sliders */}
@@ -460,92 +462,84 @@ export class DataView extends React.Component {
 
       {/* The modal showing on colum header click */}
       <Dialog
-        isOpen={ this.state.showColumnPopup }
-        type={ DialogType.normal }
-        onDismiss={() => this.setState({showColumnPopup : !this.state.showColumnPopup})}
-        title='Column Options'
-        isBlocking={ false }
-        containerClassName='ms-dialogMainOverride'>
-        <p style={{textAlign: 'center'}}> Use the column to display additional data in the plot with
-          the help of modifiers
-        </p>
-        <div className="modChoice"  onClick={() => this.setActiveColor()}>
-          Color
-        </div>
-        <div className="modChoice"  onClick={() => this.setActiveRadius()}>
-          Radius
-        </div>
-        <div className="modChoice"  onClick={() => this.setActiveTransp()}>
-          Transparency
-        </div>
-        <div className="modChoice" onClick={() => this.setOrderBy(this.state.sortedAscending)}>
-          Sort Table by Column
-        </div>
+        isOpen             = { this.state.showColumnPopup }
+        type               = { DialogType.normal }
+        onDismiss          = {() => this.setState({showColumnPopup : !this.state.showColumnPopup})}
+        title              = 'Column Options'
+        isBlocking         = { false }
+        containerClassName = 'ms-dialogMainOverride'>
+
+        <p style={{textAlign: 'center'}}> Use the column to display additional data in the plot with the help of modifiers </p>
+        <div className="modChoice"  onClick={() => this.setActiveColor()}>  Color        </div>
+        <div className="modChoice"  onClick={() => this.setActiveRadius()}> Radius       </div>
+        <div className="modChoice"  onClick={() => this.setActiveTransp()}> Transparency </div>
+        <div className="modChoice"  onClick={() => this.setOrderBy(this.state.sortedAscending)}> Sort Table by Column </div>
+
       </Dialog>
 
       {/* The "option" panel */}
       <Panel
-          isBlocking={false}
-          isOpen={this.state.showPlotConfigPopup}
-          isLightDismiss={true}
-          onDismiss={() => this.setState({showPlotConfigPopup: false})}
-          type={PanelType.smallFixedFar}
-          headerText='Profile Options'
-          closeButtonAriaLabel='Close'
+          isBlocking           = {false}
+          isOpen               = {this.state.showPlotConfigPopup}
+          isLightDismiss       = {true}
+          onDismiss            = {() => this.setState({showPlotConfigPopup: false})}
+          type                 = {PanelType.smallFixedFar}
+          headerText           = 'Profile Options'
+          closeButtonAriaLabel = 'Close'
         >
           <Slider
-            label = 'Scatter Point Size'
-            min = {0.5}
-            max = {10}
-            step = {0.5}
+            label        = 'Scatter Point Size'
+            min          = {0.5}
+            max          = {10}
+            step         = {0.5}
             defaultValue = {4}
-            onChange = {radius => this.setState({radius}) }
-            showValue = {false}
+            onChange     = {radius => this.setState({radius}) }
+            showValue    = {false}
           />
           <Slider
-            label = 'Text Size'
-            min = {0.5}
-            max = {10}
-            step = {0.5}
+            label        = 'Text Size'
+            min          = {0.5}
+            max          = {10}
+            step         = {0.5}
             defaultValue = {4}
-            onChange = {textSize => this.setState({textSize}) }
-            showValue = {false}
+            onChange     = {textSize => this.setState({textSize}) }
+            showValue    = {false}
           />
           <Toggle
-           label = 'Show Profile Columns'
-           onAriaLabel = 'This toggle is checked. Press to uncheck.'
-           offAriaLabel = 'This toggle is unchecked. Press to check.'
-           onText = 'On'
-           offText = 'Off'
-           onChange={() => this.toggleProfileColumn()}
+           label         = 'Show Profile Columns'
+           onAriaLabel   = 'This toggle is checked. Press to uncheck.'
+           offAriaLabel  = 'This toggle is unchecked. Press to check.'
+           onText        = 'On'
+           offText       = 'Off'
+           onChange      = {() => this.toggleProfileColumn()}
           />
            <Toggle
-            label = 'Color Unknown'
-            onAriaLabel = 'This toggle is checked. Press to uncheck.'
+            label        = 'Color Unknown'
+            onAriaLabel  = 'This toggle is checked. Press to uncheck.'
             offAriaLabel = 'This toggle is unchecked. Press to check.'
-            onText = 'On'
-            offText = 'Off'
-            onChange = { () => this.setState({ labels : !this.state.labels }) }
+            onText       = 'On'
+            offText      = 'Off'
+            onChange     = { () => this.setState({ labels : !this.state.labels }) }
         />
           <Toggle
-           label = 'Hide Unknown'
-           onAriaLabel = 'This toggle is checked. Press to uncheck.'
-           offAriaLabel = 'This toggle is unchecked. Press to check.'
-           onText = 'On'
-           offText = 'Off'
-           onChange = { () => this.setState({ dispUnknown : !this.state.dispUnknown }) }
+           label         = 'Hide Unknown'
+           onAriaLabel   = 'This toggle is checked. Press to uncheck.'
+           offAriaLabel  = 'This toggle is unchecked. Press to check.'
+           onText        = 'On'
+           offText       = 'Off'
+           onChange      = {() => this.setState({ dispUnknown : !this.state.dispUnknown })}
           />
       </Panel>
 
       {/* The "Dataset" panel */}
       <Panel
-          isBlocking={ false }
-          isOpen={ this.state.showMetaDataPopup }
-          isLightDismiss={ true }
-          onDismiss={ () => this.setState({ showMetaDataPopup: false }) }
-          type={ PanelType.smallFixedFar  }
-          headerText='Dataset'
-          closeButtonAriaLabel='Close'
+          isBlocking           = { false }
+          isOpen               = { this.state.showMetaDataPopup }
+          isLightDismiss       = { true }
+          onDismiss            = { () => this.setState({ showMetaDataPopup: false }) }
+          type                 = { PanelType.smallFixedFar  }
+          headerText           = 'Dataset'
+          closeButtonAriaLabel = 'Close'
         >
 
         <p> <b> Meta Data </b> </p>
@@ -558,12 +552,10 @@ export class DataView extends React.Component {
 
         <p> <b> Download </b> </p>
         <div className="codeBox">
-
           <code className="RCode">
             # with the pRoloc R package <br/>
             library(pRolocdata) <br/>
             object = download("{this.props.params.uid}") </code>
-
         </div>
         <br/>
 
@@ -576,13 +568,13 @@ export class DataView extends React.Component {
 
     {/* The "Profile Column" panel */}
       <Panel
-          isBlocking={ false }
-          isOpen={ this.state.showProfileFilter }
-          isLightDismiss={ true }
-          onDismiss={ () => this.setState({ showProfileFilter: false }) }
-          type={ PanelType.smallFixedFar }
-          headerText='Profile Plot Columns'
-          closeButtonAriaLabel='Close'
+          isBlocking           = {false}
+          isOpen               = {this.state.showProfileFilter}
+          isLightDismiss       = {true}
+          onDismiss            = {() => this.setState({ showProfileFilter: false })}
+          type                 = {PanelType.smallFixedFar}
+          headerText           = 'Profile Plot Columns'
+          closeButtonAriaLabel = 'Close'
         >
         {profileFilterButtons}
       </Panel>

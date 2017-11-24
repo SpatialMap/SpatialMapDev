@@ -4,27 +4,27 @@
  *
  */
 
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import makeSelectDatasets from './selectors';
-import messages from './messages';
-import DataChild from './dataChilds.js';
-import * as firebase from 'firebase';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import React, { PropTypes }            from 'react';
+import { connect }                     from 'react-redux';
+import Helmet                          from 'react-helmet';
+import { FormattedMessage }            from 'react-intl';
+import { createStructuredSelector }    from 'reselect';
+import makeSelectDatasets              from './selectors';
+import messages                        from './messages';
+import DataChild                       from './dataChilds.js';
+import * as firebase                   from 'firebase';
+import { Spinner, SpinnerSize }        from 'office-ui-fabric-react/lib/Spinner';
 import './datasets.css';
-import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
+import { SearchBox }                   from 'office-ui-fabric-react/lib/SearchBox';
 import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
 
 export class Datasets extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      msnsets: [],
-      loading: true,
-      searchTerm: this.props.params.search ? this.props.params.search : '',
+      msnsets    : [],
+      loading    : true,
+      searchTerm : this.props.params.search ? this.props.params.search : '',
     }
   }
 
@@ -33,22 +33,22 @@ export class Datasets extends React.Component {
     firebase.database().ref('meta').on("child_added", (snapshot) => {
           let set = snapshot.val();
           msnsets.push({
-            id: snapshot.getKey(),
-            description: set.Description,
-            author: set.author,
-            contact: set.contact,
-            email: set.email,
-            lab: set.lab,
-            operator: set.operator,
-            species: set.species,
-            tissue: set.tissue,
-            title:set.title,
-            varName: set.varName,
+            id          : snapshot.getKey(),
+            description : set.Description,
+            author      : set.author,
+            contact     : set.contact,
+            email       : set.email,
+            lab         : set.lab,
+            operator    : set.operator,
+            species     : set.species,
+            tissue      : set.tissue,
+            title       : set.title,
+            varName     : set.varName,
           })
 
           this.setState({
-            msnsets : msnsets,
-            loading: false,
+            msnsets     : msnsets,
+            loading     : false,
           })
     })
     var keySet = [];
@@ -81,14 +81,12 @@ export class Datasets extends React.Component {
       <div>
         <Helmet
           title="Datasets"
-          meta={[
-            { name: 'description', content: 'Description of Datasets' },
-          ]}
+          meta={[{name: 'description', content: 'Description of Datasets'},]}
         />
       <div className="headBar row container">
         <div className="searchBox col-sm-6">
           <SearchBox
-            onChange={ (newValue) => this.setState({searchTerm : newValue}) }
+            onChange={(newValue) => this.setState({searchTerm : newValue})}
           />
         </div>
         {itemContainer}
