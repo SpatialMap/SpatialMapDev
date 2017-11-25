@@ -57,8 +57,6 @@ export class DataView extends React.Component {
       markerClasses         : [],
       markerToggle          : [],
       profileToggle         : [],
-      rndKey                : '',
-      exprsSet              : [],
       profileOutput         : [],
       profileColumns        : [],
       loading               : true,
@@ -69,7 +67,6 @@ export class DataView extends React.Component {
       labels                : false,
       activeKey             : [],
       activePeptideID       : '',
-      brushedData           : [],
       showUniProt           : false,
       plotPCA               : true,
       plotProfile           : true,
@@ -85,6 +82,7 @@ export class DataView extends React.Component {
       nameColumnPopup       : '',
       showProfileDataColumn : false,
       showProfileFilter     : false,
+      profileFiltering      : false,
       showMetaDataPopup     : false,
     };
   }
@@ -92,15 +90,14 @@ export class DataView extends React.Component {
   //function that resets the state functions to its original state
   resetAll(){
     this.setState({
-        rndKey              : '',
         radius              : 4,
         textSize            : 3,
         dispUnknown         : true,
         labels              : false,
-        brushedData         : [],
         showUniProt         : false,
         plotPCA             : true,
         plotProfile         : true,
+        profileFiltering    : false,
         colorSelect         : [''],
         radiusSelect        : [''],
         transpSelect        : [''],
@@ -252,7 +249,6 @@ export class DataView extends React.Component {
   //the loading state is set to false once data is fetched
   componentDidMount(){
     var data     = [];
-    var exprsSet = [];
 
     firebase.database().ref('data/' + this.props.params.uid + '/fSet').once("value", (snapshot) => {
       let data = snapshot.val();
@@ -284,15 +280,15 @@ export class DataView extends React.Component {
     };
 
     //metaData entries
-    const MetaVarName     = <div className="tileText"> Name : {this.state.metaData.varName} </div>;
-    const MetaLab         = this.state.metaData.lab         && <div className="upperTileText"> Lab         : {this.state.metaData.lab}         </div>;
-    const MetaSpecies     = this.state.metaData.species     && <div className="upperTileText"> Species     : {this.state.metaData.species}     </div>;
-    const MetaDescription = this.state.metaData.description && <div className="upperTileText"> Description : {this.state.metaData.description} </div>;
-    const MetaTissue      = this.state.metaData.tissue      && <div className="upperTileText"> Tissue      : {this.state.metaData.tissue}      </div>;
-    const MetaEmail       = this.state.metaData.email       && <div className="upperTileText"> Email       : {this.state.metaData.email}       </div>;
-    const MetaContact     = this.state.metaData.contact     && <div className="upperTileText"> Contact     : {this.state.metaData.contact}     </div>;
-    const MetaDataStamp   = this.state.metaData.dataStamp   && <div className="upperTileText"> Date        : {this.state.metaData.dataStamp}   </div>;
-    const MetaAuthor      = this.state.metaData.author      && <div className="upperTileText"> Author      : {this.state.metaData.author}      </div>;
+    const MetaVarName     =                                    <div> Name        : {this.state.metaData.varName}     </div>;
+    const MetaLab         = this.state.metaData.lab         && <div> Lab         : {this.state.metaData.lab}         </div>;
+    const MetaSpecies     = this.state.metaData.species     && <div> Species     : {this.state.metaData.species}     </div>;
+    const MetaDescription = this.state.metaData.description && <div> Description : {this.state.metaData.description} </div>;
+    const MetaTissue      = this.state.metaData.tissue      && <div> Tissue      : {this.state.metaData.tissue}      </div>;
+    const MetaEmail       = this.state.metaData.email       && <div> Email       : {this.state.metaData.email}       </div>;
+    const MetaContact     = this.state.metaData.contact     && <div> Contact     : {this.state.metaData.contact}     </div>;
+    const MetaDataStamp   = this.state.metaData.dataStamp   && <div> Date        : {this.state.metaData.dataStamp}   </div>;
+    const MetaAuthor      = this.state.metaData.author      && <div> Author      : {this.state.metaData.author}      </div>;
 
     //the scatter plot component
     const d3Plot =  <div className="scatterContainer">
@@ -342,7 +338,7 @@ export class DataView extends React.Component {
     const profileContainer = this.state.plotProfile &&
                              <div className="scatterContainer">
                                       <ParallelCoordinatesComponent
-                                          data             = {this.state.filteredData}
+                                          data             = {this.state.profileFiltering ? this.state.filteredData : this.state.data}
                                           dimensions       = {dimensions}
                                           width            = {styles.width}
                                           height           = {styles.height}
@@ -413,8 +409,8 @@ export class DataView extends React.Component {
                     </div>
                       <div className="col-sm-10">
                         <button className="heightToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v"></i></button>
-                        <button className="heightToggle" onClick={() => this.switchPlotTools()}> <i className="fa fa-object-group"></i></button>
-                        <button className="heightToggle" onClick={() => this.resetAll()}> <i className="fa fa-undo"></i></button>
+                        <button className="heightToggle" onClick={() => this.switchPlotTools()}>  <i className="fa fa-object-group"></i></button>
+                        <button className="heightToggle" onClick={() => this.resetAll()}>         <i className="fa fa-undo"></i></button>
                         {legendItems}
                       </div>
                     </div>
@@ -431,7 +427,7 @@ export class DataView extends React.Component {
                         columnActionsMode               = {ColumnActionsMode.clickable}
                         checkboxVisibility              = {CheckboxVisibility.hidden}
                         selectionPreservedOnEmptyClick  = {true}
-                        onActiveItemChanged             = {(item, index) => this.setState({ activeKey : index })}
+                        onActiveItemChanged             = {(item, index) => this.setState({activeKey : index})}
                         />
                     </MarqueeSelection>
                   </div>;
@@ -445,35 +441,54 @@ export class DataView extends React.Component {
 
         {/*Top left buttons & sliders */}
         <div className="configBar" style={{paddingLeft: 10}}>
-          <div className="leftButtons first" style={this.activeButton(this.state.showProfileFilter)} onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter})}>Profile Columns</div>
-          <div className="leftButtons" style={this.activeButton(this.state.showPlotConfigPopup)} onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup})}>Options</div>
-          <div className="leftButtons" style={this.activeButton(this.state.showMetaDataPopup)} onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup})}>Dataset</div>
+          <div className="leftButtons first" 
+               style={this.activeButton(this.state.showProfileFilter)} 
+               onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter})}>
+               Profile Columns
+          </div>
+          <div className="leftButtons" 
+               style={this.activeButton(this.state.showPlotConfigPopup)} 
+               onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup})}>
+               Options
+          </div>
+          <div className="leftButtons" 
+               style={this.activeButton(this.state.showMetaDataPopup)} 
+               onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup})}>
+               Dataset
+          </div>
+
           {/*Top right buttons */}
-          <div className="choiceChild" style={this.activeButton(this.state.showUniProt)} onClick={ () => this.setState({ showUniProt : !this.state.showUniProt, plotProfile: false}) }>
-            UniProt
+          <div className="choiceChild" 
+               style={this.activeButton(this.state.showUniProt)} 
+               onClick={() => this.setState({showUniProt : !this.state.showUniProt, plotProfile: false})}>
+               UniProt
           </div>
-          <div className="choiceChild" style={this.activeButton(this.state.plotProfile)} onClick={ () => this.setState({ plotProfile : !this.state.plotProfile, showUniProt : false}) }>
-            Profile
+          <div className="choiceChild" 
+               style={this.activeButton(this.state.plotProfile)} 
+               onClick={() => this.setState({plotProfile : !this.state.plotProfile, showUniProt : false})}>
+               Profile
           </div>
-          <div className="choiceChild" style={this.activeButton(this.state.plotPCA)} onClick={ () => this.setState({ plotPCA : !this.state.plotPCA }) }>
-            PCA
+          <div className="choiceChild" 
+               style={this.activeButton(this.state.plotPCA)} 
+               onClick={() => this.setState({plotPCA : !this.state.plotPCA})}>
+               PCA
           </div>
         </div>
 
       {/* The modal showing on colum header click */}
       <Dialog
-        isOpen             = { this.state.showColumnPopup }
-        type               = { DialogType.normal }
-        onDismiss          = {() => this.setState({showColumnPopup : !this.state.showColumnPopup})}
-        title              = 'Column Options'
-        isBlocking         = { false }
-        containerClassName = 'ms-dialogMainOverride'>
+        isOpen                 = {this.state.showColumnPopup}
+        type                   = {DialogType.normal}
+        onDismiss              = {() => this.setState({showColumnPopup : !this.state.showColumnPopup})}
+        title                  = 'Column Options'
+        isBlocking             = {false}
+        containerClassName     = 'ms-dialogMainOverride'>
 
         <p style={{textAlign: 'center'}}> Use the column to display additional data in the plot with the help of modifiers </p>
-        <div className="modChoice"  onClick={() => this.setActiveColor()}>  Color        </div>
-        <div className="modChoice"  onClick={() => this.setActiveRadius()}> Radius       </div>
-        <div className="modChoice"  onClick={() => this.setActiveTransp()}> Transparency </div>
-        <div className="modChoice"  onClick={() => this.setOrderBy(this.state.sortedAscending)}> Sort Table by Column </div>
+        <div className="modChoice" onClick={() => this.setActiveColor()}>  Color        </div>
+        <div className="modChoice" onClick={() => this.setActiveRadius()}> Radius       </div>
+        <div className="modChoice" onClick={() => this.setActiveTransp()}> Transparency </div>
+        <div className="modChoice" onClick={() => this.setOrderBy(this.state.sortedAscending)}> Sort Table by Column </div>
 
       </Dialog>
 
@@ -488,107 +503,119 @@ export class DataView extends React.Component {
           closeButtonAriaLabel = 'Close'
         >
           <Slider
-            label        = 'Scatter Point Size'
-            min          = {0.5}
-            max          = {10}
-            step         = {0.5}
-            defaultValue = {4}
-            onChange     = {radius => this.setState({radius}) }
-            showValue    = {false}
+            label              = 'Scatter Point Size'
+            min                = {0.5}
+            max                = {10}
+            step               = {0.5}
+            defaultValue       = {4}
+            onChange           = {radius => this.setState({radius})}
+            showValue          = {false}
           />
           <Slider
-            label        = 'Text Size'
-            min          = {0.5}
-            max          = {10}
-            step         = {0.5}
-            defaultValue = {4}
-            onChange     = {textSize => this.setState({textSize}) }
-            showValue    = {false}
+            label              = 'Text Size'
+            min                = {0.5}
+            max                = {10}
+            step               = {0.5}
+            defaultValue       = {4}
+            onChange           = {textSize => this.setState({textSize}) }
+            showValue          = {false}
           />
           <Toggle
-           label         = 'Show Profile Columns'
-           onAriaLabel   = 'This toggle is checked. Press to uncheck.'
-           offAriaLabel  = 'This toggle is unchecked. Press to check.'
-           onText        = 'On'
-           offText       = 'Off'
-           onChange      = {() => this.toggleProfileColumn()}
+           label               = 'Show Profile Columns'
+           onAriaLabel         = 'This toggle is checked. Press to uncheck.'
+           offAriaLabel        = 'This toggle is unchecked. Press to check.'
+           onText              = 'On'
+           offText             = 'Off'
+           onChange            = {() => this.toggleProfileColumn()}
           />
-           <Toggle
-            label        = 'Color Unknown'
-            onAriaLabel  = 'This toggle is checked. Press to uncheck.'
-            offAriaLabel = 'This toggle is unchecked. Press to check.'
-            onText       = 'On'
-            offText      = 'Off'
-            onChange     = { () => this.setState({ labels : !this.state.labels }) }
-        />
           <Toggle
-           label         = 'Hide Unknown'
-           onAriaLabel   = 'This toggle is checked. Press to uncheck.'
-           offAriaLabel  = 'This toggle is unchecked. Press to check.'
-           onText        = 'On'
-           offText       = 'Off'
-           onChange      = {() => this.setState({ dispUnknown : !this.state.dispUnknown })}
+           label               = 'ProfilePlot filtering'
+           onAriaLabel         = 'This toggle is checked. Press to uncheck.'
+           offAriaLabel        = 'This toggle is unchecked. Press to check.'
+           onText              = 'On'
+           offText             = 'Off'
+           onChange            = {() => this.setState({profileFiltering : !this.state.profileFiltering})}
+          />
+          <Toggle
+            label              = 'Color Unknown'
+            onAriaLabel        = 'This toggle is checked. Press to uncheck.'
+            offAriaLabel       = 'This toggle is unchecked. Press to check.'
+            onText             = 'On'
+            offText            = 'Off'
+            onChange           = {() => this.setState({labels : !this.state.labels})}
+          />
+          <Toggle
+           label               = 'Hide Unknown'
+           onAriaLabel         = 'This toggle is checked. Press to uncheck.'
+           offAriaLabel        = 'This toggle is unchecked. Press to check.'
+           onText              = 'On'
+           offText             = 'Off'
+           onChange            = {() => this.setState({dispUnknown : !this.state.dispUnknown})}
           />
       </Panel>
 
       {/* The "Dataset" panel */}
       <Panel
-          isBlocking           = { false }
-          isOpen               = { this.state.showMetaDataPopup }
-          isLightDismiss       = { true }
-          onDismiss            = { () => this.setState({ showMetaDataPopup: false }) }
-          type                 = { PanelType.smallFixedFar  }
+          isBlocking           = {false}
+          isOpen               = {this.state.showMetaDataPopup}
+          isLightDismiss       = {true}
+          onDismiss            = {() => this.setState({ showMetaDataPopup: false })}
+          type                 = {PanelType.smallFixedFar}
           headerText           = 'Dataset'
           closeButtonAriaLabel = 'Close'
-        >
-
-        <p> <b> Meta Data </b> </p>
-        {MetaVarName}
-        {MetaDataStamp}
-        {MetaSpecies}
-        {MetaDescription}
-        {MetaTissue}
-        <br/>
+      >
+        <p> <b> Meta Data </b> </p> 
+        <table>
+          <tbody>
+          <tr> {MetaVarName}     </tr>
+          <tr> {MetaDataStamp}   </tr>
+          <tr> {MetaSpecies}     </tr>
+          <tr> {MetaDescription} </tr>
+          <tr> {MetaTissue}      </tr>
+          </tbody>
+        </table>
 
         <p> <b> Download </b> </p>
         <div className="codeBox">
           <code className="RCode">
             # with the pRoloc R package <br/>
-            library(pRolocdata) <br/>
-            object = download("{this.props.params.uid}") </code>
+            library(pRolocdata)         <br/>
+            object = download("{this.props.params.uid}") 
+          </code>
         </div>
         <br/>
 
         <p> <b> Contact </b> </p>
-        {MetaLab}
-        {MetaContact}
-        {MetaEmail}
-        {MetaAuthor}
+        <table>
+          <tr> {MetaLab}         </tr>
+          <tr> {MetaContact}     </tr>
+          <tr> {MetaEmail}       </tr>
+          <tr> {MetaAuthor}      </tr>
+        </table>
       </Panel>
 
-    {/* The "Profile Column" panel */}
+      {/* The "Profile Column" panel */}
       <Panel
           isBlocking           = {false}
           isOpen               = {this.state.showProfileFilter}
           isLightDismiss       = {true}
-          onDismiss            = {() => this.setState({ showProfileFilter: false })}
+          onDismiss            = {() => this.setState({showProfileFilter: false})}
           type                 = {PanelType.smallFixedFar}
           headerText           = 'Profile Plot Columns'
           closeButtonAriaLabel = 'Close'
-        >
+      >
         {profileFilterButtons}
       </Panel>
-
-      {/* metadata or plot logic */}
-      {
+      {/* main plot */}
       <div className="mainPlot" style={{height: this.state.plotHeight}}>
         {d3Container}
         {profileContainer}
         {uniProtContainer}
       </div>
-      }
+      
+      {/* main table */}
       <div className="table">
-          {table}
+        {table}
       </div>
       </div>
     );

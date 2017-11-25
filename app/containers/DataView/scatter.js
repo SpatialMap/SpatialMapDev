@@ -55,20 +55,20 @@ const yScale = (props) => {
 //color scaling , radius scaling, transparency scaling
 const colScale = (props) => {
   return d3.scale.linear()
-         .domain([colMin(props.data, props),colMax(props.data, props)])
-         .range(["blue","red"]);
+    .domain([colMin(props.data, props),colMax(props.data, props)])
+    .range(["blue","red"]);
 };
 
 const radiusScale = (props) => {
   return d3.scale.linear()
-         .domain([radMin(props.data, props),radMax(props.data, props)])
-         .range([0.4,5.5]);
+    .domain([radMin(props.data, props),radMax(props.data, props)])
+    .range([0.4,5.5]);
 };
 
 const transparencyScale = (props) => {
   return d3.scale.linear()
-         .domain([transpMin(props.data, props),transpMax(props.data, props)])
-         .range([0.2,1]);
+    .domain([transpMin(props.data, props),transpMax(props.data, props)])
+    .range([0.2,1]);
 };
 
 //export set of dataCircles
