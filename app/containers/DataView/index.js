@@ -240,6 +240,12 @@ export class DataView extends React.Component {
     }
   };
 
+  //update filteredData based on profilePlot selection
+  updateFilteredData(input)  {
+    input == this.state.filteredData ? null : this.setState({filteredData : input});
+    console.log(input == this.state.filteredData);
+  }
+
   //svg zoom initialization
   componentDidMount() {
     this.Viewer.fitToViewer();
@@ -353,7 +359,7 @@ export class DataView extends React.Component {
                                                       						return("rgba(0,0,0,0.1)")
                                                       					}
                                             			           }}
-                                          onBrushEnd_data = {(out) => this.setState({filteredData : out})}
+                                          onBrushEnd_data = {(out) => this.updateFilteredData(out)}
                                        />
                               </div>;
 
@@ -458,17 +464,17 @@ export class DataView extends React.Component {
           </div>
 
           {/*Top right buttons */}
-          <div className="choiceChild" 
+          <div className="rightButtons" 
                style={this.activeButton(this.state.showUniProt)} 
                onClick={() => this.setState({showUniProt : !this.state.showUniProt, plotProfile: false})}>
                UniProt
           </div>
-          <div className="choiceChild" 
+          <div className="rightButtons" 
                style={this.activeButton(this.state.plotProfile)} 
                onClick={() => this.setState({plotProfile : !this.state.plotProfile, showUniProt : false})}>
                Profile
           </div>
-          <div className="choiceChild" 
+          <div className="rightButtons" 
                style={this.activeButton(this.state.plotPCA)} 
                onClick={() => this.setState({plotPCA : !this.state.plotPCA})}>
                PCA
@@ -559,7 +565,7 @@ export class DataView extends React.Component {
           isBlocking           = {false}
           isOpen               = {this.state.showMetaDataPopup}
           isLightDismiss       = {true}
-          onDismiss            = {() => this.setState({ showMetaDataPopup: false })}
+          onDismiss            = {() => this.setState({showMetaDataPopup: false})}
           type                 = {PanelType.smallFixedFar}
           headerText           = 'Dataset'
           closeButtonAriaLabel = 'Close'
@@ -587,10 +593,12 @@ export class DataView extends React.Component {
 
         <p> <b> Contact </b> </p>
         <table>
+          <tbody>
           <tr> {MetaLab}         </tr>
           <tr> {MetaContact}     </tr>
           <tr> {MetaEmail}       </tr>
           <tr> {MetaAuthor}      </tr>
+          </tbody>
         </table>
       </Panel>
 
