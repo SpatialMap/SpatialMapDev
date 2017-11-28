@@ -16,6 +16,7 @@ import DataChild from './dataChilds.js';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
+import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 
 
 export class Profile extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -25,6 +26,8 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
       msnsets: [],
       keyMatches: [],
       loading: true,
+      showChangeEmail: false,
+      showChangePW: false,
       searchTerm: this.props.params.search ? this.props.params.search : '',
     }
   }
@@ -87,10 +90,38 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
             { name: 'description', content: 'Description of Profile' },
           ]}
         />
+         
+
       <div className="container">
+       <Panel
+          isOpen={ this.state.showChangeEmail }
+          type={ PanelType.smallFixedFar }
+          headerText='Panel - Small, right-aligned, fixed, with footer'
+          closeButtonAriaLabel='Close'
+          >
+           
+        </Panel>
+          <Panel
+          isOpen={ this.state.showChangePW }
+          type={ PanelType.smallFixedFar }
+          headerText='Panel - Small, right-aligned, fixed, with footer'
+          closeButtonAriaLabel='Close'
+          >
+           
+        </Panel>
           <div className="profileData">
-             <h1> Profile </h1>
-              Email: {email}
+            <DefaultButton
+              disabled={true}
+              text={email}
+            />
+            <DefaultButton
+              text='Change Email'
+              onClick={() => this.setState({showChangeEmail : !this.state.showChangeEmail})}
+            />
+            <DefaultButton
+              text='Change Password'
+              onClick={() => this.setState({showChangePW : !this.state.showChangePW})}
+            />
               <br/>
           </div>
           <div className="uploadData">
