@@ -17,6 +17,7 @@ import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
 
 
 export class Profile extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -26,8 +27,11 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
       msnsets: [],
       keyMatches: [],
       loading: true,
-      showChangeEmail: false,
+      newEmail: '',
+      password: '',
+      passwordRepeat: '',
       showChangePW: false,
+      showChangeEmail: false,
       searchTerm: this.props.params.search ? this.props.params.search : '',
     }
   }
@@ -56,6 +60,32 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
           })
     })
   };
+
+  resetPassword(){
+    if(this.state.password == this.state.passwordRepeat){
+      let user = firebase.auth().currentUser;
+      let newPassword = this.state.password;
+      user.updatePassword(newPassword).then(function() {
+      // Update successful.
+      }).catch(function(error) {
+      // An error happened.
+    });
+
+    }
+  };
+
+
+  changeEmail(){
+    let newEmail = this.state.newEmail;
+    let user = firebase.auth().currentUser;
+    console.log(this.state.newEmail);
+    user.updateEmail(newEmail).then(function() {
+      console.log("success");
+    }).catch(function(error) {
+      console.log("error");
+    });
+  };
+
 
   render() {
     var user = firebase.auth().currentUser;
@@ -90,25 +120,50 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
             { name: 'description', content: 'Description of Profile' },
           ]}
         />
-         
 
       <div className="container">
-       <Panel
-          isOpen={ this.state.showChangeEmail }
-          type={ PanelType.smallFixedFar }
-          headerText='Panel - Small, right-aligned, fixed, with footer'
-          closeButtonAriaLabel='Close'
-          >
-           
-        </Panel>
+         <Panel
+            isOpen={ this.state.showChangeEmail }
+            type={ PanelType.smallFixedFar }
+            isLightDismiss={ true }
+            headerText='Change Email'
+            closeButtonAriaLabel='Close'
+            >
+             <TextField
+               label='New Email:'
+               onChanged={(input) => this.setState({newEmail: input})}
+              />
+              <DefaultButton
+               text='Submit & Change'
+               checked={ this.state.password == this.state.passwordRepeat }
+               onClick={() => this.changeEmail()}
+              />
+          </Panel>
+
           <Panel
-          isOpen={ this.state.showChangePW }
-          type={ PanelType.smallFixedFar }
-          headerText='Panel - Small, right-aligned, fixed, with footer'
-          closeButtonAriaLabel='Close'
-          >
-           
+            isOpen={ this.state.showChangePW }
+            type={ PanelType.smallFixedFar }
+            isLightDismiss={ true }
+            headerText='Change Password'
+            closeButtonAriaLabel='Close'
+            >
+            <TextField
+              type="password"
+              label='New Password:'
+              onChanged={(input) => this.setState({password: input})}
+            />
+            <TextField
+             type="password"
+             label='Repeat Password:'
+             onChanged={(input) => this.setState({passwordRepeat: input})}
+            />
+            <DefaultButton
+             text='Submit & Change'
+             checked={ this.state.password == this.state.passwordRepeat }
+             nClick={() => this.setState({showChangePW: false})}
+            />
         </Panel>
+
           <div className="profileData">
             <DefaultButton
               disabled={true}
@@ -116,11 +171,11 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
             />
             <DefaultButton
               text='Change Email'
-              onClick={() => this.setState({showChangeEmail : !this.state.showChangeEmail})}
+              onClick={() => this.setState({showChangeEmail: true, showChangePW: false})}
             />
             <DefaultButton
               text='Change Password'
-              onClick={() => this.setState({showChangePW : !this.state.showChangePW})}
+              onClick={() => this.setState({showChangePW: true, showChangeEmail: false})}
             />
               <br/>
           </div>
