@@ -148,9 +148,9 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
             closeButtonAriaLabel='Close'
             >
             <TextField
-              type="password"
-              label='New Password:'
-              onChanged={(input) => this.setState({password: input})}
+             type="password"
+             label='New Password:'
+             onChanged={(input) => this.setState({password: input})}
             />
             <TextField
              type="password"
@@ -160,9 +160,9 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
             <DefaultButton
              text='Submit & Change'
              checked={ this.state.password == this.state.passwordRepeat }
-             nClick={() => this.setState({showChangePW: false})}
+             nClick={() => this.chang}
             />
-        </Panel>
+         </Panel>
 
           <div className="profileData">
             <DefaultButton

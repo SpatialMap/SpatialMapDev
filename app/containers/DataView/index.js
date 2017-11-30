@@ -528,6 +528,7 @@ export class DataView extends React.Component {
           />
           <Toggle
            label               = 'Show Profile Columns'
+           checked             = {this.state.showProfileDataColumn}
            onAriaLabel         = 'This toggle is checked. Press to uncheck.'
            offAriaLabel        = 'This toggle is unchecked. Press to check.'
            onText              = 'On'
@@ -536,6 +537,7 @@ export class DataView extends React.Component {
           />
           <Toggle
            label               = 'ProfilePlot filtering'
+           checked             = {this.state.profileFiltering}
            onAriaLabel         = 'This toggle is checked. Press to uncheck.'
            offAriaLabel        = 'This toggle is unchecked. Press to check.'
            onText              = 'On'
@@ -544,6 +546,7 @@ export class DataView extends React.Component {
           />
           <Toggle
             label              = 'Color Unknown'
+            checked            = {this.state.labels}
             onAriaLabel        = 'This toggle is checked. Press to uncheck.'
             offAriaLabel       = 'This toggle is unchecked. Press to check.'
             onText             = 'On'
@@ -552,6 +555,7 @@ export class DataView extends React.Component {
           />
           <Toggle
            label               = 'Hide Unknown'
+           checked             = {this.state.dispUnknown}
            onAriaLabel         = 'This toggle is checked. Press to uncheck.'
            offAriaLabel        = 'This toggle is unchecked. Press to check.'
            onText              = 'On'
