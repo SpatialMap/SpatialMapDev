@@ -42,96 +42,30 @@ export class About extends React.Component { // eslint-disable-line react/prefer
           </div>
 
           <div className="greyBG">
-
-            <div className="row container" style={{margin:"auto", marginTop: 30, textAlign: 'left'}}>
-            <h2 className="bottomText"> The Environment </h2>
-               <div className="col-sm-6">
-               <img src="http://frapbot.kohze.com/other/people.png"/>
-               <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
-                  eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                  takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                  consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                  dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
-                  duo dolores et ea rebum. Stet clita kasd gubergren, no sea.</p>
-             </div>
+              <div className="row container" style={{margin:"auto"}}>
              <div className="col-sm-6">
-             <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
-                eos et accusam et justo duo dolores et ea rebum. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
-                eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
-                duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-                ipsum dolor sit amet.</p>
+            <img className="headImage" src="http://frapbot.kohze.com/other/people.png"/>
              </div>
-             <div className="col-sm-6">
-             <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
-                eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
-                duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-                ipsum dolor sit amet.</p>
+             <div className="col-sm-6 bottomCard">
+             <h2 className="bottomText"> Idea & Foundation </h2>
+             <p>After the creation of pRoloc and pRolocdata, SpatialMaps is an integral part of the pRoloc environment.
+             While the pRoloc universe was yet a purely R based frameworks, SpatialMaps lowers the treshhold for non-coding scientists to efficiently compare datasets.</p>
            </div>
-           </div>
+          </div>
 
-            <div className="row container" style={{margin:"auto", marginTop: 30, textAlign: 'left'}}>
-            <h2 className="bottomText"> R and SpatialMaps </h2>
-               <div className="col-sm-12 twoColumns">
-               <p style={{margin: 0}}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
-                  eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                  takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                  consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                  dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
-                  duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-                  ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
-                  eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                  takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                  consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                  dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
-                  duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-                  ipsum dolor sit amet.</p>
-           </div>
-           </div>
-
-           <div className="row container" style={{margin:"auto", marginTop: 30, marginBottom: 30, textAlign: 'left'}}>
-           <h2 className="bottomText"> Collaboration and Open Data </h2>
-              <div className="col-sm-6">
-              <p> Stet clita kasd gubergren, no sea
-                 takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                 consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                 dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
-                 duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-                 ipsum dolor sit amet. </p> <p>
-                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                 tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
-                 eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-                 takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                 consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                 dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
-                 duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-                 ipsum dolor sit amet.</p>
+          <div className="row container" style={{margin:"auto", marginTop: 30}}>
+            <div className="col-sm-6 bottomCard">
+            <h2 className="bottomText"> Technology </h2>
+            <p>The SpatialMaps platform is based on Google Firebase as secure cloud database and react.js. </p>
+              <p>Combining the cloud database with pRolocdata biocoductor package, we offer the opportunity access
+                datasets both via R scripts as well as via the user friendly SpatialMaps web platform.</p>
             </div>
             <div className="col-sm-6">
-
+              <img className="headImage" src="http://frapbot.kohze.com/other/welcome_first.png"/>
             </div>
-            <div className="col-sm-6">
-            <img className="headImage" style={{padding: 0}} src="http://frapbot.kohze.com/other/welcome_first.png"/>
-
-
-          </div>
           </div>
 
-
           </div>
-
-
 
         </div>
         <Footer />
