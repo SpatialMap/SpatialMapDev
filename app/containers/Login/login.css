@@ -24,12 +24,12 @@
   width: 600px;
 }
 
-.buttons {
+.buttonsLogin {
   margin: 3px;
   padding: 10px;
   background-color: rgba(200,200,200,0.7);
 }
 
-.buttons:hover {
+.buttonsLogin:hover {
   background-color: rgba(200,200,200,1);
 }
