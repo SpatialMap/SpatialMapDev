@@ -12,6 +12,8 @@ import { createStructuredSelector } from 'reselect';
 import makeSelectAbout from './selectors';
 import messages from './messages';
 import { Link } from 'react-router';
+import { CompoundButton, IButtonProps} from 'office-ui-fabric-react/lib/Button';
+import { Label } from 'office-ui-fabric-react/lib/Label';
 import './about.css';
 import Footer from '../../components/Footer';
 
@@ -60,11 +62,43 @@ export class About extends React.Component { // eslint-disable-line react/prefer
               <p>Combining the cloud database with pRolocdata biocoductor package, we offer the opportunity access
                 datasets both via R scripts as well as via the user friendly SpatialMaps web platform.</p>
             </div>
-            <div className="col-sm-6">
+            <div className="col-sm-6" style={{marginTop: 30}}>
               <img className="headImage" src="http://frapbot.kohze.com/other/welcome_first.png"/>
             </div>
           </div>
 
+          </div>
+           <div className="exampleDiv">
+            <h1 style={{color: 'white', marginLeft: -25}}> Some examples </h1>
+            <div style={{paddingTop: 20}}>
+            <Link to={'/dataView/-Km13xp504HfeCFElQFO'} style={{padding: 3}}>
+              <CompoundButton
+              primary={ true }
+              description='Species: Mouse; Tissue: Cell'
+              checked={ false }
+              >
+              E14TG2aR
+              </CompoundButton>
+            </Link>
+            <Link to={'/dataView/-Km144gKiFJyqGtSmTNA'} style={{padding: 3}}>
+              <CompoundButton
+              primary={ true }
+              description='Species: Homo Sapiens; Tissue: Cell'
+              checked={ false }
+              >
+              HEK293T2011
+              </CompoundButton>
+            </Link>
+            <Link to={'dataView/-Km15TaqOpK8NiRU3oJj'} style={{padding: 3}}>
+              <CompoundButton
+              primary={ true }
+              description='Species: Mouse; Tissue: Stem Cell'
+              checked={ false }
+              >
+              HyperLOPIT2015ms3r1
+              </CompoundButton>
+            </Link>
+            </div>
           </div>
 
         </div>

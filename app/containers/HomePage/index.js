@@ -9,8 +9,8 @@ export default class HomePage extends React.PureComponent {
   render() {
     return (
       <div>
-        <div className="welcome">
-          <div className="row container" style={{margin:"auto", marginTop: 30}}>
+        <div className="welcomeHome">
+          <div className="row container" style={{margin:"auto", marginTop: 40}}>
              <div className="col-sm-12">
               <img className="headImageHome" src="http://frapbot.kohze.com/SpatialMaps/worldMap.png"/>
              </div>
