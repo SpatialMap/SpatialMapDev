@@ -142,7 +142,7 @@ export class DataView extends React.Component {
   };
 
   switchPlotTools(reset = false){
-    !reset ? this.setState({showToolBar: 'right', plotTool: ''}):
+    !reset ? this.setState({showToolBar: 'left', plotTool: ''}):
              this.setState({showToolBar: 'none',  plotTool: 'auto'});
   };
 
@@ -150,6 +150,60 @@ export class DataView extends React.Component {
     !reset ? this.setState({showProfileDataColumn: !this.state.showProfileDataColumn}):
              this.setState({showProfileDataColumn: false});
   };
+
+
+ 
+  convertArrayOfObjectsToCSV(args) {
+        var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+ 
+        data = args.data || null;
+        if (data == null || !data.length) {
+            return null;
+        }
+ 
+        columnDelimiter = args.columnDelimiter || ',';
+        lineDelimiter = args.lineDelimiter || '\n';
+ 
+        keys = Object.keys(data[0]);
+ 
+        result = '';
+        result += keys.join(columnDelimiter);
+        result += lineDelimiter;
+ 
+        data.forEach(function(item) {
+            ctr = 0;
+            keys.forEach(function(key) {
+                if (ctr > 0) result += columnDelimiter;
+ 
+                result += item[key];
+                ctr++;
+            });
+            result += lineDelimiter;
+        });
+ 
+        return result;
+    }
+ 
+  downloadCSV(args) {
+        var data, filename, link;
+ 
+        var csv = this.convertArrayOfObjectsToCSV({
+            data: this.state.filteredData
+        });
+        if (csv == null) return;
+ 
+        filename = this.state.metaData.varName + '.csv';
+ 
+        if (!csv.match(/^data:text\/csv/i)) {
+            csv = 'data:text/csv;charset=utf-8,' + csv;
+        }
+        data = encodeURI(csv);
+ 
+        link = document.createElement('a');
+        link.setAttribute('href', data);
+        link.setAttribute('download', filename);
+        link.click();
+    }
 
   //adds or deletes organelle names from array to show/hide those
   addToggleMarkerArray(marker){
@@ -414,9 +468,11 @@ export class DataView extends React.Component {
                       />
                     </div>
                       <div className="col-sm-10">
-                        <button className="heightToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v"></i></button>
+                        <button className="heightToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v">    </i></button>
                         <button className="heightToggle" onClick={() => this.switchPlotTools()}>  <i className="fa fa-object-group"></i></button>
-                        <button className="heightToggle" onClick={() => this.resetAll()}>         <i className="fa fa-undo"></i></button>
+                        <button className="heightToggle" onClick={() => this.resetAll()}>         <i className="fa fa-undo">        </i></button>
+                        <button className="heightToggle" onClick={() => this.downloadCSV()}>      <i className="fa fa-download">    </i></button>
+
                         {legendItems}
                       </div>
                     </div>
