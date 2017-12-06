@@ -184,7 +184,7 @@ export class DataView extends React.Component {
         return result;
     }
  
-  downloadCSV(args) {
+  downloadCSV() {
         var data, filename, link;
  
         var csv = this.convertArrayOfObjectsToCSV({
@@ -336,7 +336,7 @@ export class DataView extends React.Component {
     const styles = {
       width   : this.state.width/((this.state.plotPCA + this.state.plotProfile + this.state.showUniProt)),
       height  : this.state.plotHeight,
-      padding : 30,
+      padding : 25,
     };
 
     //metaData entries
@@ -388,6 +388,7 @@ export class DataView extends React.Component {
     const iframeLink = "http://www.uniprot.org/uniprot/" + this.state.activePeptideID;
     const uniProtContainer = this.state.showUniProt &&
                              <iframe
+                                       className   = "scatterContainer"
                                        height      = {styles.height}
                                        width       = {styles.width}
                                        frameBorder = "0"
@@ -460,7 +461,7 @@ export class DataView extends React.Component {
     //the data table inclusive the bar above the table
     const table = <div className="tableCore">
                     <div className="belowMainPlot row">
-                    <div className="col-sm-2" style={{padding: "0px"}}>
+                    <div className="col-sm-2 filterBox">
                       <SearchBox
                         style     = {{backgroundColor: '#f2e4d8'}}
                         labelText = 'Filter'
@@ -468,10 +469,10 @@ export class DataView extends React.Component {
                       />
                     </div>
                       <div className="col-sm-10">
-                        <button className="heightToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v">    </i></button>
-                        <button className="heightToggle" onClick={() => this.switchPlotTools()}>  <i className="fa fa-object-group"></i></button>
-                        <button className="heightToggle" onClick={() => this.resetAll()}>         <i className="fa fa-undo">        </i></button>
-                        <button className="heightToggle" onClick={() => this.downloadCSV()}>      <i className="fa fa-download">    </i></button>
+                        <button className="optionToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v">    </i></button>
+                        <button className="optionToggle" onClick={() => this.switchPlotTools()}>  <i className="fa fa-object-group"></i></button>
+                        <button className="optionToggle" onClick={() => this.resetAll()}>         <i className="fa fa-undo">        </i></button>
+                        <button className="optionToggle" onClick={() => this.downloadCSV()}>      <i className="fa fa-download">    </i></button>
 
                         {legendItems}
                       </div>

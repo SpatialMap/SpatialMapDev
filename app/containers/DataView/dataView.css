@@ -35,20 +35,27 @@
   overflow-x: auto;
   font-size: 11px;
   padding: 3px 5px 3px 5px;
+  cursor: pointer;
 }
 
-.lengendItems:checked {
-  background-color: #f00;
+.lengendItems:hover {
+  background-color: #f0f0f0;
 }
+
 
 .belowMainPlot {
   width: 100%;
   margin: auto;
   margin-top: 2px;
   margin-bottom: 2px;
-  height: 32px;
+  min-height: 32px;
   background-color: #f2e4d8;
   box-shadow: 0px 0.5px 3px 1px rgba(0,0,0,0.3);
+}
+
+.filterBox {
+  padding:  0px;
+  height:  32px;
 }
 
 .RCode {
@@ -60,12 +67,17 @@
   padding: 200px;
 }
 
-.heightToggle {
+.optionToggle {
   background-color: #f4f4f4;
   padding-top:  2px;
-  margin: 0px 0px 0px 16px;
+  margin: 0px 0px 0px 2px;
   height:  32px;
   float:  right;
+  cursor: pointer;
+}
+
+.optionToggle:hover {
+  background-color: #e5e5e5;
 }
 
 .slider {
@@ -125,6 +137,7 @@
   font-weight: bold;
   font-size: 12px;
   box-shadow: 0px 1px 2px 0.5px rgba(0,0,0,0.2);
+  cursor: pointer;
 }
 
 .modChoice:hover{
@@ -143,23 +156,14 @@
   margin-left: 0px;
 }
 
-.headerPlaceholder{
-  float: right;
-  margin-left: 2px;
-  padding-top: 3px;
-  background-color: rgba(255,255,255,0.4);
-  height: 60px;
-  width: 294px;
-}
-
-.heightToggle:hover,
 .leftButtons:hover,
 .rightButtons:hover {
   background-color: #f4f4f4;
 }
 
 .scatterContainer{
-  width: 49%;
+  max-width: 50%;
+  overflow: hidden;
   float: left;
 }
 
@@ -188,6 +192,7 @@
 .mainPlot {
   width: 100%;
   background-color: #ffffff;
+
 }
 
 circle {

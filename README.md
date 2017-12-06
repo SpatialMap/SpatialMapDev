@@ -47,3 +47,10 @@ npm install --save firebase
 npm install --save react-dimensions
 npm install --save react-parallel-coordinates
 ```
+
+Deploy to server:
+https://firebase.google.com/docs/hosting/deploying
+```
+npm run build
+firebase deploy
+```
