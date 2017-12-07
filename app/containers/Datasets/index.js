@@ -44,6 +44,7 @@ export class Datasets extends React.Component {
             tissue      : set.tissue,
             title       : set.title,
             varName     : set.varName,
+            public      : set.public
           })
 
           this.setState({
@@ -84,7 +85,7 @@ export class Datasets extends React.Component {
           meta={[{name: 'description', content: 'Description of Datasets'},]}
         />
       <div className="headBar row container">
-        <div className="searchBox col-sm-6">
+        <div className="searchBox col-sm-12">
           <SearchBox
             onChange={(newValue) => this.setState({searchTerm : newValue})}
           />

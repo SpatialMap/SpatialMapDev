@@ -61,7 +61,7 @@ export class About extends React.Component {
               <p>Combining the cloud database with pRolocdata biocoductor package, we offer the opportunity access
                 datasets both via R scripts as well as via the user friendly SpatialMaps web platform.</p>
             </div>
-            <div className="col-sm-6" style={{marginTop: 0}}>
+            <div className="col-sm-6" style={{marginTop: 15}}>
               <img className="headImageSmall" src="https://firebasestorage.googleapis.com/v0/b/spatialmap-1b08e.appspot.com/o/img%2FtechnologyAbout.png?alt=media&token=e420f35e-0e4a-4707-8b21-f74dc311372c"/>
             </div>
           </div>

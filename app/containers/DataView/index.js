@@ -68,6 +68,7 @@ export class DataView extends React.Component {
       activeKey             : [],
       activePeptideID       : '',
       showUniProt           : false,
+      showComparison        : false,
       plotPCA               : true,
       plotProfile           : true,
       colorSelect           : [''],
@@ -521,6 +522,11 @@ export class DataView extends React.Component {
           </div>
 
           {/*Top right buttons */}
+          <div className="rightButtons" 
+               style={this.activeButton(this.state.showComparison)} 
+               onClick={() => this.setState({showComparison : !this.state.showComparison, plotProfile: false})}>
+               Comparison
+          </div>
           <div className="rightButtons" 
                style={this.activeButton(this.state.showUniProt)} 
                onClick={() => this.setState({showUniProt : !this.state.showUniProt, plotProfile: false})}>

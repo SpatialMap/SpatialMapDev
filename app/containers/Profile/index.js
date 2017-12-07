@@ -27,6 +27,7 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
       msnsets: [],
       keyMatches: [],
       loading: true,
+      uid: '',
       newEmail: '',
       password: '',
       passwordRepeat: '',
@@ -52,6 +53,7 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
             tissue: set.tissue,
             title:set.title,
             varName: set.varName,
+            UID: set.UID
           })
 
           this.setState({
@@ -100,7 +102,7 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
     }
 
     const DataSetItem = this.state.msnsets.map((detail) =>
-      <DataChild key={'dataChild'+detail.id} item={detail} searchTerm={this.state.searchTerm} />
+      <DataChild key={'dataChild'+detail.id} item={detail} uid={uid} searchTerm={this.state.searchTerm} />
     );
 
     const loader =  <div className="loader">
@@ -178,9 +180,6 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
               onClick={() => this.setState({showChangePW: true, showChangeEmail: false})}
             />
               <br/>
-          </div>
-          <div className="uploadData">
-            upload placeholder
           </div>
           <div className="myData">
             {itemContainer}

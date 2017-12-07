@@ -23,30 +23,30 @@ class DataChild extends React.Component {
                     <div className="upperTileText" key={'tissue' + this.props.item.id}> Tissue : {this.props.item.tissue} </div>;
 
     let ImgUrl = '';
-    switch(this.props.item.species) {
+        switch(this.props.item.species) {
      case "Homo sapiens":
-         ImgUrl = "http://frapbot.kohze.com/SpatialMaps/human.jpg";
-         break;
+            ImgUrl = "https://firebasestorage.googleapis.com/v0/b/spatialmap-1b08e.appspot.com/o/img%2Fhuman.jpg?alt=media&token=dbb2d4eb-a74e-427b-9098-aa384daea8c7";
+            break;
      case "Mouse":
-         ImgUrl = "http://frapbot.kohze.com/SpatialMaps/mouse.jpg";
-          break;
+            ImgUrl = "https://firebasestorage.googleapis.com/v0/b/spatialmap-1b08e.appspot.com/o/img%2Fmouse.jpg?alt=media&token=b4894eca-5bc8-483e-a698-e57e793ead24";
+            break;
      case "Arabidopsis thaliana":
-        ImgUrl = "http://frapbot.kohze.com/SpatialMaps/arabidopsis.jpg";
-         break;
+            ImgUrl = "https://firebasestorage.googleapis.com/v0/b/spatialmap-1b08e.appspot.com/o/img%2Farabidopsis.jpg?alt=media&token=e8c318fd-f6b4-47dc-850d-ae193ad64366";
+            break;
      case "Gallus gallus":
-       ImgUrl = "http://frapbot.kohze.com/SpatialMaps/gallus.jpg";
-        break;
+            ImgUrl = "https://firebasestorage.googleapis.com/v0/b/spatialmap-1b08e.appspot.com/o/img%2Fgallus.jpg?alt=media&token=6d4001bf-b66b-4d09-b0d8-418ad34acf25";
+            break;
      case "Drosophila melanogaster":
-       ImgUrl = "http://frapbot.kohze.com/SpatialMaps/drosophila.jpg";
-        break;
+            ImgUrl = "https://firebasestorage.googleapis.com/v0/b/spatialmap-1b08e.appspot.com/o/img%2Fdrosophila.jpg?alt=media&token=9aaa5686-b3db-42c1-8590-1e391fe4dbd9";
+            break;
      default:
-         ImgUrl = "http://frapbot.kohze.com/SpatialMaps/placeholder.jpg";
-          break;
+            ImgUrl = "https://firebasestorage.googleapis.com/v0/b/spatialmap-1b08e.appspot.com/o/img%2Fplaceholder.jpg?alt=media&token=260ddb34-2820-47e2-a216-fce8abdf77b1";
+            break;
     }
 
-    const Image = ImgUrl && <img className="speciesImage" src={ImgUrl}/>;
+   const Image = ImgUrl && <img className="speciesImage" src={ImgUrl}/>;
 
-  const onlySearched = this.props.item.varName && this.props.item.public == "TRUE" &&
+   const onlySearched = this.props.item.varName && this.props.item.UID == this.props.uid &&
                          Object.values(this.props.item).toString().toLowerCase().indexOf(this.props.searchTerm.toLowerCase()) !== -1;
 
     const mainContent = onlySearched ?

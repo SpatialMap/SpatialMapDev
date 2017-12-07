@@ -1,8 +1,10 @@
 .profileData {
   margin-top: -19px;
-  padding: 20px;
+  background-color:  #e5e5e5;
+  padding-top: 6px;
+  padding-left:  7px;
+  padding-bottom: 5px;
   text-align: left;
-  background-color: rgba(50,50,50,0.6);
 }
 
 .uploadData {
@@ -15,9 +17,10 @@
 }
 
 .myData {
-  height: 600px;
-  padding: 30px;
+  padding: 2px;
   color: white;
+  background-color: #f4f4f4;
+  height:  100%;
   text-align: center;
 }
 
