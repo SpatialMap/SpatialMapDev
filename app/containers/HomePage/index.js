@@ -26,29 +26,8 @@ export default class HomePage extends React.PureComponent {
            </div>
           </div>
         </div>
-        <div className="greyBG">
-          <div className="row container features" style={{margin:"auto", textAlign: 'left'}}>
-            <div className="col-sm-3">
-              <b>Open Souce</b> <br/> SpatialMaps is open source, easily editable and adjustable to researchers needs. 
-            </div>
-            <div className="col-sm-3">
-              <b>Connecting Research</b> <br/> 
-                we see an opportunity to improve the spatial proteomics data connectivity to accelerate the rate of scientific findings.
-            </div>
-            <div className="col-sm-3">
-              <b>Accessability</b> <br/> pRoloc is a sophisticated solution to analyse spatial data and 
-                   is fully connected to the SpatialMaps platform.
-            </div>
-            <div className="col-sm-3">
-              <b>Data Science</b> <br/> Spatial proteomics datasets are a scarce scientific good that can reveal relevant information beyond
-                initial findings.
-            </div>
-            
-          </div>
+        
         </div>
-  
-       <Footer />
-      </div>
     );
   }
 }

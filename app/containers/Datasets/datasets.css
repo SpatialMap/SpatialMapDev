@@ -46,3 +46,7 @@
 a:link {
   text-decoration: none!important;
 }
+
+.headImage{
+  max-width:  300px;
+}

@@ -3,7 +3,7 @@
 }
 
 .welcomeHome {
-  margin-top: -91px;
+  margin-top: -92px;
   padding-bottom: 95px;
   text-align: center;
   min-height: 100vh;
@@ -30,7 +30,7 @@
 
 .headImageHome {
   padding-top: 60px;
-  max-width: 70%;
+  max-width: 70vh;
 }
 
 .headButton {

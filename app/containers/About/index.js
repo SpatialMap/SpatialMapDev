@@ -31,22 +31,23 @@ export class About extends React.Component { // eslint-disable-line react/prefer
         <div>
           <div className="welcome">
             <div className="row container" style={{margin:"auto", marginTop: 30}}>
-               <div className="col-sm-6">
-              <img className="headImage" src="http://www.newtbdrugs.org/sites/default/files/default_images/video-placeholder.png"/>
-               </div>
-               <div className="col-sm-6 textCard">
+              <div className="col-sm-6 textCard">
                <h1 className="headText" style={{paddingBottom: 10}}> About </h1>
                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
                tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
                  takimata sanctus est Lorem.</p>
-             </div>
+               </div>
+               <div className="col-sm-6">
+                <img className="headImageVideo" src="http://www.newtbdrugs.org/sites/default/files/default_images/video-placeholder.png"/>
+               </div>
+             
             </div>
           </div>
 
           <div className="greyBG">
               <div className="row container" style={{margin:"auto"}}>
              <div className="col-sm-6">
-            <img className="headImage" src="http://frapbot.kohze.com/other/people.png"/>
+            <img className="headImageSmall" src="http://frapbot.kohze.com/other/welcome_first.png"/>
              </div>
              <div className="col-sm-6 bottomCard">
              <h2 className="bottomText"> Idea & Foundation </h2>
@@ -62,8 +63,8 @@ export class About extends React.Component { // eslint-disable-line react/prefer
               <p>Combining the cloud database with pRolocdata biocoductor package, we offer the opportunity access
                 datasets both via R scripts as well as via the user friendly SpatialMaps web platform.</p>
             </div>
-            <div className="col-sm-6" style={{marginTop: 30}}>
-              <img className="headImage" src="http://frapbot.kohze.com/other/welcome_first.png"/>
+            <div className="col-sm-6" style={{marginTop: 0}}>
+              <img className="headImageSmall" src="http://frapbot.kohze.com/SpatialMaps/idea.png"/>
             </div>
           </div>
 
@@ -100,6 +101,26 @@ export class About extends React.Component { // eslint-disable-line react/prefer
             </Link>
             </div>
           </div>
+          <div className="greyBG">
+          <div className="row container features" style={{margin:"auto", textAlign: 'left'}}>
+            <div className="col-sm-3">
+              <b>Open Souce</b> <br/> SpatialMaps is open source, easily editable and adjustable to researchers needs. 
+            </div>
+            <div className="col-sm-3">
+              <b>Connecting Research</b> <br/> 
+                we see an opportunity to improve the spatial proteomics data connectivity to accelerate the rate of scientific findings.
+            </div>
+            <div className="col-sm-3">
+              <b>Accessability</b> <br/> pRoloc is a sophisticated solution to analyse spatial data and 
+                   is fully connected to the SpatialMaps platform.
+            </div>
+            <div className="col-sm-3">
+              <b>Data Science</b> <br/> Spatial proteomics datasets are a scarce scientific good that can reveal relevant information beyond
+                initial findings.
+            </div>
+            
+          </div>
+        </div>
 
         </div>
         <Footer />
