@@ -59,8 +59,9 @@
 }
 
 .RCode {
-  font-size: 12.5px;
+  font-size: 11px;
   white-space: nowrap;
+  color:  red;
 }
 
 .loader {

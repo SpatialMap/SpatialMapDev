@@ -49,7 +49,7 @@ function Header() {
         <div className="dropdown">
           <div className="tripplePoint">&#9776;</div>
           <div className="dropdown-content">
-            <ul>
+            <ul className="ulHeadStyle">
             <li className="liHeadStyle"><Link className="navItem" to="/overview"> Documentation </Link> </li>
             <li className="liHeadStyle"><Link className="navItem" to="/documentation"> References </Link> </li>
             <li className="liHeadStyle"><Link className="navItem" to="/documentation"> Funding </Link> </li>

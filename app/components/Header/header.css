@@ -40,7 +40,7 @@
 }
 
 .navItem:hover {
-    color: rgba(20,20,20,1);
+    color: rgba(0,0,0,1);
 }
 
 .dropdown {
@@ -71,7 +71,7 @@
     display: block;
 }
 
-ul {
+.ulHeadStyle {
   padding: 0px;
 }
 
@@ -81,6 +81,6 @@ ul {
   padding: 0px;
 }
 
-li:hover {
+.liHeadStyle:hover {
   background-color:  rgba(225,225,225, 1);
 }

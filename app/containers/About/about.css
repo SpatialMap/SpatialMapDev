@@ -31,6 +31,10 @@
     color: #C4E0F3;
 }
 
+.features {
+  padding:  40px;
+}
+
 .bottomCard {
   padding: 80px;
   text-align: left;
