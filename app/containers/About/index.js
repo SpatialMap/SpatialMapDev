@@ -70,7 +70,7 @@ export class About extends React.Component {
            <div className="exampleDiv">
             <h1 style={{color: 'white', marginLeft: -25}}> Some examples </h1>
             <div style={{paddingTop: 20}}>
-            <Link to={'/dataView/-Km13xp504HfeCFElQFO'} style={{padding: 3}}>
+            <Link to={'/dataView/-L-mRzp_fh6z1IdRQjWg'} style={{padding: 3}}>
               <CompoundButton
               primary={ true }
               description='Species: Mouse; Tissue: Cell'
@@ -79,7 +79,7 @@ export class About extends React.Component {
               E14TG2aR
               </CompoundButton>
             </Link>
-            <Link to={'/dataView/-Km144gKiFJyqGtSmTNA'} style={{padding: 3}}>
+            <Link to={'/dataView/-L-mSOL2C8Mq6_Qm4Lcj'} style={{padding: 3}}>
               <CompoundButton
               primary={ true }
               description='Species: Homo Sapiens; Tissue: Cell'
@@ -88,7 +88,7 @@ export class About extends React.Component {
               HEK293T2011
               </CompoundButton>
             </Link>
-            <Link to={'dataView/-Km15TaqOpK8NiRU3oJj'} style={{padding: 3}}>
+            <Link to={'dataView/-L-mTf3VYXDpdHlrxvdO'} style={{padding: 3}}>
               <CompoundButton
               primary={ true }
               description='Species: Mouse; Tissue: Stem Cell'

@@ -44,7 +44,6 @@ class DataChild extends React.Component {
             break;
     }
 
-
     const Image = ImgUrl && <img className="speciesImage" src={ImgUrl}/>;
     const onlySearched = this.props.item.varName && this.props.item.public &&
                          Object.values(this.props.item).toString().toLowerCase().indexOf(this.props.searchTerm.toLowerCase()) !== -1;
@@ -52,7 +51,7 @@ class DataChild extends React.Component {
     const mainContent = onlySearched ?
     <Link to={'/dataView/' + this.props.item.id} key={'link' + this.props.item.id}>
          <div className="dataChild" key={'dataChild' + this.props.item.id}>
-           <div className="col-sm-9">
+           <div className="col-sm-9 description">
              {lab}
              {species}
              {description}

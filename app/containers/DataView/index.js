@@ -522,11 +522,13 @@ export class DataView extends React.Component {
           </div>
 
           {/*Top right buttons */}
+          {/* Comparison Prototype - inactive  
           <div className="rightButtons" 
                style={this.activeButton(this.state.showComparison)} 
                onClick={() => this.setState({showComparison : !this.state.showComparison, plotProfile: false})}>
                Comparison
           </div>
+          */}
           <div className="rightButtons" 
                style={this.activeButton(this.state.showUniProt)} 
                onClick={() => this.setState({showUniProt : !this.state.showUniProt, plotProfile: false})}>

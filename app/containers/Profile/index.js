@@ -4,23 +4,23 @@
  *
  */
 
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
-import makeSelectProfile from './selectors';
-import * as firebase from 'firebase';
-import { browserHistory } from 'react-router';
+import React, { PropTypes }                 from 'react';
+import { connect }                          from 'react-redux';
+import Helmet                               from 'react-helmet';
+import { createStructuredSelector }         from 'reselect';
+import makeSelectProfile                    from './selectors';
+import * as firebase                        from 'firebase';
+import { browserHistory }                   from 'react-router';
+import DataChild                            from './dataChilds.js';
+import { Spinner, SpinnerSize }             from 'office-ui-fabric-react/lib/Spinner';
+import { SearchBox }                        from 'office-ui-fabric-react/lib/SearchBox';
+import { DefaultButton, IButtonProps }      from 'office-ui-fabric-react/lib/Button';
+import { Panel, PanelType }                 from 'office-ui-fabric-react/lib/Panel';
+import { TextField }                        from 'office-ui-fabric-react/lib/TextField';
+import { Toggle }                           from 'office-ui-fabric-react/lib/Toggle';
 import "./profile.css"
-import DataChild from './dataChilds.js';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
-import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
-import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
-import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
 
-
-export class Profile extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class Profile extends React.Component { 
   constructor(props) {
     super(props);
     this.state = {
@@ -42,18 +42,19 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
     firebase.database().ref('meta').on("child_added", (snapshot) => {
           let set = snapshot.val();
           msnsets.push({
-            id: snapshot.getKey(),
-            description: set.Description,
-            author: set.author,
-            contact: set.contact,
-            email: set.email,
-            lab: set.lab,
-            operator: set.operator,
-            species: set.species,
-            tissue: set.tissue,
-            title:set.title,
-            varName: set.varName,
-            UID: set.UID
+            id          : snapshot.getKey(),
+            description : set.Description,
+            author      : set.author,
+            contact     : set.contact,
+            email       : set.email,
+            lab         : set.lab,
+            operator    : set.operator,
+            species     : set.species,
+            tissue      : set.tissue,
+            title       : set.title,
+            varName     : set.varName,
+            UID         : set.UID,
+            public      : set.public
           })
 
           this.setState({
