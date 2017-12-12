@@ -44,7 +44,9 @@ export class Datasets extends React.Component {
             tissue      : set.tissue,
             title       : set.title,
             varName     : set.varName,
-            public      : set.public
+            public      : set.public,
+            featureIds  : set.featureNames,
+            organelles  : set.markerClasses
           })
 
           this.setState({
@@ -66,7 +68,6 @@ export class Datasets extends React.Component {
   };
 
   render() {
-
     const DataSetItem = this.state.msnsets.map((detail) =>
       <DataChild key={'dataChild'+detail.id} item={detail} searchTerm={this.state.searchTerm} />
     );
