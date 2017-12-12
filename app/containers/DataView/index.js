@@ -351,6 +351,10 @@ export class DataView extends React.Component {
     const MetaDataStamp   = this.state.metaData.dataStamp   && <div> Date        : {this.state.metaData.dataStamp}   </div>;
     const MetaAuthor      = this.state.metaData.author      && <div> Author      : {this.state.metaData.author}      </div>;
 
+    const pubmedID        = this.state.metaData.pubMedIds ? <div> PubMed: {this.state.metaData.pubMedIds} </div> : 
+                                                            <div> PubMed:  </div>;  
+
+
     //the scatter plot component
     const d3Plot =  <div className="scatterContainer">
                       <ReactSVGPanZoom
@@ -643,6 +647,7 @@ export class DataView extends React.Component {
         <table>
           <tbody>
           <tr> {MetaVarName}     </tr>
+          <tr> {pubmedID}        </tr>
           <tr> {MetaDataStamp}   </tr>
           <tr> {MetaSpecies}     </tr>
           <tr> {MetaDescription} </tr>
