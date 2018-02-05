@@ -110,8 +110,6 @@ export class DataView extends React.Component {
   };
 
   //refresh ScatterPlot
-  
-
   refreshPlot() {
     this.setState({radius: this.state.radius});
   };
@@ -152,8 +150,6 @@ export class DataView extends React.Component {
              this.setState({showProfileDataColumn: false});
   };
 
-
- 
   convertArrayOfObjectsToCSV(args) {
         var result, ctr, keys, columnDelimiter, lineDelimiter, data;
  
@@ -354,7 +350,6 @@ export class DataView extends React.Component {
     const pubmedID        = this.state.metaData.pubMedIds ? <div> PubMed: {this.state.metaData.pubMedIds} </div> : 
                                                             <div> PubMed:  </div>;  
 
-
     //the scatter plot component
     const d3Plot =  <div className="scatterContainer">
                       <ReactSVGPanZoom
@@ -390,6 +385,7 @@ export class DataView extends React.Component {
     const dimensions = keyVar;
 
     //the uniprot routine - a simple iframe that combines a url with the peptideID
+    //x-frame same origin error due to uniprot changes
     const iframeLink = "http://www.uniprot.org/uniprot/" + this.state.activePeptideID;
     const uniProtContainer = this.state.showUniProt &&
                              <iframe
@@ -451,7 +447,7 @@ export class DataView extends React.Component {
     //extracts the markerClasses from the meta data and displays them as buttons
     let markerClasses = !this.state.loading && this.state.markerClasses.toString().split(', ');
     const legendItems = markerClasses && markerClasses.map(obj =>
-      <button className="lengendItems" style={this.legendColor({obj})}  onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
+      <button className="lengendItems" style={this.legendColor({obj})} onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
     );
     let profileColumnsVar = this.state.profileColumns;
     const profileFilterButtons = profileColumnsVar && profileColumnsVar.map(obj =>
@@ -462,6 +458,8 @@ export class DataView extends React.Component {
         onChange       = {this._onCheckboxChange}
       />
     );
+    const moreLegendNames = 
+    console.log(profileFilterButtons.length);
 
     //the data table inclusive the bar above the table
     const table = <div className="tableCore">
@@ -686,8 +684,24 @@ export class DataView extends React.Component {
           headerText           = 'Profile Plot Columns'
           closeButtonAriaLabel = 'Close'
       >
-        {profileFilterButtons}
+
+      {profileFilterButtons}
       </Panel>
+
+      {/* The "show More entries" panel */}
+      <Panel
+          isBlocking           = {false}
+          isOpen               = {this.state.showMoreEntries}
+          isLightDismiss       = {true}
+          onDismiss            = {() => this.setState({showMoreEntries: false})}
+          type                 = {PanelType.smallFixedFar}
+          headerText           = 'Legend'
+          closeButtonAriaLabel = 'Close'
+      >
+
+      {profileFilterButtons}
+      </Panel>
+
       {/* main plot */}
       <div className="mainPlot" style={{height: this.state.plotHeight}}>
         {d3Container}
