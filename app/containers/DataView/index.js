@@ -83,6 +83,7 @@ export class DataView extends React.Component {
       nameColumnPopup       : '',
       showProfileDataColumn : false,
       showProfileFilter     : false,
+      showMoreEntries       : false, 
       profileFiltering      : false,
       showMetaDataPopup     : false,
     };
@@ -447,8 +448,12 @@ export class DataView extends React.Component {
     //extracts the markerClasses from the meta data and displays them as buttons
     let markerClasses = !this.state.loading && this.state.markerClasses.toString().split(', ');
     const legendItems = markerClasses && markerClasses.map(obj =>
-      <button className="lengendItems" style={this.legendColor({obj})} onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
+      <button className="legendItems" style={this.legendColor({obj})} onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
     );
+
+   
+                        
+
     let profileColumnsVar = this.state.profileColumns;
     const profileFilterButtons = profileColumnsVar && profileColumnsVar.map(obj =>
       <Checkbox
@@ -458,8 +463,6 @@ export class DataView extends React.Component {
         onChange       = {this._onCheckboxChange}
       />
     );
-    const moreLegendNames = 
-    console.log(profileFilterButtons.length);
 
     //the data table inclusive the bar above the table
     const table = <div className="tableCore">
@@ -478,6 +481,10 @@ export class DataView extends React.Component {
                         <button className="optionToggle" onClick={() => this.downloadCSV()}>      <i className="fa fa-download">    </i></button>
 
                         {legendItems}
+                         <button className="legendItems" 
+                                onClick={() => this.setState({showMoreEntries : !this.state.showMoreEntries})}>
+                                More Entries
+                        </button>;
                       </div>
                     </div>
                     <MarqueeSelection>
@@ -496,7 +503,7 @@ export class DataView extends React.Component {
                         onActiveItemChanged             = {(item, index) => this.setState({activeKey : index})}
                         />
                     </MarqueeSelection>
-                  </div>;
+                  </div>;                         
 
     return (
     <div>
@@ -562,7 +569,6 @@ export class DataView extends React.Component {
         <div className="modChoice" onClick={() => this.setActiveRadius()}> Radius       </div>
         <div className="modChoice" onClick={() => this.setActiveTransp()}> Transparency </div>
         <div className="modChoice" onClick={() => this.setOrderBy(this.state.sortedAscending)}> Sort Table by Column </div>
-
       </Dialog>
 
       {/* The "option" panel */}
@@ -698,8 +704,9 @@ export class DataView extends React.Component {
           headerText           = 'Legend'
           closeButtonAriaLabel = 'Close'
       >
-
-      {profileFilterButtons}
+      <div style={{maxWidth: 120, overflow: "visible"}}>
+      {legendItems}
+      </div>
       </Panel>
 
       {/* main plot */}

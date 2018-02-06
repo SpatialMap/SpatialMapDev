@@ -27,7 +27,7 @@
   margin-right: -10px;
 }
 
-.lengendItems {
+.legendItems {
   float: left;
   height: 32px;
   background-color: #f4f4f4;
@@ -38,7 +38,7 @@
   cursor: pointer;
 }
 
-.lengendItems:hover {
+.legendItems:hover {
   background-color: #f0f0f0;
 }
 
