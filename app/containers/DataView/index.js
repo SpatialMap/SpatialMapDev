@@ -451,9 +451,6 @@ export class DataView extends React.Component {
       <button className="legendItems" style={this.legendColor({obj})} onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
     );
 
-   
-                        
-
     let profileColumnsVar = this.state.profileColumns;
     const profileFilterButtons = profileColumnsVar && profileColumnsVar.map(obj =>
       <Checkbox
@@ -481,10 +478,13 @@ export class DataView extends React.Component {
                         <button className="optionToggle" onClick={() => this.downloadCSV()}>      <i className="fa fa-download">    </i></button>
 
                         {legendItems}
+                        {legendItems.length > 10 && 
                          <button className="legendItems" 
                                 onClick={() => this.setState({showMoreEntries : !this.state.showMoreEntries})}>
                                 More Entries
-                        </button>;
+                          </button>
+                        }
+                        
                       </div>
                     </div>
                     <MarqueeSelection>
