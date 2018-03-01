@@ -168,6 +168,12 @@
   float: left;
 }
 
+.scatterContainerWide{
+  max-width: 50%;
+  overflow: hidden;
+  float: left;
+}
+
 .axis {
   font: 12px sans-serif;
 }

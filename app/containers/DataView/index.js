@@ -337,6 +337,13 @@ export class DataView extends React.Component {
       padding : 25,
     };
 
+    //the dynamic plot CSS - adjusts based on number active tabs
+    const plotCSS = {
+        maxWidth: this.state.plotProfile + this.state.plotPCA + this.state.showUniProt == 1 ? '100%' : '50%',
+        overflow: 'hidden',
+        float: 'left',
+    };
+
     //metaData entries
     const MetaVarName     =                                    <div> Name        : {this.state.metaData.varName}     </div>;
     const MetaLab         = this.state.metaData.lab         && <div> Lab         : {this.state.metaData.lab}         </div>;
@@ -351,8 +358,7 @@ export class DataView extends React.Component {
     const pubmedID        = this.state.metaData.pubMedIds ? <div> PubMed: {this.state.metaData.pubMedIds} </div> : 
                                                             <div> PubMed:  </div>;  
 
-    //the scatter plot component
-    const d3Plot =  <div className="scatterContainer">
+    const d3Plot =  <div style={plotCSS}>
                       <ReactSVGPanZoom
                         width             = {styles.width}
                         height            = {styles.height}
@@ -390,7 +396,7 @@ export class DataView extends React.Component {
     const iframeLink = "http://www.uniprot.org/uniprot/" + this.state.activePeptideID;
     const uniProtContainer = this.state.showUniProt &&
                              <iframe
-                                       className   = "scatterContainer"
+                                       style       = {plotCSS}
                                        height      = {styles.height}
                                        width       = {styles.width}
                                        frameBorder = "0"
@@ -399,7 +405,7 @@ export class DataView extends React.Component {
 
     // the profile plot
     const profileContainer = this.state.plotProfile &&
-                             <div className="scatterContainer">
+                             <div style = {plotCSS}>
                                       <ParallelCoordinatesComponent
                                           data             = {this.state.profileFiltering ? this.state.filteredData : this.state.data}
                                           dimensions       = {dimensions}
