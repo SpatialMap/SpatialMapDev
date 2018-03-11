@@ -5,9 +5,10 @@ const renderCircles = (props) => {
     // conditional statements to select certain elements:
     const markSelected             = index == props.activeKey ? "rgba(0,0,0,0.3)" : "none";
     const colorSpace               = props.colorSelect == '' ? coords.Colors : props.colScale(coords[props.colorSelect]);
-    const toggleUnknown            = props.dispUnknown == true ? "rgba(100,100,100,0.1)" : "none";
+    const toggleUnknown            = props.dispUnknown == true ? props.colorUnknown : "none";
     const legendOrganelleSelection = !props.markerToggle.includes(coords.markers) ? colorSpace : "none";
-    const colorUnknown             = coords.markers == "unknown" && props.labels != true ? toggleUnknown : legendOrganelleSelection;
+    // delete true (placeholder for old labels)
+    const colorFill                = coords.markers == "unknown" && true != false ? toggleUnknown : legendOrganelleSelection;
     const radiusVar                = props.radiusSelect == '' ? props.radius : props.radius * props.radiusScale(coords[props.radiusSelect]);
     const transpVar                = props.transpSelect == '' ? 0.9 : props.transparencyScale(coords[props.transpSelect]);
     const textVar                  = coords.id;
@@ -19,7 +20,7 @@ const renderCircles = (props) => {
       cx          : xPOS,
       cy          : yPOS,
       r           : radiusVar,
-      fill        : colorUnknown,
+      fill        : colorFill,
       opacity     : transpVar,
       stroke      : markSelected,
       strokeWidth : props.radius/3,

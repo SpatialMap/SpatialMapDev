@@ -38,6 +38,10 @@ import { Callout }                          from 'office-ui-fabric-react/lib/Cal
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { SearchBox }                        from 'office-ui-fabric-react/lib/SearchBox';
 import { Panel, PanelType }                 from 'office-ui-fabric-react/lib/Panel';
+import { ColorPicker } from 'office-ui-fabric-react/lib/ColorPicker';
+export interface IBasicColorPickerExampleState {
+  color: string;
+}
 
 var ParallelCoordinatesComponent = require('react-parallel-coordinates');
 var Dimensions                   = require('react-dimensions');
@@ -64,7 +68,8 @@ export class DataView extends React.Component {
       radius                : 4,
       textSize              : 3,
       dispUnknown           : true,
-      labels                : false,
+      colorUnknown          : "rgba(100,100,100,0.4)",
+      colorUnknownTemp      : "rgba(100,100,100,0.1)",
       activeKey             : [],
       activePeptideID       : '',
       showUniProt           : false,
@@ -95,7 +100,7 @@ export class DataView extends React.Component {
         radius              : 4,
         textSize            : 3,
         dispUnknown         : true,
-        labels              : false,
+        colorUnknown        : "rgba(100,100,100,0.1)",
         showUniProt         : false,
         plotPCA             : true,
         plotProfile         : true,
@@ -113,7 +118,12 @@ export class DataView extends React.Component {
   //refresh ScatterPlot
   refreshPlot() {
     this.setState({radius: this.state.radius});
+    console.log("refresh check");
   };
+
+  updateUnknownColor() {
+    this.setState({colorUnknown : this.state.colorUnknownTemp});
+  }
 
   //function defines which peptide is highlighted
   setActiveKey(index, activePeptide) {
@@ -254,6 +264,8 @@ export class DataView extends React.Component {
     let inactive = {backgroundColor: "#f2e4d8"}; 
     return boleanVar == true? active : inactive; 
   }
+
+
   //add or delete profile column
   addToggleProfileColumnArray(column){
     let tempMarkerToggle = this.state.profileToggle;
@@ -272,6 +284,7 @@ export class DataView extends React.Component {
              this.setState({profileToggle: this.deleteToggleProfileColumnArray(column.obj)}):
              this.setState({profileToggle: this.addToggleProfileColumnArray(column.obj)});
     this.setState({filteredProfile: this.state.profileColumns.filter((dataRow) => {return !this.state.profileToggle.includes(dataRow.markers)})});
+    console.log(this.state.filteredProfile);
   };
 
   //ordering function (called from colum header modal)
@@ -385,8 +398,8 @@ export class DataView extends React.Component {
     var keyVar = {};
     this.state.profileColumns && this.state.profileColumns.map(function(obj, index) {
         index == 0 ?
-        keyVar[obj] = {type:"number", "tickValues":[0,0.2,0.4,0.6,0.8]} :
-        keyVar[obj] = {type:"number", "tickValues":0};
+        keyVar[obj] = {type:"number", "tickValues": [0, 0.2, 0.4, 0.6, 0.8]} :
+        keyVar[obj] = {type:"number", "tickValues": 0};
       }
     );
     const dimensions = keyVar;
@@ -419,7 +432,7 @@ export class DataView extends React.Component {
                                                                 } else if(d.markers != "unknown") {
                                                       						return(d.Colors)
                                                       					} else {
-                                                      						return("rgba(0,0,0,0.1)")
+                                                      						return("rgba(0, 0, 0, 0.1)")
                                                       					}
                                             			           }}
                                           onBrushEnd_data = {(out) => this.updateFilteredData(out)}
@@ -522,7 +535,7 @@ export class DataView extends React.Component {
         <div className="configBar" style={{paddingLeft: 10}}>
           <div className="leftButtons first" 
                style={this.activeButton(this.state.showProfileFilter)} 
-               onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter})}>
+               onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter}) }>
                Profile Columns
           </div>
           <div className="leftButtons" 
@@ -624,15 +637,6 @@ export class DataView extends React.Component {
            onChange            = {() => this.setState({profileFiltering : !this.state.profileFiltering})}
           />
           <Toggle
-            label              = 'Color Unknown'
-            checked            = {this.state.labels}
-            onAriaLabel        = 'This toggle is checked. Press to uncheck.'
-            offAriaLabel       = 'This toggle is unchecked. Press to check.'
-            onText             = 'On'
-            offText            = 'Off'
-            onChange           = {() => this.setState({labels : !this.state.labels})}
-          />
-          <Toggle
            label               = 'Hide Unknown'
            checked             = {this.state.dispUnknown}
            onAriaLabel         = 'This toggle is checked. Press to uncheck.'
@@ -641,6 +645,19 @@ export class DataView extends React.Component {
            offText             = 'Off'
            onChange            = {() => this.setState({dispUnknown : !this.state.dispUnknown})}
           />
+          Unknown color
+          <ColorPicker
+           color               = "rgba(100,100,100,0.1)"
+           onColorChanged      = {(color) => console.log(color)}
+          />
+          <DefaultButton
+            text               = 'Update Color'
+            disabled           = { false }
+            checked            = { false }
+            onClick            = { () => this.updateUnknownColor() }
+          />
+
+
       </Panel>
 
       {/* The "Dataset" panel */}
