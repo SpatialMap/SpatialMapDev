@@ -39,9 +39,7 @@ import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dia
 import { SearchBox }                        from 'office-ui-fabric-react/lib/SearchBox';
 import { Panel, PanelType }                 from 'office-ui-fabric-react/lib/Panel';
 import { ColorPicker } from 'office-ui-fabric-react/lib/ColorPicker';
-export interface IBasicColorPickerExampleState {
-  color: string;
-}
+export interface IBasicColorPickerExampleState { color: string; }
 
 var ParallelCoordinatesComponent = require('react-parallel-coordinates');
 var Dimensions                   = require('react-dimensions');
@@ -64,7 +62,7 @@ export class DataView extends React.Component {
       profileOutput         : [],
       profileColumns        : [],
       loading               : true,
-      plotHeight            : 500,
+      plotHeight            : window.innerHeight/2,
       radius                : 4,
       textSize              : 3,
       dispUnknown           : true,
@@ -75,6 +73,7 @@ export class DataView extends React.Component {
       showUniProt           : false,
       showComparison        : false,
       plotPCA               : true,
+      plot3D                : false,
       plotProfile           : true,
       colorSelect           : [''],
       radiusSelect          : [''],
@@ -104,6 +103,7 @@ export class DataView extends React.Component {
         showUniProt         : false,
         plotPCA             : true,
         plotProfile         : true,
+        plot3D              : false,
         profileFiltering    : false,
         colorSelect         : [''],
         radiusSelect        : [''],
@@ -441,6 +441,7 @@ export class DataView extends React.Component {
 
     //loader or plot logic
     const d3Container = this.state.loading ? loader : this.state.plotPCA && d3Plot;
+    const plot3D = null; 
 
     //table colum JSON attributes
     const keyAggregate = this.state.loading ? [] : Object.keys(this.state.data[1]);
@@ -566,6 +567,11 @@ export class DataView extends React.Component {
                style={this.activeButton(this.state.plotProfile)} 
                onClick={() => this.setState({plotProfile : !this.state.plotProfile, showUniProt : false})}>
                Profile
+          </div>
+          <div className="rightButtons" 
+               style={this.activeButton(this.state.plot3D)} 
+               onClick={() => this.setState({plot3D : !this.state.plot3D})}>
+               3D View
           </div>
           <div className="rightButtons" 
                style={this.activeButton(this.state.plotPCA)} 
@@ -735,6 +741,7 @@ export class DataView extends React.Component {
       {/* main plot */}
       <div className="mainPlot" style={{height: this.state.plotHeight}}>
         {d3Container}
+        {plot3D}
         {profileContainer}
         {uniProtContainer}
       </div>
