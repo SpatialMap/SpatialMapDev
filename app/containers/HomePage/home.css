@@ -30,7 +30,22 @@
 
 .headImageHome {
   padding-top: 60px;
-  max-width: 70vh;
+  height: 400px;
+}
+
+.headImageHomeFadeIn {
+  animation: fadeInPicture 2s;
+  -webkit-animation: fadeInPicture 2s;
+}
+
+@keyframes fadeInPicture {
+  from{opacity: 0 ;}
+  to{opacity: 1 ;}
+}
+
+@-webkit-keyframes fadeInPicture {
+  from{opacity : 0;}
+  to{opacity : 1;}
 }
 
 .headButton {
@@ -49,9 +64,9 @@
 }
 
 .features {
-  margin: auto; 
+  margin: auto;
   min-height:  200px;
-  padding-top: 30px; 
+  padding-top: 30px;
   padding-bottom: 30px;
   text-align: left;
 }

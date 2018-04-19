@@ -11,6 +11,10 @@
   background-color: #ebefee;
 }
 
+.description {
+  font-size:  14px;
+}
+
 .headBar {
   padding: 10px 25px 5px 25px;
   margin: auto;

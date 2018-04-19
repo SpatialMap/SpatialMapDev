@@ -442,6 +442,7 @@ export class DataView extends React.Component {
     //loader or plot logic
     const d3Container = this.state.loading ? loader : this.state.plotPCA && d3Plot;
     const plot3D = null; 
+    console.log(this.state.filteredData);
 
     //table colum JSON attributes
     const keyAggregate = this.state.loading ? [] : Object.keys(this.state.data[1]);
