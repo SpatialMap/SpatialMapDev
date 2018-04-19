@@ -27,11 +27,11 @@ import { CompoundButton, IButtonProps }     from 'office-ui-fabric-react/lib/But
 import { ChoiceGroup, IChoiceGroupOption }  from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { autobind }                         from 'office-ui-fabric-react/lib/Utilities';
 import { TextField }                        from 'office-ui-fabric-react/lib/TextField';
-import { DetailsList, DetailsListLayoutMode, 
-         Selection, CheckboxVisibility, 
-         buildColumns, IColumn, 
+import { DetailsList, DetailsListLayoutMode,
+         Selection, CheckboxVisibility,
+         buildColumns, IColumn,
          ConstrainMode, ColumnActionsMode } from 'office-ui-fabric-react/lib/DetailsList';
-import { IContextualMenuProps, IContextualMenuItem, 
+import { IContextualMenuProps, IContextualMenuItem,
           DirectionalHint, ContextualMenu } from 'office-ui-fabric-react/lib/ContextualMenu';
 import { MarqueeSelection }                 from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Callout }                          from 'office-ui-fabric-react/lib/Callout';
@@ -87,7 +87,7 @@ export class DataView extends React.Component {
       nameColumnPopup       : '',
       showProfileDataColumn : false,
       showProfileFilter     : false,
-      showMoreEntries       : false, 
+      showMoreEntries       : false,
       profileFiltering      : false,
       showMetaDataPopup     : false,
     };
@@ -163,50 +163,50 @@ export class DataView extends React.Component {
 
   convertArrayOfObjectsToCSV(args) {
         var result, ctr, keys, columnDelimiter, lineDelimiter, data;
- 
+
         data = args.data || null;
         if (data == null || !data.length) {
             return null;
         }
- 
+
         columnDelimiter = args.columnDelimiter || ',';
         lineDelimiter = args.lineDelimiter || '\n';
- 
+
         keys = Object.keys(data[0]);
- 
+
         result = '';
         result += keys.join(columnDelimiter);
         result += lineDelimiter;
- 
+
         data.forEach(function(item) {
             ctr = 0;
             keys.forEach(function(key) {
                 if (ctr > 0) result += columnDelimiter;
- 
+
                 result += item[key];
                 ctr++;
             });
             result += lineDelimiter;
         });
- 
+
         return result;
     }
- 
+
   downloadCSV() {
         var data, filename, link;
- 
+
         var csv = this.convertArrayOfObjectsToCSV({
             data: this.state.filteredData
         });
         if (csv == null) return;
- 
+
         filename = this.state.metaData.varName + '.csv';
- 
+
         if (!csv.match(/^data:text\/csv/i)) {
             csv = 'data:text/csv;charset=utf-8,' + csv;
         }
         data = encodeURI(csv);
- 
+
         link = document.createElement('a');
         link.setAttribute('href', data);
         link.setAttribute('download', filename);
@@ -261,8 +261,8 @@ export class DataView extends React.Component {
   //toggle active/inactive button style
   activeButton(boleanVar){
     let active   = {backgroundColor: "#f4f4f4"};
-    let inactive = {backgroundColor: "#f2e4d8"}; 
-    return boleanVar == true? active : inactive; 
+    let inactive = {backgroundColor: "#f2e4d8"};
+    return boleanVar == true? active : inactive;
   }
 
 
@@ -368,8 +368,8 @@ export class DataView extends React.Component {
     const MetaDataStamp   = this.state.metaData.dataStamp   && <div> Date        : {this.state.metaData.dataStamp}   </div>;
     const MetaAuthor      = this.state.metaData.author      && <div> Author      : {this.state.metaData.author}      </div>;
 
-    const pubmedID        = this.state.metaData.pubMedIds ? <div> PubMed: {this.state.metaData.pubMedIds} </div> : 
-                                                            <div> PubMed:  </div>;  
+    const pubmedID        = this.state.metaData.pubMedIds ? <div> PubMed: {this.state.metaData.pubMedIds} </div> :
+                                                            <div> PubMed:  </div>;
 
     const d3Plot =  <div style={plotCSS}>
                       <ReactSVGPanZoom
@@ -441,7 +441,7 @@ export class DataView extends React.Component {
 
     //loader or plot logic
     const d3Container = this.state.loading ? loader : this.state.plotPCA && d3Plot;
-    const plot3D = null; 
+    const plot3D = null;
     console.log(this.state.filteredData);
 
     //table colum JSON attributes
@@ -492,20 +492,20 @@ export class DataView extends React.Component {
                         onChange  = {(newValue) => this.dataFilter(newValue)}
                       />
                     </div>
-                      <div className="col-sm-10">
+                      <div className="col-sm-10 divFadeIn">
                         <button className="optionToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v">    </i></button>
                         <button className="optionToggle" onClick={() => this.switchPlotTools()}>  <i className="fa fa-object-group"></i></button>
                         <button className="optionToggle" onClick={() => this.resetAll()}>         <i className="fa fa-undo">        </i></button>
                         <button className="optionToggle" onClick={() => this.downloadCSV()}>      <i className="fa fa-download">    </i></button>
 
                         {legendItems}
-                        {legendItems.length > 10 && 
-                         <button className="legendItems" 
+                        {legendItems.length > 10 &&
+                         <button className="legendItems"
                                 onClick={() => this.setState({showMoreEntries : !this.state.showMoreEntries})}>
                                 More Entries
                           </button>
                         }
-                        
+
                       </div>
                     </div>
                     <MarqueeSelection>
@@ -524,7 +524,7 @@ export class DataView extends React.Component {
                         onActiveItemChanged             = {(item, index) => this.setState({activeKey : index})}
                         />
                     </MarqueeSelection>
-                  </div>;                         
+                  </div>;
 
     return (
     <div>
@@ -534,48 +534,48 @@ export class DataView extends React.Component {
         />
 
         {/*Top left buttons & sliders */}
-        <div className="configBar" style={{paddingLeft: 10}}>
-          <div className="leftButtons first" 
-               style={this.activeButton(this.state.showProfileFilter)} 
+        <div className="configBar divFadeIn" style={{paddingLeft: 10}}>
+          <div className="leftButtons first buttonFadeIn"
+               style={this.activeButton(this.state.showProfileFilter)}
                onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter}) }>
                Profile Columns
           </div>
-          <div className="leftButtons" 
-               style={this.activeButton(this.state.showPlotConfigPopup)} 
+          <div className="leftButtons buttonFadeIn"
+               style={this.activeButton(this.state.showPlotConfigPopup)}
                onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup})}>
                Options
           </div>
-          <div className="leftButtons" 
-               style={this.activeButton(this.state.showMetaDataPopup)} 
+          <div className="leftButtons buttonFadeIn"
+               style={this.activeButton(this.state.showMetaDataPopup)}
                onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup})}>
                Dataset
           </div>
 
           {/*Top right buttons */}
-          {/* Comparison Prototype - inactive  
-          <div className="rightButtons" 
-               style={this.activeButton(this.state.showComparison)} 
+          {/* Comparison Prototype - inactive
+          <div className="rightButtons"
+               style={this.activeButton(this.state.showComparison)}
                onClick={() => this.setState({showComparison : !this.state.showComparison, plotProfile: false})}>
                Comparison
           </div>
           */}
-          <div className="rightButtons" 
-               style={this.activeButton(this.state.showUniProt)} 
+          <div className="rightButtons buttonFadeIn"
+               style={this.activeButton(this.state.showUniProt)}
                onClick={() => this.setState({showUniProt : !this.state.showUniProt, plotProfile: false})}>
                UniProt
           </div>
-          <div className="rightButtons" 
-               style={this.activeButton(this.state.plotProfile)} 
+          <div className="rightButtons buttonFadeIn"
+               style={this.activeButton(this.state.plotProfile)}
                onClick={() => this.setState({plotProfile : !this.state.plotProfile, showUniProt : false})}>
                Profile
           </div>
-          <div className="rightButtons" 
-               style={this.activeButton(this.state.plot3D)} 
+          <div className="rightButtons buttonFadeIn"
+               style={this.activeButton(this.state.plot3D)}
                onClick={() => this.setState({plot3D : !this.state.plot3D})}>
                3D View
           </div>
-          <div className="rightButtons" 
-               style={this.activeButton(this.state.plotPCA)} 
+          <div className="rightButtons buttonFadeIn"
+               style={this.activeButton(this.state.plotPCA)}
                onClick={() => this.setState({plotPCA : !this.state.plotPCA})}>
                PCA
           </div>
@@ -583,6 +583,7 @@ export class DataView extends React.Component {
 
       {/* The modal showing on colum header click */}
       <Dialog
+        className              = "modalFadeIn"
         isOpen                 = {this.state.showColumnPopup}
         type                   = {DialogType.normal}
         onDismiss              = {() => this.setState({showColumnPopup : !this.state.showColumnPopup})}
@@ -677,7 +678,7 @@ export class DataView extends React.Component {
           headerText           = 'Dataset'
           closeButtonAriaLabel = 'Close'
       >
-        <p> <b> Meta Data </b> </p> 
+        <p> <b> Meta Data </b> </p>
         <table>
           <tbody>
           <tr> {MetaVarName}     </tr>
@@ -694,7 +695,7 @@ export class DataView extends React.Component {
           <code className="RCode">
             # with the pRoloc R package <br/>
             library(pRolocdata)         <br/>
-            object = download("{this.props.params.uid}") 
+            object = download("{this.props.params.uid}")
           </code>
         </div>
         <br/>
@@ -740,13 +741,13 @@ export class DataView extends React.Component {
       </Panel>
 
       {/* main plot */}
-      <div className="mainPlot" style={{height: this.state.plotHeight}}>
+      <div className="mainPlot divFadeIn" style={{height: this.state.plotHeight}}>
         {d3Container}
         {plot3D}
         {profileContainer}
         {uniProtContainer}
       </div>
-      
+
       {/* main table */}
       <div className="table">
         {table}

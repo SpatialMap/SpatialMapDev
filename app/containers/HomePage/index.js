@@ -12,7 +12,7 @@ export default class HomePage extends React.PureComponent {
         <div className="welcomeHome">
           <div className="row container" style={{margin:"auto", marginTop: 40}}>
               <div className="col-sm-12">
-               <img className="headImageHome headImageHomeFadeIn"
+               <img className="headImageHome imageFadeIn"
                  src="https://firebasestorage.googleapis.com/v0/b/spatialmap-1b08e.appspot.com/o/img%2FworldMap.png?alt=media&token=b2e47c78-9886-4933-be14-6d327d9fe79a"/>
               </div>
               <div className="col-sm-12 textCardHome" style={{textAlign: "center", margin: 'auto'}}>

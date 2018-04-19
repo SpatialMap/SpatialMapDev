@@ -59,6 +59,21 @@
   max-width: 350px;
 }
 
+.imageFadeIn {
+  animation: fadeInPicture 2.5s;
+  -webkit-animation: fadeInPicture 2.5s;
+}
+
+@keyframes fadeInPicture {
+  from{opacity: 0 ;}
+  to{opacity: 1 ;}
+}
+
+@-webkit-keyframes fadeInPicture {
+  from{opacity : 0;}
+  to{opacity : 1;}
+}
+
 .bottomText {
   text-align: center;
   font-size: 22px;

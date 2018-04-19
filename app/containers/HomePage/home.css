@@ -33,9 +33,9 @@
   height: 400px;
 }
 
-.headImageHomeFadeIn {
-  animation: fadeInPicture 2s;
-  -webkit-animation: fadeInPicture 2s;
+.imageFadeIn {
+  animation: fadeInPicture 2.5s;
+  -webkit-animation: fadeInPicture 2.5s;
 }
 
 @keyframes fadeInPicture {

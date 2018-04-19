@@ -34,6 +34,22 @@
 .speciesImage {
   height: 100%;
 }
+
+.divFadeIn {
+  animation: fadeInDiv 1.3s;
+  -webkit-animation: fadeInDiv 1.3s;
+}
+
+@keyframes fadeInDiv {
+  from{opacity: 0 ;}
+  to{opacity: 1 ;}
+}
+
+@-webkit-keyframes fadeInDiv {
+  from{opacity : 0;}
+  to{opacity : 1;}
+}
+
 .tileText {
   padding-left: 10px;
   padding-top: 15px;

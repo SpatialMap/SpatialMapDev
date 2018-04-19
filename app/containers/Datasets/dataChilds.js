@@ -50,7 +50,7 @@ class DataChild extends React.Component {
 
     const mainContent = onlySearched ?
     <Link to={'/dataView/' + this.props.item.id} key={'link' + this.props.item.id}>
-         <div className="dataChild" key={'dataChild' + this.props.item.id}>
+         <div className="dataChild divFadeIn" key={'dataChild' + this.props.item.id}>
            <div className="col-sm-9 description">
              {lab}
              {species}
