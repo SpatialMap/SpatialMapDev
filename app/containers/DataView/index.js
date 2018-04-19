@@ -132,7 +132,7 @@ export class DataView extends React.Component {
   };
 
   togglePlotHeight(){
-    this.state.plotHeight == 500 ? this.setState({plotHeight: this.state.height - 150}) :
+    this.state.plotHeight == window.innerHeight/2 ? this.setState({plotHeight: this.state.height - 125}) :
                                    this.setState({plotHeight: 500});
   }
 
