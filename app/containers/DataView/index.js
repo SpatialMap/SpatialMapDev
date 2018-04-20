@@ -66,8 +66,7 @@ export class DataView extends React.Component {
       radius                : 4,
       textSize              : 3,
       dispUnknown           : true,
-      colorUnknown          : "rgba(100,100,100,0.4)",
-      colorUnknownTemp      : "rgba(100,100,100,0.1)",
+      colorUnknown          : "rgba(100,100,100,0.1)",
       activeKey             : [],
       activePeptideID       : '',
       showUniProt           : false,
@@ -121,10 +120,6 @@ export class DataView extends React.Component {
     console.log("refresh check");
   };
 
-  updateUnknownColor() {
-    this.setState({colorUnknown : this.state.colorUnknownTemp});
-  }
-
   //function defines which peptide is highlighted
   setActiveKey(index, activePeptide) {
     this.setState({activeKey: index});
@@ -133,7 +128,7 @@ export class DataView extends React.Component {
 
   togglePlotHeight(){
     this.state.plotHeight == window.innerHeight/2 ? this.setState({plotHeight: this.state.height - 125}) :
-                                   this.setState({plotHeight: 500});
+                                   this.setState({plotHeight: window.innerHeight/2});
   }
 
   setActiveColor(reset = false){
@@ -442,7 +437,6 @@ export class DataView extends React.Component {
     //loader or plot logic
     const d3Container = this.state.loading ? loader : this.state.plotPCA && d3Plot;
     const plot3D = null;
-    console.log(this.state.filteredData);
 
     //table colum JSON attributes
     const keyAggregate = this.state.loading ? [] : Object.keys(this.state.data[1]);
@@ -653,18 +647,6 @@ export class DataView extends React.Component {
            offText             = 'Off'
            onChange            = {() => this.setState({dispUnknown : !this.state.dispUnknown})}
           />
-          Unknown color
-          <ColorPicker
-           color               = "rgba(100,100,100,0.1)"
-           onColorChanged      = {(color) => console.log(color)}
-          />
-          <DefaultButton
-            text               = 'Update Color'
-            disabled           = { false }
-            checked            = { false }
-            onClick            = { () => this.updateUnknownColor() }
-          />
-
 
       </Panel>
 

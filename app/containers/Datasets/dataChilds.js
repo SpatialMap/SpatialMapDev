@@ -44,7 +44,7 @@ class DataChild extends React.Component {
             break;
     }
 
-    const Image = ImgUrl && <img className="speciesImage" src={ImgUrl}/>;
+    const Image = ImgUrl && <img className="speciesImage iconFadeIn" src={ImgUrl}/>;
     const onlySearched = this.props.item.varName && this.props.item.public &&
                          Object.values(this.props.item).toString().toLowerCase().indexOf(this.props.searchTerm.toLowerCase()) !== -1;
 
