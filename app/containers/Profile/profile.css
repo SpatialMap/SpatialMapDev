@@ -1,10 +1,15 @@
 .profileData {
   margin-top: -19px;
-  background-color:  #e5e5e5;
+  background-color: #e5e5e5;
   padding-top: 6px;
-  padding-left:  7px;
+  padding-left: 7px;
   padding-bottom: 5px;
   text-align: left;
+}
+
+.buttonRightSide {
+  margin-right: 7px;
+  float: right;
 }
 
 .uploadData {
@@ -60,6 +65,7 @@
 .speciesImage {
   height: 100%;
 }
+
 .tileText {
   padding-left: 10px;
   padding-top: 15px;

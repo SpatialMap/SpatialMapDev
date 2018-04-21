@@ -20,7 +20,7 @@ import { TextField }                        from 'office-ui-fabric-react/lib/Tex
 import { Toggle }                           from 'office-ui-fabric-react/lib/Toggle';
 import "./profile.css"
 
-export class Profile extends React.Component { 
+export class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,6 +33,7 @@ export class Profile extends React.Component {
       passwordRepeat: '',
       showChangePW: false,
       showChangeEmail: false,
+      showUploadPanel: false,
       searchTerm: this.props.params.search ? this.props.params.search : '',
     }
   }
@@ -94,12 +95,12 @@ export class Profile extends React.Component {
     var user = firebase.auth().currentUser;
     if (user != null) {
        var email = user.email;
-       var uid = user.uid;
-       var name = user.displayName;
+       var uid   = user.uid;
+       var name  = user.displayName;
     } else {
        var email = "not logged in";
-       var uid = "not logged in";
-       var name = "not logged in";
+       var uid   = "not logged in";
+       var name  = "not logged in";
     }
 
     const DataSetItem = this.state.msnsets.map((detail) =>
@@ -126,11 +127,11 @@ export class Profile extends React.Component {
 
       <div className="container">
          <Panel
-            isOpen={ this.state.showChangeEmail }
-            type={ PanelType.smallFixedFar }
-            isLightDismiss={ true }
-            headerText='Change Email'
-            closeButtonAriaLabel='Close'
+            isOpen               = {this.state.showChangeEmail}
+            type                 = {PanelType.smallFixedFar}
+            isLightDismiss       = {true}
+            headerText           = 'Change Email'
+            closeButtonAriaLabel = 'Close'
             >
              <TextField
                label='New Email:'
@@ -138,49 +139,68 @@ export class Profile extends React.Component {
               />
               <DefaultButton
                text='Submit & Change'
-               checked={ this.state.password == this.state.passwordRepeat }
+               checked={this.state.password == this.state.passwordRepeat}
                onClick={() => this.changeEmail()}
               />
           </Panel>
 
           <Panel
-            isOpen={ this.state.showChangePW }
-            type={ PanelType.smallFixedFar }
-            isLightDismiss={ true }
-            headerText='Change Password'
-            closeButtonAriaLabel='Close'
+            isOpen               = {this.state.showUploadPanel}
+            type                 = {PanelType.mediumFixedNear}
+            isLightDismiss       = {true}
+            headerText           = 'Upload Instructions'
+            closeButtonAriaLabel = 'Close'
+            >
+            Currently all uploads are handled via R and SpatialMapsData. You can use your SpatialMaps login within R to upload public or private datasets.
+            <br/><br/>
+            library(SpatialMapsData)
+            upload(yourDataSet, login())
+            <br/><br/>
+            Find more information in our References.
+          </Panel>
+
+          <Panel
+            isOpen               = {this.state.showChangePW}
+            type                 = {PanelType.smallFixedFar}
+            isLightDismiss       = {true}
+            headerText           = 'Change Password'
+            closeButtonAriaLabel = 'Close'
             >
             <TextField
-             type="password"
-             label='New Password:'
-             onChanged={(input) => this.setState({password: input})}
+             type       = "password"
+             label      = 'New Password:'
+             onChanged  = {(input) => this.setState({password: input})}
             />
             <TextField
-             type="password"
-             label='Repeat Password:'
-             onChanged={(input) => this.setState({passwordRepeat: input})}
+             type       = "password"
+             label      = 'Repeat Password:'
+             onChanged  = {(input) => this.setState({passwordRepeat: input})}
             />
             <DefaultButton
-             text='Submit & Change'
-             checked={ this.state.password == this.state.passwordRepeat }
-             nClick={() => this.chang}
+             text       = 'Submit & Change'
+             checked    = {this.state.password == this.state.passwordRepeat}
+             nClick     = {() => this.chang}
             />
-         </Panel>
+          </Panel>
 
           <div className="profileData">
             <DefaultButton
-              disabled={true}
-              text={email}
+              disabled  = {true}
+              text      = {email}
             />
             <DefaultButton
-              text='Change Email'
-              onClick={() => this.setState({showChangeEmail: true, showChangePW: false})}
+              text      = 'Change Email'
+              onClick   = {() => this.setState({showChangeEmail: true, showChangePW: false})}
             />
             <DefaultButton
-              text='Change Password'
-              onClick={() => this.setState({showChangePW: true, showChangeEmail: false})}
+              text      = 'Change Password'
+              onClick   = {() => this.setState({showChangePW: true, showChangeEmail: false})}
             />
-              <br/>
+            <DefaultButton
+              className = "buttonRightSide"
+              text      ='Upload Dataset'
+              onClick   = {() => this.setState({showUploadPanel: true, showChangeEmail: false, showChangePW: false})}
+            />
           </div>
           <div className="myData">
             {itemContainer}
