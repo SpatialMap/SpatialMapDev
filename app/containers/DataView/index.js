@@ -229,14 +229,14 @@ export class DataView extends React.Component {
   };
 
   //organelle legend buttons
-  legendColor(marker){
+  legendColor(marker, sidebar){
     let legendColor   = this.state.data.find((dataRow) => dataRow.markers == marker.obj) && this.state.data.find((dataRow) => dataRow.markers == marker.obj).Colors;
     let coloredBorder = {borderStyle       : "solid",
                          borderWidth       : "3px",
                          borderBottomColor : "#f4f4f4",
                          borderRightColor  : "#f4f4f4",
-                         borderLeftColor   : "#f4f4f4",
-                         borderTopColor    : legendColor,
+                         borderLeftColor   : sidebar == true ? legendColor: "#f4f4f4",
+                         borderTopColor    : sidebar == true ? "#f4f4f4"  : legendColor,
                          outline           : "none"};
     let whiteBorder   = {borderStyle       : "solid",
                          borderWidth       : "3px",
@@ -462,8 +462,11 @@ export class DataView extends React.Component {
 
     //extracts the markerClasses from the meta data and displays them as buttons
     let markerClasses = !this.state.loading && this.state.markerClasses.toString().split(', ');
-    const legendItems = markerClasses && markerClasses.map(obj =>
-      <button className="legendItems" style={this.legendColor({obj})} onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
+    const legendItems = markerClasses && markerClasses.slice(0, 6).map(obj =>
+      <button className="legendItems" style={this.legendColor({obj}, false)} onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
+    );
+    const legendItemsSidebar = markerClasses && markerClasses.map(obj =>
+      <button className="legendItemsSidebar" style={this.legendColor({obj}, true)} onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
     );
 
     let profileColumnsVar = this.state.profileColumns;
@@ -486,14 +489,14 @@ export class DataView extends React.Component {
                         onChange  = {(newValue) => this.dataFilter(newValue)}
                       />
                     </div>
-                      <div className="col-sm-10 divFadeIn">
+                      <div className="col-sm-10 noPadding divFadeIn">
                         <button className="optionToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v">    </i></button>
                         <button className="optionToggle" onClick={() => this.switchPlotTools()}>  <i className="fa fa-object-group"></i></button>
                         <button className="optionToggle" onClick={() => this.resetAll()}>         <i className="fa fa-undo">        </i></button>
                         <button className="optionToggle" onClick={() => this.downloadCSV()}>      <i className="fa fa-download">    </i></button>
 
                         {legendItems}
-                        {legendItems.length > 10 &&
+                        {legendItems.length >= 5 &&
                          <button className="legendItems"
                                 onClick={() => this.setState({showMoreEntries : !this.state.showMoreEntries})}>
                                 More Entries
@@ -713,12 +716,13 @@ export class DataView extends React.Component {
           isOpen               = {this.state.showMoreEntries}
           isLightDismiss       = {true}
           onDismiss            = {() => this.setState({showMoreEntries: false})}
-          type                 = {PanelType.smallFixedFar}
+          type                 = {PanelType.custom}
+          customWidth          = '220px'
           headerText           = 'Legend'
           closeButtonAriaLabel = 'Close'
       >
       <div style={{maxWidth: 120, overflow: "visible"}}>
-      {legendItems}
+      {legendItemsSidebar}
       </div>
       </Panel>
 
