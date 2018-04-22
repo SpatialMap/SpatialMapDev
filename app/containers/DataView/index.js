@@ -462,7 +462,7 @@ export class DataView extends React.Component {
 
     //extracts the markerClasses from the meta data and displays them as buttons
     let markerClasses = !this.state.loading && this.state.markerClasses.toString().split(', ');
-    const legendItems = markerClasses && markerClasses.slice(0, 6).map(obj =>
+    const legendItems = markerClasses && markerClasses.map(obj =>
       <button className="legendItems" style={this.legendColor({obj}, false)} onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
     );
     const legendItemsSidebar = markerClasses && markerClasses.map(obj =>
@@ -495,13 +495,14 @@ export class DataView extends React.Component {
                         <button className="optionToggle" onClick={() => this.resetAll()}>         <i className="fa fa-undo">        </i></button>
                         <button className="optionToggle" onClick={() => this.downloadCSV()}>      <i className="fa fa-download">    </i></button>
 
-                        {legendItems}
+
                         {legendItems.length >= 5 &&
-                         <button className="legendItems"
+                         <button className="legendItems sidebarRight"
                                 onClick={() => this.setState({showMoreEntries : !this.state.showMoreEntries})}>
                                 More Entries
                           </button>
                         }
+                        {legendItems}
 
                       </div>
                     </div>
