@@ -34,7 +34,8 @@ export class Profile extends React.Component {
       showChangePW: false,
       showChangeEmail: false,
       showUploadPanel: false,
-      searchTerm: this.props.params.search ? this.props.params.search : '',
+      showErrorPanel: false,
+      responseMessage: "",
     }
   }
 
@@ -72,25 +73,21 @@ export class Profile extends React.Component {
       user.updatePassword(newPassword).then(() => {
         console.log("success");
         this.setState({showChangePW: false});
-      }).catch(function(error) {
-        console.log(error);
+      }).catch((error) => {
+        this.setState({showErrorPanel: true, responseMessage : error.message})
     });
-
     }
   };
-
 
   changeEmail(){
     let newEmail = this.state.newEmail;
     let user = firebase.auth().currentUser;
-    console.log(this.state.newEmail);
     user.updateEmail(newEmail).then(function() {
       console.log("success");
-    }).catch(function(error) {
-      console.log("error");
+    }).catch((error) => {
+      this.setState({showErrorPanel: true, responseMessage : error.message})
     });
   };
-
 
   render() {
     var user = firebase.auth().currentUser;
@@ -105,7 +102,7 @@ export class Profile extends React.Component {
     }
 
     const DataSetItem = this.state.msnsets.map((detail) =>
-      <DataChild key={'dataChild'+detail.id} item={detail} uid={uid} searchTerm={this.state.searchTerm} />
+      <DataChild key={'dataChild'+detail.id} item={detail} uid={uid} />
     );
 
     const loader =  <div className="loader">
@@ -142,6 +139,7 @@ export class Profile extends React.Component {
                text='Submit & Change'
                onClick={() => this.changeEmail()}
               />
+              <p>{this.state.responseMessage}</p>
           </Panel>
 
           <Panel
@@ -181,6 +179,7 @@ export class Profile extends React.Component {
              checked    = {this.state.password == this.state.passwordRepeat}
              onClick     = {() => this.resetPassword()}
             />
+            <p>{this.state.responseMessage}</p>
           </Panel>
 
           <div className="profileData">
@@ -190,16 +189,16 @@ export class Profile extends React.Component {
             />
             <DefaultButton
               text      = 'Change Email'
-              onClick   = {() => this.setState({showChangeEmail: true, showChangePW: false, showUploadPanel: false})}
+              onClick   = {() => this.setState({showChangeEmail: true, showChangePW: false, showUploadPanel: false, responseMessage: ""})}
             />
             <DefaultButton
               text      = 'Change Password'
-              onClick   = {() => this.setState({showChangePW: true, showChangeEmail: false})}
+              onClick   = {() => this.setState({showChangePW: true, showChangeEmail: false, showUploadPanel: false, responseMessage: ""})}
             />
             <DefaultButton
               className = "buttonRightSide"
               text      ='Upload Dataset'
-              onClick   = {() => this.setState({showUploadPanel: true, showChangeEmail: false, showChangePW: false})}
+              onClick   = {() => this.setState({showUploadPanel: true, showChangeEmail: false, showChangePW: false, responseMessage: ""})}
             />
           </div>
           <div className="myData">
