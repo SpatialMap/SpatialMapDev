@@ -69,10 +69,11 @@ export class Profile extends React.Component {
     if(this.state.password == this.state.passwordRepeat){
       let user = firebase.auth().currentUser;
       let newPassword = this.state.password;
-      user.updatePassword(newPassword).then(function() {
-      // Update successful.
+      user.updatePassword(newPassword).then(() => {
+        console.log("success");
+        this.setState({showChangePW: false});
       }).catch(function(error) {
-      // An error happened.
+        console.log(error);
     });
 
     }
@@ -139,7 +140,6 @@ export class Profile extends React.Component {
               />
               <DefaultButton
                text='Submit & Change'
-               checked={this.state.password == this.state.passwordRepeat}
                onClick={() => this.changeEmail()}
               />
           </Panel>
@@ -179,7 +179,7 @@ export class Profile extends React.Component {
             <DefaultButton
              text       = 'Submit & Change'
              checked    = {this.state.password == this.state.passwordRepeat}
-             nClick     = {() => this.chang}
+             onClick     = {() => this.resetPassword()}
             />
           </Panel>
 
@@ -190,7 +190,7 @@ export class Profile extends React.Component {
             />
             <DefaultButton
               text      = 'Change Email'
-              onClick   = {() => this.setState({showChangeEmail: true, showChangePW: false})}
+              onClick   = {() => this.setState({showChangeEmail: true, showChangePW: false, showUploadPanel: false})}
             />
             <DefaultButton
               text      = 'Change Password'
