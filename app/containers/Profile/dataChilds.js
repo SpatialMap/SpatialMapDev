@@ -44,15 +44,15 @@ class DataChild extends React.Component {
             break;
     }
 
-   const Image = ImgUrl && <img className="speciesImage" src={ImgUrl}/>;
-   const publicPrivate = this.props.item.public && this.props.item.public ? <img className="speciesImage"
+   const Image = ImgUrl && <img className="speciesImage iconFadeIn" src={ImgUrl}/>;
+   const publicPrivate = this.props.item.public && this.props.item.public ? <img className="speciesImage iconFadeIn"
    src="https://firebasestorage.googleapis.com/v0/b/spatialmap-1b08e.appspot.com/o/img%2Fpublic.jpg?alt=media&token=2b8cd08f-3f5b-4420-bbfe-581d9575e51b"/> :
-   <img className="speciesImage"
+   <img className="speciesImage iconFadeIn"
    src="https://firebasestorage.googleapis.com/v0/b/spatialmap-1b08e.appspot.com/o/img%2Fprivate.jpg?alt=media&token=1a9f29c6-08cd-403d-9f0d-5770664053eb"/>;
 
     const mainContent =
     <Link to={'/dataView/' + this.props.item.id} key={'link' + this.props.item.id}>
-         <div  className="dataChild" key={'dataChild' + this.props.item.id}>
+         <div  className="dataChild divFadeIn" key={'dataChild' + this.props.item.id}>
            <div className="col-sm-9 description">
              {lab}
              {species}

@@ -249,7 +249,7 @@ export class DataView extends React.Component {
   //filter function
   //written as oneliner due to otherwise occuring synthax error
   dataFilter(input){
-      input != "" ? this.setState({filteredData: this.state.data.filter((dataRow) => {return dataRow.GOannotation == input || dataRow.id == input || dataRow.markers == input || dataRow['Protein-Description'] == input})})
+      input != "" ? this.setState({filteredData: this.state.data.filter((dataRow) => {return dataRow.includes(input) || dataRow.id.includes(input) || dataRow.markers.includes(input) || dataRow['Protein-Description'].includes(input)})})
                   : this.setState({filteredData: this.state.data});
   }
 
@@ -581,13 +581,13 @@ export class DataView extends React.Component {
 
       {/* The modal showing on colum header click */}
       <Dialog
-        className              = "modalFadeIn"
-        isOpen                 = {this.state.showColumnPopup}
-        type                   = {DialogType.normal}
-        onDismiss              = {() => this.setState({showColumnPopup : !this.state.showColumnPopup})}
-        title                  = 'Column Options'
-        isBlocking             = {false}
-        containerClassName     = 'ms-dialogMainOverride'>
+        className          = "modalFadeIn"
+        isOpen             = {this.state.showColumnPopup}
+        type               = {DialogType.normal}
+        onDismiss          = {() => this.setState({showColumnPopup : !this.state.showColumnPopup})}
+        title              = 'Column Options'
+        isBlocking         = {false}
+        containerClassName = 'ms-dialogMainOverride'>
 
         <p style={{textAlign: 'center'}}> Use the column to display additional data in the plot with the help of modifiers </p>
         <div className="modChoice" onClick={() => this.setActiveColor()}>  Color        </div>
@@ -689,10 +689,10 @@ export class DataView extends React.Component {
         <p> <b> Contact </b> </p>
         <table>
           <tbody>
-          <tr> {MetaLab}         </tr>
-          <tr> {MetaContact}     </tr>
-          <tr> {MetaEmail}       </tr>
-          <tr> {MetaAuthor}      </tr>
+          <tr> {MetaLab}     </tr>
+          <tr> {MetaContact} </tr>
+          <tr> {MetaEmail}   </tr>
+          <tr> {MetaAuthor}  </tr>
           </tbody>
         </table>
       </Panel>
