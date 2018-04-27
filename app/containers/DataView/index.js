@@ -249,7 +249,19 @@ export class DataView extends React.Component {
   //filter function
   //written as oneliner due to otherwise occuring synthax error
   dataFilter(input){
-      input != "" ? this.setState({filteredData: this.state.data.filter((dataRow) => {return dataRow.includes(input) || dataRow.id.includes(input) || dataRow.markers.includes(input) || dataRow['Protein-Description'].includes(input)})})
+    let allEntries = Object.keys(this.state.data[1]);
+    let objectHoldsInput = (element) => {
+      //let tempArray = [];
+      for(i in element){
+	       let entryKey = element[i]
+	       if(typeof entryKey != 'undefined' && typeof entryKey == 'string'){
+			        tempArray.push(entryKey.includes(input))
+            }}
+        console.log(tempArray.includes(true));
+        return tempArray.includes(true);
+      };
+      //return element.GOannotation.includes(input)};
+      input != "" ? this.setState({filteredData: this.state.data.filter((dataRow) => {return objectHoldsInput(dataRow)})})
                   : this.setState({filteredData: this.state.data});
   }
 
