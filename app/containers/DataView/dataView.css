@@ -182,6 +182,10 @@
   margin-left: 2px;
 }
 
+.leftButtons:hover{
+  background-color: white;
+}
+
 .modChoice {
   background-color: #f2e4d8;
   height: 60px;

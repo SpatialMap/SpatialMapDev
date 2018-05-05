@@ -65,7 +65,9 @@ class DataChild extends React.Component {
            <div className="col-sm-1" style={{padding: 0}}>
              {Image}
            </div>
+           <div className="privacyImage iconFadeIn">
             {publicPrivate}
+           </div>
          </div>
      </Link>;
 

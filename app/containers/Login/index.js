@@ -76,7 +76,7 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
         firebase.auth().signInWithEmailAndPassword(email, pw).catch(function(error) {
           this.setState({ error: error.message });
         }).then(() => {
-          browserHistory.push(`/`);
+          browserHistory.push(`/datasets`);
           });
       } else {
         firebase.auth().createUserWithEmailAndPassword(email, pw).then(() => {
@@ -105,17 +105,15 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
 
     const loginContent = <div> {socialLogin} <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
                                 <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password : value})}/>
-                                <button className="buttonsLogin"
+                                <button className="buttonsLogin toLeft"
                                   onClick={ this.handleSubmit("Login") }
-                                > login </button>
-                                <button className="buttonsLogin"
+                                > Login </button>
+                              <button className="buttonsLogin toRight"
                                   onClick={ this.pwReset("resett") }
-                                >reset password</button>
+                                > Reset Password </button>
                          </div>;
 
     const textMsg = this.state.loginSwitch == "Login" ? loginContent : registerContent;
-
-    console.log(this.state.login);
 
     return (
     <div>
@@ -126,7 +124,7 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
           ]}
         />
       <div className="mainContent container row" style={{margin: 'auto'}}>
-        <Pivot onLinkClick={ (PivotItem) => this.setState({ loginSwitch : PivotItem.props.linkText })}>
+        <Pivot onLinkClick={(PivotItem) => this.setState({ loginSwitch : PivotItem.props.linkText })}>
           <PivotItem linkText='Login'   />
           <PivotItem linkText='Register'/>
         </Pivot>

@@ -117,7 +117,6 @@ export class DataView extends React.Component {
   //refresh ScatterPlot
   refreshPlot() {
     this.setState({radius: this.state.radius});
-    console.log("refresh check");
   };
 
   //function defines which peptide is highlighted
@@ -218,13 +217,16 @@ export class DataView extends React.Component {
   deleteToggleMarkerArray(marker){
     let tempMarkerToggle = this.state.markerToggle;
     tempMarkerToggle = tempMarkerToggle.filter(item => item !== marker);
+    console.log(tempMarkerToggle);
     return(tempMarkerToggle);
   };
 
   toggleMarkers(marker){
+    console.log(this.state.markerToggle);
     this.state.markerToggle.includes(marker.obj) ?
              this.setState({markerToggle: this.deleteToggleMarkerArray(marker.obj)}):
              this.setState({markerToggle: this.addToggleMarkerArray(marker.obj)});
+    console.log("did add")
     this.setState({filteredData: this.state.data.filter((dataRow) => {return !this.state.markerToggle.includes(dataRow.markers)})});
   };
 
@@ -279,7 +281,6 @@ export class DataView extends React.Component {
              this.setState({profileToggle: this.deleteToggleProfileColumnArray(column.obj)}):
              this.setState({profileToggle: this.addToggleProfileColumnArray(column.obj)});
     this.setState({filteredProfile: this.state.profileColumns.filter((dataRow) => {return !this.state.profileToggle.includes(dataRow.markers)})});
-    console.log(this.state.filteredProfile);
   };
 
   //ordering function (called from colum header modal)
@@ -303,7 +304,6 @@ export class DataView extends React.Component {
   //update filteredData based on profilePlot selection
   updateFilteredData(input)  {
     input == this.state.filteredData ? null : this.setState({filteredData : input});
-    console.log(input == this.state.filteredData);
   }
 
   //svg zoom initialization
@@ -366,7 +366,7 @@ export class DataView extends React.Component {
     const pubmedID        = this.state.metaData.pubMedIds ? <div> PubMed: {this.state.metaData.pubMedIds} </div> :
                                                             <div> PubMed:  </div>;
 
-    const d3Plot =  <div style={plotCSS}>
+    const d3Plot =  <div style = {plotCSS}>
                       <ReactSVGPanZoom
                         width             = {styles.width}
                         height            = {styles.height}
@@ -385,9 +385,9 @@ export class DataView extends React.Component {
                     </div>
 
     //the loader that occurs before the dataset is fetched
-    const loader =  <div className="loader">
+    const loader = <div className="loader">
                         <Spinner size={SpinnerSize.large} />
-                    </div>;
+                   </div>;
 
     //creating a json object that contains the column attributes for the parallels package
     var keyVar = {};
@@ -462,6 +462,7 @@ export class DataView extends React.Component {
 
     //extracts the markerClasses from the meta data and displays them as buttons
     let markerClasses = !this.state.loading && this.state.markerClasses.toString().split(', ');
+    markerClasses && markerClasses.push("unknown");
     const legendItems = markerClasses && markerClasses.map(obj =>
       <button className="legendItems" style={this.legendColor({obj}, false)} onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
     );
@@ -490,17 +491,16 @@ export class DataView extends React.Component {
                       />
                     </div>
                       <div className="col-sm-10 noPadding divFadeIn">
-                        <button className="optionToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v">    </i></button>
+                        <button id='myID' className="optionToggle" onClick={() => this.togglePlotHeight()}> <i className="fa fa-arrows-v"></i></button>
                         <button className="optionToggle" onClick={() => this.switchPlotTools()}>  <i className="fa fa-object-group"></i></button>
                         <button className="optionToggle" onClick={() => this.resetAll()}>         <i className="fa fa-undo">        </i></button>
                         <button className="optionToggle" onClick={() => this.downloadCSV()}>      <i className="fa fa-download">    </i></button>
 
-
                         {legendItems.length >= 5 &&
-                         <button className="legendItems sidebarRight"
-                                onClick={() => this.setState({showMoreEntries : !this.state.showMoreEntries})}>
-                                More Entries
-                          </button>
+                           <button className="legendItems sidebarRight"
+                                  onClick={() => this.setState({showMoreEntries : !this.state.showMoreEntries})}>
+                                  More Entries
+                           </button>
                         }
                         {legendItems}
 
