@@ -65,7 +65,6 @@ export class DataView extends React.Component {
       plotHeight            : window.innerHeight/2,
       radius                : 4,
       textSize              : 3,
-      dispUnknown           : true,
       colorUnknown          : "rgba(100,100,100,0.1)",
       activeKey             : [],
       activePeptideID       : '',
@@ -97,7 +96,6 @@ export class DataView extends React.Component {
     this.setState({
         radius              : 4,
         textSize            : 3,
-        dispUnknown         : true,
         colorUnknown        : "rgba(100,100,100,0.1)",
         showUniProt         : false,
         plotPCA             : true,
@@ -642,15 +640,7 @@ export class DataView extends React.Component {
            offText             = 'Off'
            onChange            = {() => this.setState({profileFiltering : !this.state.profileFiltering})}
           />
-          <Toggle
-           label               = 'Hide Unknown'
-           checked             = {this.state.dispUnknown}
-           onAriaLabel         = 'This toggle is checked. Press to uncheck.'
-           offAriaLabel        = 'This toggle is unchecked. Press to check.'
-           onText              = 'On'
-           offText             = 'Off'
-           onChange            = {() => this.setState({dispUnknown : !this.state.dispUnknown})}
-          />
+
 
       </Panel>
 
