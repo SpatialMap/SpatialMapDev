@@ -334,6 +334,12 @@ export class DataView extends React.Component {
     })
   };
 
+  shouldComponentUpdate(nextProps, nextState){
+    if(nextState.plotHeight != this.state.plotHeight){
+    }
+    return true;
+  }
+
   render() {
 
     //styles defines the height and width of the plots
@@ -367,7 +373,7 @@ export class DataView extends React.Component {
     const d3Plot =  <div style = {plotCSS}>
                       <ReactSVGPanZoom
                         width             = {styles.width}
-                        height            = {styles.height}
+                        height            = {this.state.plotHeight}
                         ref               = {Viewer => this.Viewer = Viewer}
                         SVGBackground     = "white"
                         background        = "white"
@@ -376,7 +382,7 @@ export class DataView extends React.Component {
                         toolbarPosition   = {this.state.showToolBar}
                         tool              = {this.state.plotTool}
                         detectAutoPan     = {false}>
-                        <svg width        = {styles.width} height = {styles.height}>
+                        <svg width        = {styles.width} height = {this.state.plotHeight}>
                           <ScatterPlot {...this.state} {...styles} SetActiveKey={(index, activePeptide) => this.setActiveKey(index, activePeptide)} />
                         </svg>
                       </ReactSVGPanZoom>
