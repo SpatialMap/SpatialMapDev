@@ -674,7 +674,11 @@ export class DataView extends React.Component {
             object = download("{this.props.params.uid}")
           </code>
         </div>
-        <br/>
+
+        <p> <b> Sharing Address </b> </p>
+        <div className="codeBox">
+            sptialmaps.com/#{this.props.params.uid}
+        </div>
 
         <p> <b> Contact </b> </p>
         <table>
