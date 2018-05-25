@@ -1,5 +1,6 @@
 import React from 'react';
 import Axis from './axis';
+import Label from './labels';
 
 export default (props) => {
   const xSettings = {
@@ -17,5 +18,6 @@ export default (props) => {
   return <g className="xy-axis">
     <Axis {...xSettings}/>
     <Axis {...ySettings}/>
+    <Label />
   </g>
 }

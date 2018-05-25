@@ -305,7 +305,7 @@ export class DataView extends React.Component {
   }
 
   //svg zoom initialization
-  componentDidMount() {
+  componentDidMount(){
     this.Viewer.fitToViewer();
   }
 
@@ -335,8 +335,6 @@ export class DataView extends React.Component {
   };
 
   shouldComponentUpdate(nextProps, nextState){
-    if(nextState.plotHeight != this.state.plotHeight){
-    }
     return true;
   }
 
