@@ -417,12 +417,9 @@ export class DataView extends React.Component {
                                           dimensions       = {dimensions}
                                           width            = {styles.width}
                                           height           = {styles.height}
-                                          highlights       = {1}
-                                          colourHightlight = {this.state.activePeptideID}
-                                          colour           = {function(d, dataHighlighted) {
-                                                                if(d.id == dataHighlighted){
-                                                                  return("#ff0000")
-                                                                } else if(d.markers != "unknown") {
+                                          colourHighlight  = {this.state.activePeptideID}
+                                          colour           =  {(d) => {
+                                                                if(d.markers != "unknown") {
                                                       						return(d.Colors)
                                                       					} else {
                                                       						return("rgba(0, 0, 0, 0.1)")
