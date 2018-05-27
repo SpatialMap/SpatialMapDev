@@ -19,6 +19,9 @@ export default class Label extends React.Component {
       key         : "xLabel"
     };
 
-    return <g className="label" ref="label"> <text style={{fontSize: 12}}{...xLabelProps}> PCA2 </text><text style={{fontSize: 12}}{...yLabelProps}> PCA1 </text></g>
+    return <g className="label" ref="label">
+              <text style={{fontSize: 12}}{...xLabelProps}> PCA2 </text>
+              <text style={{fontSize: 12}}{...yLabelProps}> PCA1 </text>
+            </g>
   }
 }

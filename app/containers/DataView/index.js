@@ -209,23 +209,19 @@ export class DataView extends React.Component {
   addToggleMarkerArray(marker){
     let tempMarkerToggle = this.state.markerToggle;
     tempMarkerToggle.push(marker);
-    return(tempMarkerToggle);
+    this.setState({markerToggle: tempMarkerToggle});
+    this.setState({filteredData: this.state.data.filter((dataRow) => {return !this.state.markerToggle.includes(dataRow.markers)})});
   };
 
   deleteToggleMarkerArray(marker){
     let tempMarkerToggle = this.state.markerToggle;
     tempMarkerToggle = tempMarkerToggle.filter(item => item !== marker);
-    console.log(tempMarkerToggle);
-    return(tempMarkerToggle);
+    this.setState({markerToggle: tempMarkerToggle});
+    this.setState({filteredData: this.state.data.filter((dataRow) => {return !tempMarkerToggle.includes(dataRow.markers)})});
   };
 
   toggleMarkers(marker){
-    console.log(this.state.markerToggle);
-    this.state.markerToggle.includes(marker.obj) ?
-             this.setState({markerToggle: this.deleteToggleMarkerArray(marker.obj)}):
-             this.setState({markerToggle: this.addToggleMarkerArray(marker.obj)});
-    console.log("did add")
-    this.setState({filteredData: this.state.data.filter((dataRow) => {return !this.state.markerToggle.includes(dataRow.markers)})});
+    this.state.markerToggle.includes(marker.obj) ? this.deleteToggleMarkerArray(marker.obj) : this.addToggleMarkerArray(marker.obj);
   };
 
   //organelle legend buttons
