@@ -104,6 +104,7 @@ export class DataView extends React.Component {
         profileFiltering    : false,
         colorSelect         : [''],
         radiusSelect        : [''],
+        markerToggle        : [],
         transpSelect        : [''],
         sortedBy            : '',
         filteredData        : this.state.data,
@@ -295,10 +296,29 @@ export class DataView extends React.Component {
     }
   };
 
+  //function to compare object equality - to avoid update loops
+  isEquivalent(a, b) {
+    var aProps = Object.getOwnPropertyNames(a);
+    var bProps = Object.getOwnPropertyNames(b);
+
+    if (aProps.length != bProps.length) {
+        return false;
+    }
+
+    for (var i = 0; i < aProps.length; i++) {
+        var propName = aProps[i];
+
+        if (a[propName] !== b[propName]) {
+            return false;
+        }
+    }
+
+    return true;
+  }
+
   //update filteredData based on profilePlot selection
   updateFilteredData(input)  {
-    if(input != this.state.filteredData) {
-      console.log("updated parallels");M
+    if(!this.isEquivalent(input, this.state.filteredData)) {
       input == this.state.filteredData ? null : this.setState({filteredData : input});
     }
   }
