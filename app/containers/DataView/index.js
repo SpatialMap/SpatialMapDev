@@ -297,7 +297,10 @@ export class DataView extends React.Component {
 
   //update filteredData based on profilePlot selection
   updateFilteredData(input)  {
-    input == this.state.filteredData ? null : this.setState({filteredData : input});
+    if(input != this.state.filteredData) {
+      console.log("updated parallels");M
+      input == this.state.filteredData ? null : this.setState({filteredData : input});
+    }
   }
 
   //svg zoom initialization
@@ -420,7 +423,14 @@ export class DataView extends React.Component {
                                           colourHighlight  = {this.state.activePeptideID}
                                           colour           =  {(d) => {
                                                                 if(d.markers != "unknown") {
-                                                      						return(d.Colors)
+                                                                  let opacity = 0.5
+                                                                  let hex = d.Colors.replace('#','');
+                                                                  let r = parseInt(hex.substring(0,2), 16);
+                                                                  let g = parseInt(hex.substring(2,4), 16);
+                                                                  let b = parseInt(hex.substring(4,6), 16);
+                                                                  let result = 'rgba('+r+','+g+','+b+','+opacity+')';
+
+                                                      						return(result)
                                                       					} else {
                                                       						return("rgba(0, 0, 0, 0.1)")
                                                       					}
@@ -514,7 +524,8 @@ export class DataView extends React.Component {
                         columnActionsMode               = {ColumnActionsMode.clickable}
                         checkboxVisibility              = {CheckboxVisibility.hidden}
                         selectionPreservedOnEmptyClick  = {true}
-                        onActiveItemChanged             = {(item, index) => this.setState({activeKey : index})}
+                        onActiveItemChanged             = {(item, index) => {
+                          this.setState({activeKey : index, activePeptideID: item.id})}}
                         />
                     </MarqueeSelection>
                   </div>;
