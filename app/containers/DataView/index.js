@@ -296,6 +296,12 @@ export class DataView extends React.Component {
     }
   };
 
+  //find index key of element currently selected
+  findElementIndex() {
+    let activeIndex = this.state.filteredData.findIndex((element) => element.id == this.state.activePeptideID);
+    return activeIndex;
+  }
+
   //function to compare object equality - to avoid update loops
   isEquivalent(a, b) {
     var aProps = Object.getOwnPropertyNames(a);
@@ -330,6 +336,7 @@ export class DataView extends React.Component {
 
   //loading the fSet data from firebase
   //the loading state is set to false once data is fetched
+
   componentDidMount(){
     var data     = [];
 
@@ -358,6 +365,7 @@ export class DataView extends React.Component {
   }
 
   render() {
+    console.log(this.state.filteredData);
 
     //styles defines the height and width of the plots
     const styles = {
@@ -536,7 +544,7 @@ export class DataView extends React.Component {
                         items                           = {this.state.filteredData}
                         initialFocusedIndex             = {1}
                         columns                         = {columnVar}
-                        setKey                          = {this.state.activeKey}
+                        setKey                          = {this.findElementIndex()}
                         canResizeColumns                = {true}
                         constrainMode                   = {ConstrainMode.unconstrained}
                         layoutMode                      = {DetailsListLayoutMode.fixedColumns}
