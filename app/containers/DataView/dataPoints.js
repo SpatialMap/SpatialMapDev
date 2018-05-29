@@ -3,7 +3,7 @@ import React from 'react';
 const renderCircles = (props) => {
   return (coords, index) => {
     // conditional statements to select certain elements:
-    const markSelected             = index == props.activeKey ? "rgba(0,0,0,0.3)" : "none";
+    const markSelected             = coords.id == props.activePeptideID ? "rgba(0,0,0,0.3)" : "none";
     const colorSpace               = props.colorSelect == '' ? coords.Colors : props.colScale(coords[props.colorSelect]);
     const legendOrganelleSelection = !props.markerToggle.includes(coords.markers) ? colorSpace : "none";
     // delete true (placeholder for old labels)
