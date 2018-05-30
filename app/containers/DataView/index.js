@@ -66,7 +66,6 @@ export class DataView extends React.Component {
       radius                : 4,
       textSize              : 3,
       colorUnknown          : "rgba(100,100,100,0.1)",
-      activeKey             : [],
       activePeptideID       : '',
       showUniProt           : false,
       showComparison        : false,
@@ -119,8 +118,7 @@ export class DataView extends React.Component {
   };
 
   //function defines which peptide is highlighted
-  setActiveKey(index, activePeptide) {
-    this.setState({activeKey: index});
+  setActiveKey(activePeptide) {
     this.setState({activePeptideID: activePeptide});
   };
 
@@ -408,7 +406,7 @@ export class DataView extends React.Component {
                         tool              = {this.state.plotTool}
                         detectAutoPan     = {false}>
                         <svg width        = {styles.width} height = {this.state.plotHeight}>
-                          <ScatterPlot {...this.state} {...styles} SetActiveKey={(index, activePeptide) => this.setActiveKey(index, activePeptide)} />
+                          <ScatterPlot {...this.state} {...styles} SetActiveKey={(activePeptide) => this.setActiveKey(activePeptide)} />
                         </svg>
                       </ReactSVGPanZoom>
                     </div>
@@ -542,7 +540,6 @@ export class DataView extends React.Component {
                     <MarqueeSelection>
                       <DetailsList
                         items                           = {this.state.filteredData}
-                        initialFocusedIndex             = {1}
                         columns                         = {columnVar}
                         setKey                          = {this.findElementIndex()}
                         canResizeColumns                = {true}
@@ -552,8 +549,7 @@ export class DataView extends React.Component {
                         columnActionsMode               = {ColumnActionsMode.clickable}
                         checkboxVisibility              = {CheckboxVisibility.hidden}
                         selectionPreservedOnEmptyClick  = {true}
-                        onActiveItemChanged             = {(item, index) => {
-                          this.setState({activeKey : index, activePeptideID: item.id})}}
+                        onActiveItemChanged             = {(item) => {this.setState({activePeptideID: item.id})}}
                         />
                     </MarqueeSelection>
                   </div>;
