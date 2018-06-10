@@ -8,9 +8,7 @@ Platform: https://SpatialMap.org
 
 SpatialMap aims to connect and spatial proteomics data (analyzed with pRoloc or retrived from pRolocdata) in a dynamic and interactive way. The SpatialMap framework runs on distributed webservers (CDN) and the Firebase Cloud - and seamlessly connects to existing workflows via the SpatialMap R API library. 
 
-
-
-### Setting the project up:
+### Local Setup :
 
 ##### Required Environment:
 - node 6.4.0+
@@ -19,11 +17,11 @@ SpatialMap aims to connect and spatial proteomics data (analyzed with pRoloc or 
 ##### Run SpatialMap:
 ```
 git clone https://github.com/SpatialMap/SpatialMapDev.git
+cd SpatialMapDev
 npm run start
-(open localhost:3000 in browser)
 ```
 
-in case errors appear you might need to add
+should any error appear, try to add
 
 ```
 npm install --save firebase
@@ -38,7 +36,7 @@ npm run build
 firebase deploy
 ```
 
-### Specifications:
+### Internal Specifications:
 
 ##### boilerplate preset:
 - react 15.4.1
@@ -52,5 +50,3 @@ firebase deploy
 - react-svg-pan-zoom: 2.7.0
 - d3 : 3.5.17
 - firebase 3.9.0
-
----
