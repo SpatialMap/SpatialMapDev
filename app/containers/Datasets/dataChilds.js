@@ -5,9 +5,7 @@ import './datasets.css';
 
 class DataChild extends React.Component {
 
-
   render() {
-
     const VarName = <div className="tileText" key={'sample' + this.props.item.id}> {this.props.item.varName} </div>;
 
     const lab = this.props.item.lab &&
@@ -46,8 +44,11 @@ class DataChild extends React.Component {
 
     const Image = ImgUrl && <img className="speciesImage iconFadeIn" src={ImgUrl}/>;
     const onlySearched = this.props.item.varName && this.props.item.public &&
-                         Object.values(this.props.item).toString().toLowerCase().indexOf(this.props.searchTerm.toLowerCase()) !== -1;
+                         Object.values(this.props.item).toString().toLowerCase().indexOf(this.props.searchTerm.toLowerCase()) !== -1 &&
+                         Object.values(this.props.item).toString().toLowerCase().indexOf(this.props.organelleSelection.toLowerCase()) !== -1 &&
+                         Object.values(this.props.item).toString().toLowerCase().indexOf(this.props.speTisSelection.toLowerCase()) !== -1;
 
+    console.log(onlySearched);
     const mainContent = onlySearched ?
     <Link to={'/dataView/' + this.props.item.id} key={'link' + this.props.item.id}>
          <div className="dataChild divFadeIn" key={'dataChild' + this.props.item.id}>
