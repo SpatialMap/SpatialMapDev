@@ -1,7 +1,7 @@
 ![fireData](http://frapbot.kohze.com/SpatialMaps/SpatialMap_cover.jpg)
 
-Platform: https://SpatialMap.org 
-Docker: https://hub.docker.com/r/kohze/f8ff66a3b48e/
+- Platform: https://SpatialMap.org 
+- Docker: https://hub.docker.com/r/kohze/f8ff66a3b48e/
 
 ---
 
