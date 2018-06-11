@@ -1,16 +1,42 @@
-## SpatialMap.org Dev Repo
+![fireData](http://frapbot.kohze.com/SpatialMaps/SpatialMap_cover.jpg)
+
+Platform: https://SpatialMap.org 
 
 ---
 
-### Boilerplate:
+### About
 
-- Name: react-boilerplate
-- Description: "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices"
-- License: MIT
-- Commits: 1275
-- Link: https://github.com/react-boilerplate/react-boilerplate
+SpatialMap aims to connect and spatial proteomics data (analyzed with pRoloc or retrived from pRolocdata) in a dynamic and interactive way. The SpatialMap framework runs on distributed webservers (CDN) and the Firebase Cloud - and seamlessly connects to existing workflows via the SpatialMap R API library. 
 
-### Specifications:
+### Local Setup :
+
+##### Required Environment:
+- node 6.4.0+
+- npm 3.10.7+
+
+##### Run SpatialMap:
+```
+git clone https://github.com/SpatialMap/SpatialMapDev.git
+cd SpatialMapDev
+npm run start
+```
+
+should any error appear, try to add
+
+```
+npm install --save firebase
+npm install --save react-dimensions
+npm install --save react-parallel-coordinates
+```
+
+##### Deploy to server:
+https://firebase.google.com/docs/hosting/deploying
+```
+npm run build
+firebase deploy
+```
+
+### Internal Specifications:
 
 ##### boilerplate preset:
 - react 15.4.1
@@ -24,33 +50,3 @@
 - react-svg-pan-zoom: 2.7.0
 - d3 : 3.5.17
 - firebase 3.9.0
-
----
-
-### Setting the project up:
-
-##### install:
-- node 6.4.0+
-- npm 3.10.7+
-
-##### commands:
-```
-git clone the SpatialMap repo
-npm install --save
-npm run start
-```
-
-in case errors appear you might need to add
-
-```
-npm install --save firebase
-npm install --save react-dimensions
-npm install --save react-parallel-coordinates
-```
-
-Deploy to server:
-https://firebase.google.com/docs/hosting/deploying
-```
-npm run build
-firebase deploy
-```
