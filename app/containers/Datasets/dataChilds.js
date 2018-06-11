@@ -5,6 +5,34 @@ import './datasets.css';
 
 class DataChild extends React.Component {
 
+  compareSearchString(){
+    console.log(this.props.searchTerm);
+    if(this.props.searchTerm.indexOf(" ") !== -1) {
+      console.log("& detected");
+      const wordStrings = this.props.searchTerm.split(' ');
+      console.log(wordStrings);
+      for(var i = 0; i < wordStrings.length; i++){
+        console.log(i);
+        if(!(Object.values(this.props.item).toString().toLowerCase().indexOf(wordStrings[i].toLowerCase()) !== -1)){
+          return false;
+        }
+      }
+      return true;
+    } else if(this.props.searchTerm.indexOf("|") !== -1) {
+      console.log("| detected");
+      const wordStrings = this.props.searchTerm.split('|')
+      for(var i = 0; i < wordStrings.length; i++){
+        if(Object.values(this.props.item).toString().toLowerCase().indexOf(wordStrings[i].toLowerCase()) !== -1){
+          return true;
+        }
+      }
+      return false;
+    } else if(Object.values(this.props.item).toString().toLowerCase().indexOf(this.props.searchTerm.toLowerCase()) !== -1) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     const VarName = <div className="tileText" key={'sample' + this.props.item.id}> {this.props.item.varName} </div>;
 
@@ -44,11 +72,10 @@ class DataChild extends React.Component {
 
     const Image = ImgUrl && <img className="speciesImage iconFadeIn" src={ImgUrl}/>;
     const onlySearched = this.props.item.varName && this.props.item.public &&
-                         Object.values(this.props.item).toString().toLowerCase().indexOf(this.props.searchTerm.toLowerCase()) !== -1 &&
                          Object.values(this.props.item).toString().toLowerCase().indexOf(this.props.organelleSelection.toLowerCase()) !== -1 &&
-                         Object.values(this.props.item).toString().toLowerCase().indexOf(this.props.speTisSelection.toLowerCase()) !== -1;
+                         Object.values(this.props.item).toString().toLowerCase().indexOf(this.props.speTisSelection.toLowerCase()) !== -1 &&
+                         this.compareSearchString();
 
-    console.log(onlySearched);
     const mainContent = onlySearched ?
     <Link to={'/dataView/' + this.props.item.id} key={'link' + this.props.item.id}>
          <div className="dataChild divFadeIn" key={'dataChild' + this.props.item.id}>
