@@ -15,6 +15,9 @@ import { Pivot, PivotItem } from 'office-ui-fabric-react/lib/Pivot';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { PrimaryButton, IButtonProps, DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import { Label } from 'office-ui-fabric-react/lib/Label';
+import { MessageBarButton } from 'office-ui-fabric-react/lib/Button';
 import './login.css';
 
 export class Profile extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -26,6 +29,7 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
       email: "",
       password: "",
       password2: "",
+      showDialog: false,
     };
   }
 
@@ -55,13 +59,13 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
     }
   }
 
-  pwReset = (type) =>{
+  pwReset = () => {
   return () => {
     const email = this.state.email;
     var auth = firebase.auth();
     auth.sendPasswordResetEmail(email).then(function() {
       // Email sent.
-      console.log('email send out')
+      console.log(this.state.showDialog);
     }, function(error) {
       // An error happened.
       });
@@ -81,13 +85,22 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
       } else {
         firebase.auth().createUserWithEmailAndPassword(email, pw).then(() => {
         }).catch((error) => this.setState({ error: error.message })).then(() => {
-          browserHistory.push(`/`);
+          browserHistory.push(`/datasets`);
         });
       }
     }
   }
 
+
+
   render() {
+
+    const topMessageBar =  this.state.showDialog && this.state.showDialog ? <MessageBar
+      messageBarType={MessageBarType.success}
+      isMultiline={false}
+    >
+      Success: If the user account exists, you will receive a reset mail within the next 2 minutes.
+    </MessageBar> : null;
 
     const socialLogin = <div className="socialAuth">
                           <button className="socialButton" onClick={this.googleLogin('google')}> Google </button>
@@ -99,17 +112,21 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
                                 <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password : value})}/>
                                 <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password2 : value})}/>
                                 <button className="buttonsLogin"
-                                  onClick={ this.handleSubmit("CreateUserAccount") }
+                                  onClick={this.handleSubmit("CreateUserAccount")}
                                 > Create Account </button>
                          </div>;
 
     const loginContent = <div> {socialLogin} <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
                                 <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password : value})}/>
                                 <button className="buttonsLogin toLeft"
-                                  onClick={ this.handleSubmit("Login") }
+                                  onClick={this.handleSubmit("Login")}
                                 > Login </button>
                               <button className="buttonsLogin toRight"
-                                  onClick={ this.pwReset("resett") }
+                                  onClick={() => {
+                                                  this.pwReset();
+                                                  this.setState({showDialog : true});
+                                                 }
+                                          }
                                 > Reset Password </button>
                          </div>;
 
@@ -117,22 +134,25 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
 
     return (
     <div>
-        <Helmet
-          title="Profile"
-          meta={[
-            { name: 'description', content: 'Description of Profile' },
-          ]}
-        />
+      <Helmet
+        title="Profile"
+        meta={[
+          { name: 'description', content: 'Login Page' },
+        ]}
+      />
+
       <div className="mainContent container row" style={{margin: 'auto'}}>
         <Pivot onLinkClick={(PivotItem) => this.setState({ loginSwitch : PivotItem.props.linkText })}>
           <PivotItem linkText='Login'   />
           <PivotItem linkText='Register'/>
         </Pivot>
         <div className="inputArea">
+          {socialLogin}
           <div className="inputInnerField">
             {textMsg}
           </div>
         </div>
+        {topMessageBar}
      </div>
     </div>
     );

@@ -80,12 +80,13 @@ export class DataView extends React.Component {
       showToolBar           : 'none',
       plotTool              : 'auto',
       showColumnPopup       : false,
+      showComparePopup      : false,
       showPlotConfigPopup   : false,
       nameColumnPopup       : '',
       showProfileDataColumn : false,
       showProfileFilter     : false,
       showMoreEntries       : false,
-      profileFiltering      : false,
+      profileFiltering      : true,
       showMetaDataPopup     : false,
     };
   }
@@ -100,7 +101,7 @@ export class DataView extends React.Component {
         plotPCA             : true,
         plotProfile         : true,
         plot3D              : false,
-        profileFiltering    : false,
+        profileFiltering    : true,
         colorSelect         : [''],
         radiusSelect        : [''],
         markerToggle        : [],
@@ -209,7 +210,7 @@ export class DataView extends React.Component {
     let tempMarkerToggle = this.state.markerToggle;
     tempMarkerToggle.push(marker);
     this.setState({markerToggle: tempMarkerToggle});
-    this.setState({filteredData: this.state.data.filter((dataRow) => {return !this.state.markerToggle.includes(dataRow.markers)})});
+    this.setState({filteredData: this.state.filteredData.filter((dataRow) => {return !this.state.markerToggle.includes(dataRow.markers)})});
   };
 
   deleteToggleMarkerArray(marker){
@@ -363,8 +364,6 @@ export class DataView extends React.Component {
   }
 
   render() {
-    console.log(this.state.filteredData);
-
     //styles defines the height and width of the plots
     const styles = {
       width   : this.state.width/((this.state.plotPCA + this.state.plotProfile + this.state.showUniProt)),
@@ -428,7 +427,7 @@ export class DataView extends React.Component {
 
     //the uniprot routine - a simple iframe that combines a url with the peptideID
     //x-frame same origin error due to uniprot changes
-    const iframeLink = "http://www.uniprot.org/uniprot/" + this.state.activePeptideID;
+    const iframeLink = "https://www.uniprot.org/uniprot/" + this.state.activePeptideID;
     const uniProtContainer = this.state.showUniProt &&
                              <iframe
                                        style       = {plotCSS}
@@ -578,15 +577,13 @@ export class DataView extends React.Component {
                onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup})}>
                Dataset
           </div>
+          <div className="leftButtons buttonFadeIn"
+               style={this.activeButton(this.state.showComparePopup)}
+               onClick={() => this.setState({showComparePopup : !this.state.showComparePopup})}>
+               Compare
+          </div>
 
           {/*Top right buttons */}
-          {/* Comparison Prototype - inactive
-          <div className="rightButtons"
-               style={this.activeButton(this.state.showComparison)}
-               onClick={() => this.setState({showComparison : !this.state.showComparison, plotProfile: false})}>
-               Comparison
-          </div>
-          */}
           <div className="rightButtons buttonFadeIn"
                style={this.activeButton(this.state.showUniProt)}
                onClick={() => this.setState({showUniProt : !this.state.showUniProt, plotProfile: false})}>
@@ -721,6 +718,20 @@ export class DataView extends React.Component {
           <tr> {MetaAuthor}  </tr>
           </tbody>
         </table>
+      </Panel>
+
+      {/* The "Compare" panel */}
+      <Panel
+          isBlocking           = {false}
+          isOpen               = {this.state.showComparePopup}
+          isLightDismiss       = {true}
+          onDismiss            = {() => this.setState({showComparePopup: false})}
+          type                 = {PanelType.smallFixedFar}
+          headerText           = 'Compare Datasets'
+          closeButtonAriaLabel = 'Close'
+      >
+
+      <p> add compare fields here </p>
       </Panel>
 
       {/* The "Profile Column" panel */}

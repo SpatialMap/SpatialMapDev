@@ -89,6 +89,7 @@ export class Datasets extends React.Component {
         <div className="searchBox col-sm-12">
           <SearchBox
             onChange={(newValue) => this.setState({searchTerm : newValue})}
+            value={this.state.searchTerm}
           />
         </div>
         {itemContainer}

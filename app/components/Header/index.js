@@ -36,7 +36,7 @@ function Header() {
       <div className="row container" style={{margin: 'auto'}}>
         <Link to="/"><div className="logo col-sm-3"> SpatialMaps </div></Link>
         <SearchBox className="search col-sm-4"
-          onSearch={ (newValue) => searchBar(newValue) }
+          onSearch={(newValue) => searchBar(newValue)}
         />
         <div className="col-sm-5 rightNavItems">
         <Link className="navItem" to="/"> Home </Link>
