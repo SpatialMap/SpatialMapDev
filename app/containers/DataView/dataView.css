@@ -74,10 +74,11 @@
 
 .seperator {
   height: 35px;
-  width: 4px;
-  margin-left: 5px;
+  width: 3px;
+  margin-left: 4px;
   margin-right: 3px;
   float: right;
+  box-shadow: 2px 0px 1.5px 0px rgba(0,0,0,0.12);
   background-color: rgba(255,255,255,0.6);
 }
 

@@ -13,7 +13,6 @@ const yMax   = (data, props)  => d3.max(data, (d) => d[props.axisTwo]);
 
 //color gradient
 const colMin = function(data, props) {
-  console.log(props.axisOne);
   return d3.min(data, (d) => d[props.colorSelect]);
 };
 
