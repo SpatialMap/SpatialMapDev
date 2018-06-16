@@ -468,6 +468,7 @@ export class DataView extends React.Component {
     //table colum JSON attributes
     const keyAggregate = this.state.loading ? [] : Object.keys(this.state.data[1]);
     var columnVar = [];
+    var allCollumns = [];
     for (var i = 1; i < keyAggregate.length; ++i) {
         keyAggregate[i] != "Colors"
         && keyAggregate[i]
@@ -485,6 +486,11 @@ export class DataView extends React.Component {
                   "isSortedDescending" : this.state.sortedAscending,
                   "onColumnClick" : (i,j) => this.setState({showColumnPopup: true, nameColumnPopup: j.fieldName}),
       }) : null ;
+      !(this.state.profileColumns.indexOf(keyAggregate[i]) > -1) ?
+      allCollumns.push({
+                "key"                : keyAggregate[i],
+                "text"               : keyAggregate[i],
+    }) : null;
     }
 
     //extracts the markerClasses from the meta data and displays them as buttons
@@ -683,21 +689,8 @@ export class DataView extends React.Component {
           <p> Markers Column </p>
           <Dropdown
             placeHolder="Select Marker Column"
-            onChanged={(x,y) => console.log(x)}
-            options={[
-              { key: '', text: '' },
-              { key: 'Header2', text: 'Species', itemType: DropdownMenuItemType.Header },
-              { key: 'Homo sapiens', text: 'Homo sapiens' },
-              { key: 'Arabidopsis thaliana', text: 'Arabidopsis thaliana' },
-              { key: 'Mouse', text: 'Mouse' },
-              { key: 'Drosophila melanogaster', text: 'Drosophila melanogaster' },
-              { key: 'Gallus gallus', text: 'Gallus gallus' },
-              { key: 'divider_1', text: '-', itemType: DropdownMenuItemType.Divider },
-              { key: 'Header3', text: 'Tissue', itemType: DropdownMenuItemType.Header },
-              { key: 'Cell', text: 'Cell' },
-              { key: 'Embryos', text: 'Embryos' },
-              { key: 'Callus', text: 'Callus' }
-            ]}
+            onChanged={(x,y) => {this.setState({markerColumn : x.key})}}
+            options={allCollumns}
           />
           <p> Plot Options </p>
           <Slider

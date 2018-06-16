@@ -6,20 +6,15 @@ import './datasets.css';
 class DataChild extends React.Component {
 
   compareSearchString(){
-    console.log(this.props.searchTerm);
     if(this.props.searchTerm.indexOf(" ") !== -1) {
-      console.log("& detected");
       const wordStrings = this.props.searchTerm.split(' ');
-      console.log(wordStrings);
       for(var i = 0; i < wordStrings.length; i++){
-        console.log(i);
         if(!(Object.values(this.props.item).toString().toLowerCase().indexOf(wordStrings[i].toLowerCase()) !== -1)){
           return false;
         }
       }
       return true;
     } else if(this.props.searchTerm.indexOf("|") !== -1) {
-      console.log("| detected");
       const wordStrings = this.props.searchTerm.split('|')
       for(var i = 0; i < wordStrings.length; i++){
         if(Object.values(this.props.item).toString().toLowerCase().indexOf(wordStrings[i].toLowerCase()) !== -1){
