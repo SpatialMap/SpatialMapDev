@@ -38,7 +38,7 @@ import { Callout }                          from 'office-ui-fabric-react/lib/Cal
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { SearchBox }                        from 'office-ui-fabric-react/lib/SearchBox';
 import { Panel, PanelType }                 from 'office-ui-fabric-react/lib/Panel';
-import { ColorPicker } from 'office-ui-fabric-react/lib/ColorPicker';
+import { Dropdown, IDropdown, DropdownMenuItemType, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 export interface IBasicColorPickerExampleState { color: string; }
 
 var ParallelCoordinatesComponent = require('react-parallel-coordinates');
@@ -66,10 +66,11 @@ export class DataView extends React.Component {
       radius                : 4,
       textSize              : 3,
       colorUnknown          : "rgba(100,100,100,0.1)",
+      markerColumn          : 'markers',
       activePeptideID       : '',
       showUniProt           : false,
       showComparison        : false,
-      plot2D               : true,
+      plot2D                : true,
       plot3D                : false,
       plotProfile           : true,
       colorSelect           : [''],
@@ -96,8 +97,9 @@ export class DataView extends React.Component {
         radius              : 4,
         textSize            : 3,
         colorUnknown        : "rgba(100,100,100,0.1)",
+        markerColumn        : 'markers',
         showUniProt         : false,
-        plot2D             : true,
+        plot2D              : true,
         plotProfile         : true,
         plot3D              : false,
         profileFiltering    : true,
@@ -209,14 +211,14 @@ export class DataView extends React.Component {
     let tempMarkerToggle = this.state.markerToggle;
     tempMarkerToggle.push(marker);
     this.setState({markerToggle: tempMarkerToggle});
-    this.setState({filteredData: this.state.filteredData.filter((dataRow) => {return !this.state.markerToggle.includes(dataRow.markers)})});
+    this.setState({filteredData: this.state.filteredData.filter((dataRow) => {return !this.state.markerToggle.includes(dataRow[this.state.markerColumn])})});
   };
 
   deleteToggleMarkerArray(marker){
     let tempMarkerToggle = this.state.markerToggle;
     tempMarkerToggle = tempMarkerToggle.filter(item => item !== marker);
     this.setState({markerToggle: tempMarkerToggle});
-    this.setState({filteredData: this.state.data.filter((dataRow) => {return !tempMarkerToggle.includes(dataRow.markers)})});
+    this.setState({filteredData: this.state.data.filter((dataRow) => {return !tempMarkerToggle.includes(dataRow[this.state.markerColumn])})});
   };
 
   toggleMarkers(marker){
@@ -225,7 +227,7 @@ export class DataView extends React.Component {
 
   //organelle legend buttons
   legendColor(marker, sidebar){
-    let legendColor   = this.state.data.find((dataRow) => dataRow.markers == marker.obj) && this.state.data.find((dataRow) => dataRow.markers == marker.obj).Colors;
+    let legendColor   = this.state.data.find((dataRow) => dataRow[this.state.markerColumn] == marker.obj) && this.state.data.find((dataRow) => dataRow[this.state.markerColumn] == marker.obj).Colors;
     let coloredBorder = {borderStyle       : "solid",
                          borderWidth       : "3px",
                          borderBottomColor : "#f4f4f4",
@@ -255,7 +257,6 @@ export class DataView extends React.Component {
     return boleanVar == true? active : inactive;
   }
 
-
   //add or delete profile column
   addToggleProfileColumnArray(column){
     let tempMarkerToggle = this.state.profileToggle;
@@ -273,7 +274,7 @@ export class DataView extends React.Component {
     this.state.profileToggle.includes(column.obj) ?
              this.setState({profileToggle: this.deleteToggleProfileColumnArray(column.obj)}):
              this.setState({profileToggle: this.addToggleProfileColumnArray(column.obj)});
-    this.setState({filteredProfile: this.state.profileColumns.filter((dataRow) => {return !this.state.profileToggle.includes(dataRow.markers)})});
+    this.setState({filteredProfile: this.state.profileColumns.filter((dataRow) => {return !this.state.profileToggle.includes(dataRow[this.state.markerColumn])})});
   };
 
   //ordering function (called from colum header modal)
@@ -304,19 +305,16 @@ export class DataView extends React.Component {
   isEquivalent(a, b) {
     var aProps = Object.getOwnPropertyNames(a);
     var bProps = Object.getOwnPropertyNames(b);
-
     if (aProps.length != bProps.length) {
         return false;
     }
 
     for (var i = 0; i < aProps.length; i++) {
         var propName = aProps[i];
-
         if (a[propName] !== b[propName]) {
             return false;
         }
     }
-
     return true;
   }
 
@@ -343,7 +341,7 @@ export class DataView extends React.Component {
       this.setState({
         data           : data,
         loading        : false,
-        filteredData   : data.filter((dataRow) => {return !this.state.markerToggle.includes(dataRow.markers)}),
+        filteredData   : data.filter((dataRow) => {return !this.state.markerToggle.includes(dataRow[this.state.markerColumn])}),
       });
     })
 
@@ -569,7 +567,7 @@ export class DataView extends React.Component {
           <div className="leftButtons buttonFadeIn"
                style={this.activeButton(this.state.showPlotConfigPopup)}
                onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup})}>
-               Options
+               Settings
           </div>
           <div className="leftButtons buttonFadeIn"
                style={this.activeButton(this.state.showMetaDataPopup)}
@@ -624,9 +622,84 @@ export class DataView extends React.Component {
           isLightDismiss       = {true}
           onDismiss            = {() => this.setState({showPlotConfigPopup: false})}
           type                 = {PanelType.smallFixedFar}
-          headerText           = 'Profile Options'
+          headerText           = 'Settings'
           closeButtonAriaLabel = 'Close'
         >
+          <p> Plot Axes </p>
+          <Dropdown
+            placeHolder="Species and Tissue"
+            onChanged={(x,y) => console.log(x)}
+            options={[
+              { key: '', text: '' },
+              { key: 'Header2', text: 'Species', itemType: DropdownMenuItemType.Header },
+              { key: 'Homo sapiens', text: 'Homo sapiens' },
+              { key: 'Arabidopsis thaliana', text: 'Arabidopsis thaliana' },
+              { key: 'Mouse', text: 'Mouse' },
+              { key: 'Drosophila melanogaster', text: 'Drosophila melanogaster' },
+              { key: 'Gallus gallus', text: 'Gallus gallus' },
+              { key: 'divider_1', text: '-', itemType: DropdownMenuItemType.Divider },
+              { key: 'Header3', text: 'Tissue', itemType: DropdownMenuItemType.Header },
+              { key: 'Cell', text: 'Cell' },
+              { key: 'Embryos', text: 'Embryos' },
+              { key: 'Callus', text: 'Callus' }
+            ]}
+          />
+          <Dropdown
+            placeHolder="Species and Tissue"
+            onChanged={(x,y) => console.log(x)}
+            options={[
+              { key: '', text: '' },
+              { key: 'Header2', text: 'Species', itemType: DropdownMenuItemType.Header },
+              { key: 'Homo sapiens', text: 'Homo sapiens' },
+              { key: 'Arabidopsis thaliana', text: 'Arabidopsis thaliana' },
+              { key: 'Mouse', text: 'Mouse' },
+              { key: 'Drosophila melanogaster', text: 'Drosophila melanogaster' },
+              { key: 'Gallus gallus', text: 'Gallus gallus' },
+              { key: 'divider_1', text: '-', itemType: DropdownMenuItemType.Divider },
+              { key: 'Header3', text: 'Tissue', itemType: DropdownMenuItemType.Header },
+              { key: 'Cell', text: 'Cell' },
+              { key: 'Embryos', text: 'Embryos' },
+              { key: 'Callus', text: 'Callus' }
+            ]}
+          />
+          <Dropdown
+            placeHolder="Species and Tissue"
+            onChanged={(x,y) => console.log(x)}
+            options={[
+              { key: '', text: '' },
+              { key: 'Header2', text: 'Species', itemType: DropdownMenuItemType.Header },
+              { key: 'Homo sapiens', text: 'Homo sapiens' },
+              { key: 'Arabidopsis thaliana', text: 'Arabidopsis thaliana' },
+              { key: 'Mouse', text: 'Mouse' },
+              { key: 'Drosophila melanogaster', text: 'Drosophila melanogaster' },
+              { key: 'Gallus gallus', text: 'Gallus gallus' },
+              { key: 'divider_1', text: '-', itemType: DropdownMenuItemType.Divider },
+              { key: 'Header3', text: 'Tissue', itemType: DropdownMenuItemType.Header },
+              { key: 'Cell', text: 'Cell' },
+              { key: 'Embryos', text: 'Embryos' },
+              { key: 'Callus', text: 'Callus' }
+            ]}
+          />
+          <p> Markers Column </p>
+          <Dropdown
+            placeHolder="Select Marker Column"
+            onChanged={(x,y) => console.log(x)}
+            options={[
+              { key: '', text: '' },
+              { key: 'Header2', text: 'Species', itemType: DropdownMenuItemType.Header },
+              { key: 'Homo sapiens', text: 'Homo sapiens' },
+              { key: 'Arabidopsis thaliana', text: 'Arabidopsis thaliana' },
+              { key: 'Mouse', text: 'Mouse' },
+              { key: 'Drosophila melanogaster', text: 'Drosophila melanogaster' },
+              { key: 'Gallus gallus', text: 'Gallus gallus' },
+              { key: 'divider_1', text: '-', itemType: DropdownMenuItemType.Divider },
+              { key: 'Header3', text: 'Tissue', itemType: DropdownMenuItemType.Header },
+              { key: 'Cell', text: 'Cell' },
+              { key: 'Embryos', text: 'Embryos' },
+              { key: 'Callus', text: 'Callus' }
+            ]}
+          />
+          <p> Plot Options </p>
           <Slider
             label              = 'Scatter Point Size'
             min                = {0.5}
@@ -645,6 +718,7 @@ export class DataView extends React.Component {
             onChange           = {textSize => this.setState({textSize}) }
             showValue          = {false}
           />
+          <p> Other </p>
           <Toggle
            label               = 'Show Profile Columns'
            checked             = {this.state.showProfileDataColumn}
@@ -663,8 +737,6 @@ export class DataView extends React.Component {
            offText             = 'Off'
            onChange            = {() => this.setState({profileFiltering : !this.state.profileFiltering})}
           />
-
-
       </Panel>
 
       {/* The "Dataset" panel */}
