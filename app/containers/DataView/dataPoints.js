@@ -12,8 +12,8 @@ const renderCircles = (props) => {
     const transpVar                = props.transpSelect == '' ? 0.9 : props.transparencyScale(coords[props.transpSelect]);
     const textVar                  = coords.id;
     const strokeVar                = coords.markers == "unknown" ? "rgba(100,100,100,0)" : "none" ;
-    const xPOS                     = props.plotPCA ? props.xScale(coords.PCA1) : props.xScale(coords.TSNE1);
-    const yPOS                     = props.plotPCA ? props.yScale(coords.PCA2) : props.xScale(coords.TSNE2);
+    const xPOS                     = props.plot2D ? props.xScale(coords.PCA1) : props.xScale(coords.TSNE1);
+    const yPOS                     = props.plot2D ? props.yScale(coords.PCA2) : props.xScale(coords.TSNE2);
 
     const circleProps = {
       cx          : xPOS,

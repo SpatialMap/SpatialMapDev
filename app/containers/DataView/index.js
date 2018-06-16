@@ -69,7 +69,7 @@ export class DataView extends React.Component {
       activePeptideID       : '',
       showUniProt           : false,
       showComparison        : false,
-      plotPCA               : true,
+      plot2D               : true,
       plot3D                : false,
       plotProfile           : true,
       colorSelect           : [''],
@@ -80,7 +80,6 @@ export class DataView extends React.Component {
       showToolBar           : 'none',
       plotTool              : 'auto',
       showColumnPopup       : false,
-      showComparePopup      : false,
       showPlotConfigPopup   : false,
       nameColumnPopup       : '',
       showProfileDataColumn : false,
@@ -98,7 +97,7 @@ export class DataView extends React.Component {
         textSize            : 3,
         colorUnknown        : "rgba(100,100,100,0.1)",
         showUniProt         : false,
-        plotPCA             : true,
+        plot2D             : true,
         plotProfile         : true,
         plot3D              : false,
         profileFiltering    : true,
@@ -366,14 +365,14 @@ export class DataView extends React.Component {
   render() {
     //styles defines the height and width of the plots
     const styles = {
-      width   : this.state.width/((this.state.plotPCA + this.state.plotProfile + this.state.showUniProt)),
+      width   : this.state.width/((this.state.plot2D + this.state.plotProfile + this.state.showUniProt)),
       height  : this.state.plotHeight,
       padding : 25,
     };
 
     //the dynamic plot CSS - adjusts based on number active tabs
     const plotCSS = {
-        maxWidth: this.state.plotProfile + this.state.plotPCA + this.state.showUniProt == 1 ? '100%' : '50%',
+        maxWidth: this.state.plotProfile + this.state.plot2D + this.state.showUniProt == 1 ? '100%' : '50%',
         overflow: 'hidden',
         float: 'left',
     };
@@ -465,7 +464,7 @@ export class DataView extends React.Component {
                               </div>;
 
     //loader or plot logic
-    const d3Container = this.state.loading ? loader : this.state.plotPCA && d3Plot;
+    const d3Container = this.state.loading ? loader : this.state.plot2D && d3Plot;
     const plot3D = null;
 
     //table colum JSON attributes
@@ -577,11 +576,6 @@ export class DataView extends React.Component {
                onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup})}>
                Dataset
           </div>
-          <div className="leftButtons buttonFadeIn"
-               style={this.activeButton(this.state.showComparePopup)}
-               onClick={() => this.setState({showComparePopup : !this.state.showComparePopup})}>
-               Compare
-          </div>
 
           {/*Top right buttons */}
           <div className="rightButtons buttonFadeIn"
@@ -596,13 +590,13 @@ export class DataView extends React.Component {
           </div>
           <div className="rightButtons buttonFadeIn"
                style={this.activeButton(this.state.plot3D)}
-               onClick={() => this.setState({plot3D : !this.state.plot3D})}>
+               onClick={() => this.setState({plot3D : !this.state.plot3D, plot2D : false})}>
                3D View
           </div>
           <div className="rightButtons buttonFadeIn"
-               style={this.activeButton(this.state.plotPCA)}
-               onClick={() => this.setState({plotPCA : !this.state.plotPCA})}>
-               PCA
+               style={this.activeButton(this.state.plot2D)}
+               onClick={() => this.setState({plot2D : !this.state.plot2D, plot3D : false})}>
+               2D View
           </div>
         </div>
 
@@ -718,20 +712,6 @@ export class DataView extends React.Component {
           <tr> {MetaAuthor}  </tr>
           </tbody>
         </table>
-      </Panel>
-
-      {/* The "Compare" panel */}
-      <Panel
-          isBlocking           = {false}
-          isOpen               = {this.state.showComparePopup}
-          isLightDismiss       = {true}
-          onDismiss            = {() => this.setState({showComparePopup: false})}
-          type                 = {PanelType.smallFixedFar}
-          headerText           = 'Compare Datasets'
-          closeButtonAriaLabel = 'Close'
-      >
-
-      <p> add compare fields here </p>
       </Panel>
 
       {/* The "Profile Column" panel */}
