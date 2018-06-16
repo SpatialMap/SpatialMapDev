@@ -40,7 +40,7 @@ import { SearchBox }                        from 'office-ui-fabric-react/lib/Sea
 import { Panel, PanelType }                 from 'office-ui-fabric-react/lib/Panel';
 import { Dropdown, IDropdown, DropdownMenuItemType, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 export interface IBasicColorPickerExampleState { color: string; }
-
+import Scene from './3D.js';
 var ParallelCoordinatesComponent = require('react-parallel-coordinates');
 var Dimensions                   = require('react-dimensions');
 
@@ -357,14 +357,14 @@ export class DataView extends React.Component {
   render() {
     //styles defines the height and width of the plots
     const styles = {
-      width   : this.state.width/((this.state.plot2D + this.state.plotProfile + this.state.showUniProt)),
+      width   : this.state.width/((this.state.plot2D + this.state.plotProfile + this.state.showUniProt + this.state.plot3D)),
       height  : this.state.plotHeight,
       padding : 25,
     };
 
     //the dynamic plot CSS - adjusts based on number active tabs
     const plotCSS = {
-        maxWidth: this.state.plotProfile + this.state.plot2D + this.state.showUniProt == 1 ? '100%' : '50%',
+        maxWidth: this.state.plotProfile + this.state.plot2D + this.state.plot3D + this.state.showUniProt == 1 ? '100%' : '50%',
         overflow: 'hidden',
         float: 'left',
     };
@@ -457,7 +457,10 @@ export class DataView extends React.Component {
 
     //loader or plot logic
     const d3Container = this.state.loading ? loader : this.state.plot2D && d3Plot;
-    const plot3D = null;
+    const plot3D = this.state.plot3D ? <div style = {plotCSS} > <Scene
+                                                                  width = {styles.width}
+                                                                  height = {styles.height}
+                                                                /> </div> : null ;
 
     //table colum JSON attributes
     const keyAggregate = this.state.loading ? [] : Object.keys(this.state.data[1]);
