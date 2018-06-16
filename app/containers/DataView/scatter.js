@@ -5,14 +5,15 @@ import XYAxis from './x-y-axis.js';
 
 
 //min max values
-const xMax   = (data)  => d3.max(data, (d) => d.PCA1);
-const xMin   = (data)  => d3.min(data, (d) => d.PCA1);
+const xMax   = (data, props)  => d3.max(data, (d) => d[props.axisOne]);
+const xMin   = (data, props)  => d3.min(data, (d) => d[props.axisOne]);
 
-const yMax   = (data)  => d3.max(data, (d) => d.PCA2);
-const yMin   = (data)  => d3.min(data, (d) => d.PCA2);
+const yMin   = (data, props)  => d3.min(data, (d) => d[props.axisTwo]);
+const yMax   = (data, props)  => d3.max(data, (d) => d[props.axisTwo]);
 
 //color gradient
-const colMin = function(data,props) {
+const colMin = function(data, props) {
+  console.log(props.axisOne);
   return d3.min(data, (d) => d[props.colorSelect]);
 };
 
@@ -41,13 +42,13 @@ const transpMax = function(data,props) {
 //scaling dimensions
 const xScale = (props) => {
   return d3.scale.linear()
-    .domain([xMin(props.data), xMax(props.data)])
+    .domain([xMin(props.data, props), xMax(props.data, props)])
     .range([props.padding, props.width - props.padding * 2]);
 };
 
 const yScale = (props) => {
   return d3.scale.linear()
-    .domain([yMin(props.data), yMax(props.data)])
+    .domain([yMin(props.data, props), yMax(props.data, props)])
     .range([props.height - props.padding, props.padding]);
 };
 

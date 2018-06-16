@@ -16,8 +16,8 @@ export default (props) => {
   };
 
   return <g className="xy-axis">
-    <Axis {...xSettings}/>
-    <Axis {...ySettings}/>
-    <Label />
+    <Axis {...xSettings} />
+    <Axis {...ySettings} />
+    <Label {...props}/>
   </g>
 }

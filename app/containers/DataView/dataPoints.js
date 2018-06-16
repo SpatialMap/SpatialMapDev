@@ -5,15 +5,15 @@ const renderCircles = (props) => {
     // conditional statements to select certain elements:
     const markSelected             = coords.id == props.activePeptideID ? "rgba(0,0,0,0.3)" : "none";
     const colorSpace               = props.colorSelect == '' ? coords.Colors : props.colScale(coords[props.colorSelect]);
-    const legendOrganelleSelection = !props.markerToggle.includes(coords.markers) ? colorSpace : "none";
+    const legendOrganelleSelection = !props.markerToggle.includes(coords[props.markerColumn]) ? colorSpace : "none";
     // delete true (placeholder for old labels)
-    const colorFill                = coords.markers == "unknown" && true != false ? props.colorUnknown : legendOrganelleSelection;
+    const colorFill                = coords[props.markerColumn] == "unknown" && true != false ? props.colorUnknown : legendOrganelleSelection;
     const radiusVar                = props.radiusSelect == '' ? props.radius : props.radius * props.radiusScale(coords[props.radiusSelect]);
     const transpVar                = props.transpSelect == '' ? 0.9 : props.transparencyScale(coords[props.transpSelect]);
     const textVar                  = coords.id;
-    const strokeVar                = coords.markers == "unknown" ? "rgba(100,100,100,0)" : "none" ;
-    const xPOS                     = props.plot2D ? props.xScale(coords.PCA1) : props.xScale(coords.TSNE1);
-    const yPOS                     = props.plot2D ? props.yScale(coords.PCA2) : props.xScale(coords.TSNE2);
+    const strokeVar                = coords[props.markerColumn] == "unknown" ? "rgba(100,100,100,0)" : "none" ;
+    const xPOS                     = props.xScale(coords[props.axisOne]);
+    const yPOS                     = props.yScale(coords[props.axisTwo]);
 
     const circleProps = {
       cx          : xPOS,

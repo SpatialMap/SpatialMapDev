@@ -3,7 +3,7 @@ import d3 from 'd3';
 
 export default class Label extends React.Component {
 
-  render() {
+  render(props) {
     const yLabelProps = {
       x           : -40,
       y           : 40,
@@ -20,8 +20,8 @@ export default class Label extends React.Component {
     };
 
     return <g className="label" ref="label">
-              <text style={{fontSize: 12}}{...xLabelProps}> PCA2 </text>
-              <text style={{fontSize: 12}}{...yLabelProps}> PCA1 </text>
+              <text style={{fontSize: 12}}{...xLabelProps}> {this.props.axisOne} </text>
+              <text style={{fontSize: 12}}{...yLabelProps}> {this.props.axisTwo} </text>
             </g>
   }
 }

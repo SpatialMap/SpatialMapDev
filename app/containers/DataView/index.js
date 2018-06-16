@@ -52,6 +52,9 @@ export class DataView extends React.Component {
     this.state  = {
       width                 : window.innerWidth,
       height                : window.innerHeight,
+      axisOne               : 'PCA1',
+      axisTwo               : 'PCA2',
+      axisThree             : 'PCA1',
       data                  : [],
       filteredData          : [],
       filteredProfile       : [],
@@ -98,6 +101,9 @@ export class DataView extends React.Component {
         textSize            : 3,
         colorUnknown        : "rgba(100,100,100,0.1)",
         markerColumn        : 'markers',
+        axisOne             : 'PCA1',
+        axisTwo             : 'PCA2',
+        axisThree           : 'PCA1',
         showUniProt         : false,
         plot2D              : true,
         plotProfile         : true,
@@ -156,21 +162,14 @@ export class DataView extends React.Component {
 
   convertArrayOfObjectsToCSV(args) {
         var result, ctr, keys, columnDelimiter, lineDelimiter, data;
-
         data = args.data || null;
-        if (data == null || !data.length) {
-            return null;
-        }
-
+        if (data == null || !data.length) {return null;}
         columnDelimiter = args.columnDelimiter || ',';
         lineDelimiter = args.lineDelimiter || '\n';
-
         keys = Object.keys(data[0]);
-
         result = '';
         result += keys.join(columnDelimiter);
         result += lineDelimiter;
-
         data.forEach(function(item) {
             ctr = 0;
             keys.forEach(function(key) {
@@ -181,25 +180,20 @@ export class DataView extends React.Component {
             });
             result += lineDelimiter;
         });
-
         return result;
     }
 
   downloadCSV() {
         var data, filename, link;
-
         var csv = this.convertArrayOfObjectsToCSV({
             data: this.state.filteredData
         });
         if (csv == null) return;
-
         filename = this.state.metaData.varName + '.csv';
-
         if (!csv.match(/^data:text\/csv/i)) {
             csv = 'data:text/csv;charset=utf-8,' + csv;
         }
         data = encodeURI(csv);
-
         link = document.createElement('a');
         link.setAttribute('href', data);
         link.setAttribute('download', filename);
@@ -473,8 +467,8 @@ export class DataView extends React.Component {
         keyAggregate[i] != "Colors"
         && keyAggregate[i]
         && !(this.state.profileColumns.indexOf(keyAggregate[i]) > -1 && !this.state.showProfileDataColumn)
-        && keyAggregate[i] != "PCA1"
-        && keyAggregate[i] != "PCA2"  ?
+        && keyAggregate[i] != this.state.axisOne
+        && keyAggregate[i] != this.state.axisTwo  ?
         columnVar.push({
                   "key"                : keyAggregate[i]+i,
                   "name"               : keyAggregate[i],
@@ -488,7 +482,7 @@ export class DataView extends React.Component {
       }) : null ;
       !(this.state.profileColumns.indexOf(keyAggregate[i]) > -1) ?
       allCollumns.push({
-                "key"                : keyAggregate[i],
+                "key"                : keyAggregate[i]+1.01*[i],
                 "text"               : keyAggregate[i],
     }) : null;
     }
@@ -567,17 +561,17 @@ export class DataView extends React.Component {
         <div className="configBar divFadeIn" style={{paddingLeft: 10}}>
           <div className="leftButtons first buttonFadeIn"
                style={this.activeButton(this.state.showProfileFilter)}
-               onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter}) }>
+               onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter, showPlotConfigPopup : false, showMetaDataPopup : false}) }>
                Profile Columns
           </div>
           <div className="leftButtons buttonFadeIn"
                style={this.activeButton(this.state.showPlotConfigPopup)}
-               onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup})}>
+               onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup, showMetaDataPopup : false, showProfileFilter : false })}>
                Settings
           </div>
           <div className="leftButtons buttonFadeIn"
                style={this.activeButton(this.state.showMetaDataPopup)}
-               onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup})}>
+               onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup, showProfileFilter : false, showPlotConfigPopup: false})}>
                Dataset
           </div>
 
@@ -592,6 +586,7 @@ export class DataView extends React.Component {
                onClick={() => this.setState({plotProfile : !this.state.plotProfile, showUniProt : false})}>
                Profile
           </div>
+          <div className="seperator"> </div>
           <div className="rightButtons buttonFadeIn"
                style={this.activeButton(this.state.plot3D)}
                onClick={() => this.setState({plot3D : !this.state.plot3D, plot2D : false})}>
@@ -633,63 +628,24 @@ export class DataView extends React.Component {
         >
           <p> Plot Axes </p>
           <Dropdown
-            placeHolder="Species and Tissue"
-            onChanged={(x,y) => console.log(x)}
-            options={[
-              { key: '', text: '' },
-              { key: 'Header2', text: 'Species', itemType: DropdownMenuItemType.Header },
-              { key: 'Homo sapiens', text: 'Homo sapiens' },
-              { key: 'Arabidopsis thaliana', text: 'Arabidopsis thaliana' },
-              { key: 'Mouse', text: 'Mouse' },
-              { key: 'Drosophila melanogaster', text: 'Drosophila melanogaster' },
-              { key: 'Gallus gallus', text: 'Gallus gallus' },
-              { key: 'divider_1', text: '-', itemType: DropdownMenuItemType.Divider },
-              { key: 'Header3', text: 'Tissue', itemType: DropdownMenuItemType.Header },
-              { key: 'Cell', text: 'Cell' },
-              { key: 'Embryos', text: 'Embryos' },
-              { key: 'Callus', text: 'Callus' }
-            ]}
+            placeHolder="First Axis"
+            onChanged={(x,y) => this.setState({axisOne : x.text})}
+            options={allCollumns}
           />
           <Dropdown
-            placeHolder="Species and Tissue"
-            onChanged={(x,y) => console.log(x)}
-            options={[
-              { key: '', text: '' },
-              { key: 'Header2', text: 'Species', itemType: DropdownMenuItemType.Header },
-              { key: 'Homo sapiens', text: 'Homo sapiens' },
-              { key: 'Arabidopsis thaliana', text: 'Arabidopsis thaliana' },
-              { key: 'Mouse', text: 'Mouse' },
-              { key: 'Drosophila melanogaster', text: 'Drosophila melanogaster' },
-              { key: 'Gallus gallus', text: 'Gallus gallus' },
-              { key: 'divider_1', text: '-', itemType: DropdownMenuItemType.Divider },
-              { key: 'Header3', text: 'Tissue', itemType: DropdownMenuItemType.Header },
-              { key: 'Cell', text: 'Cell' },
-              { key: 'Embryos', text: 'Embryos' },
-              { key: 'Callus', text: 'Callus' }
-            ]}
+            placeHolder="Second Axis"
+            onChanged={(x,y) => this.setState({axisTwo : x.text})}
+            options={allCollumns}
           />
           <Dropdown
-            placeHolder="Species and Tissue"
-            onChanged={(x,y) => console.log(x)}
-            options={[
-              { key: '', text: '' },
-              { key: 'Header2', text: 'Species', itemType: DropdownMenuItemType.Header },
-              { key: 'Homo sapiens', text: 'Homo sapiens' },
-              { key: 'Arabidopsis thaliana', text: 'Arabidopsis thaliana' },
-              { key: 'Mouse', text: 'Mouse' },
-              { key: 'Drosophila melanogaster', text: 'Drosophila melanogaster' },
-              { key: 'Gallus gallus', text: 'Gallus gallus' },
-              { key: 'divider_1', text: '-', itemType: DropdownMenuItemType.Divider },
-              { key: 'Header3', text: 'Tissue', itemType: DropdownMenuItemType.Header },
-              { key: 'Cell', text: 'Cell' },
-              { key: 'Embryos', text: 'Embryos' },
-              { key: 'Callus', text: 'Callus' }
-            ]}
+            placeHolder="Third Axis (3D View)"
+            onChanged={(x,y) => this.setState({axisThree : x.text})}
+            options={allCollumns}
           />
           <p> Markers Column </p>
           <Dropdown
             placeHolder="Select Marker Column"
-            onChanged={(x,y) => {this.setState({markerColumn : x.key})}}
+            onChanged={(x,y) => this.setState({markerColumn : x.text})}
             options={allCollumns}
           />
           <p> Plot Options </p>
