@@ -215,6 +215,15 @@ export class DataView extends React.Component {
     this.setState({filteredData: this.state.data.filter((dataRow) => {return !tempMarkerToggle.includes(dataRow[this.state.markerColumn])})});
   };
 
+  setMarkerClasses(markerColName){
+    let markerClassesAggregate = [];
+    for (let entry of Object.values(this.state.data)) {
+      markerClassesAggregate.push(entry[markerColName]);
+    }
+    let markerClassTemp = [...new Set(markerClassesAggregate)];
+    this.setState({markerClasses : markerClassTemp});
+  }
+
   toggleMarkers(marker){
     this.state.markerToggle.includes(marker.obj) ? this.deleteToggleMarkerArray(marker.obj) : this.addToggleMarkerArray(marker.obj);
   };
@@ -345,7 +354,7 @@ export class DataView extends React.Component {
       this.setState({
         metaData       : meta,
         profileColumns : meta.profileColumns,
-        markerClasses  : meta.markerClasses,
+        markerClasses  : meta.markerClasses.toString().split(', ')
       });
     })
   };
@@ -491,13 +500,15 @@ export class DataView extends React.Component {
     }
 
     //extracts the markerClasses from the meta data and displays them as buttons
-    let markerClasses = !this.state.loading && this.state.markerClasses.toString().split(', ');
+
+    let markerClasses = !this.state.loading && this.state.markerClasses;
+    //let markerClasses = !this.state.loading && this.state.markerClasses.toString().split(', ');
     markerClasses && markerClasses.push("unknown");
-    const legendItems = markerClasses && markerClasses.map(obj =>
-      <button className="legendItems" style={this.legendColor({obj}, false)} onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
+    const legendItems = markerClasses && markerClasses.map((obj, index) =>
+      <button className="legendItems" style={this.legendColor({obj}, false)} onClick={() => this.toggleMarkers({obj})} key={obj.toString() + index + "legend"}>{obj}</button>
     );
-    const legendItemsSidebar = markerClasses && markerClasses.map(obj =>
-      <button className="legendItemsSidebar" style={this.legendColor({obj}, true)} onClick={() => this.toggleMarkers({obj})} key={obj.toString()}>{obj}</button>
+    const legendItemsSidebar = markerClasses && markerClasses.map((obj, index) =>
+      <button className="legendItemsSidebar" style={this.legendColor({obj}, true)} onClick={() => this.toggleMarkers({obj})} key={obj.toString() + index + "sidebar"}>{obj}</button>
     );
 
     let profileColumnsVar = this.state.profileColumns;
@@ -645,10 +656,10 @@ export class DataView extends React.Component {
             onChanged={(x,y) => this.setState({axisThree : x.text})}
             options={allCollumns}
           />
-          <p> Markers Column </p>
+          <p> Marker Column </p>
           <Dropdown
             placeHolder="Select Marker Column"
-            onChanged={(x,y) => this.setState({markerColumn : x.text})}
+            onChanged={(x,y) => {this.setState({markerColumn : x.text}); this.setMarkerClasses(x.text)}}
             options={allCollumns}
           />
           <p> Plot Options </p>

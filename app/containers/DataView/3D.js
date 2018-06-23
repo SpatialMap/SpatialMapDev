@@ -24,15 +24,14 @@ class Scene extends React.Component {
       0.1,
       1000
     )
+
     const renderer = new THREE.WebGLRenderer({ antialias: true })
     const geometry = new THREE.BoxGeometry(1, 1, 1)
     const material = new THREE.MeshBasicMaterial({ color: '#433F81' })
     const cube = new THREE.Mesh(geometry, material)
-    const cube2 = new THREE.Mesh(geometry, material)
 
     camera.position.z = 4
     scene.add(cube)
-    scene.add(cube2)
     renderer.setClearColor('#fff')
     renderer.setSize(width, height)
 
