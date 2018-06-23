@@ -425,10 +425,9 @@ export class DataView extends React.Component {
     const dimensions = keyVar;
 
     //the uniprot routine - a simple iframe that combines a url with the peptideID
-    //x-frame same origin error due to uniprot changes
-    // apparently GET( "http://www.uniprot.org/uniprot/" + this.state.activePeptideID) is a valid solution
-    // needs to be connected with with the axious REST package and then be displayed as "dangerouslyInnerHTML" (replace CSS)
-    const iframeLink = "http://www.uniprot.org/uniprot/" + this.state.activePeptideID;
+    //Calls a helper loader.html page (that needs to be hosted on a https page) to circumvent sameorigin https protection
+    // minor jumping issue remains 
+    const iframeLink = "https://firebasestorage.googleapis.com/v0/b/spatialmap-1b08e.appspot.com/o/html%2Floader.html?alt=media&token=17380e67-f8b4-4506-b055-4e937110e73a&peptide=" + this.state.activePeptideID;
     const uniProtContainer = this.state.showUniProt &&
                              <iframe
                                        style       = {plotCSS}
