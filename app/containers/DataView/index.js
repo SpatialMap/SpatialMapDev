@@ -426,7 +426,7 @@ export class DataView extends React.Component {
 
     //the uniprot routine - a simple iframe that combines a url with the peptideID
     //Calls a helper loader.html page (that needs to be hosted on a https page) to circumvent sameorigin https protection
-    const iframeLink = "https://firebasestorage.googleapis.com/v0/b/spatialmap-1b08e.appspot.com/o/html%2Floader.html?alt=media&token=478ebca6-ad4b-4a2e-8a16-ff2f3a0b9efe&peptide=" + this.state.activePeptideID;
+    const iframeLink = "https://cryptotrade-hq.com/spatialMap/loader.html?peptide=" + this.state.activePeptideID;
     const uniProtContainer = this.state.showUniProt &&
                              <iframe
                                        style       = {plotCSS}
