@@ -335,7 +335,6 @@ export class DataView extends React.Component {
 
   //loading the fSet data from firebase
   //the loading state is set to false once data is fetched
-
   componentDidMount(){
     var data     = [];
 
@@ -427,7 +426,9 @@ export class DataView extends React.Component {
 
     //the uniprot routine - a simple iframe that combines a url with the peptideID
     //x-frame same origin error due to uniprot changes
-    const iframeLink = "https://www.uniprot.org/uniprot/" + this.state.activePeptideID;
+    // apparently GET( "http://www.uniprot.org/uniprot/" + this.state.activePeptideID) is a valid solution
+    // needs to be connected with with the axious REST package and then be displayed as "dangerouslyInnerHTML" (replace CSS)
+    const iframeLink = "http://www.uniprot.org/uniprot/" + this.state.activePeptideID;
     const uniProtContainer = this.state.showUniProt &&
                              <iframe
                                        style       = {plotCSS}
@@ -479,8 +480,7 @@ export class DataView extends React.Component {
         keyAggregate[i] != "Colors"
         && keyAggregate[i]
         && !(this.state.profileColumns.indexOf(keyAggregate[i]) > -1 && !this.state.showProfileDataColumn)
-        && keyAggregate[i] != this.state.axisOne
-        && keyAggregate[i] != this.state.axisTwo  ?
+        && !keyAggregate[i].includes("PC") ?
         columnVar.push({
                   "key"                : keyAggregate[i]+i,
                   "name"               : keyAggregate[i],
@@ -503,7 +503,7 @@ export class DataView extends React.Component {
 
     let markerClasses = !this.state.loading && this.state.markerClasses;
     //let markerClasses = !this.state.loading && this.state.markerClasses.toString().split(', ');
-    markerClasses && markerClasses.push("unknown");
+    markerClasses && !markerClasses.includes("unknown") && markerClasses.push("unknown");
     const legendItems = markerClasses && markerClasses.map((obj, index) =>
       <button className="legendItems" style={this.legendColor({obj}, false)} onClick={() => this.toggleMarkers({obj})} key={obj.toString() + index + "legend"}>{obj}</button>
     );
