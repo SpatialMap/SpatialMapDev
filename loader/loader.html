@@ -17,7 +17,7 @@
 
 		var url = 'http://www.uniprot.org/uniprot/' + getQueryVariable('peptide');
         $.getJSON('https://whateverorigin.herokuapp.com/get?url=' + encodeURIComponent(url) + '&callback=?', function(data){
-            var html = ""+data.contents.replace("/uniprot.min.css2018_06", "https://www.uniprot.org/uniprot.min.css2018_06");
+            var html = ""+data.contents.replace("/uniprot.min.css2018_06", "https://www.uniprot.org/uniprot.min.css2018_06").replace('id="local-masthead"',"id='local-masthead' style='display: none'");
     
             /* Replace relative links to absolute ones */
             html = html.replace(new RegExp('(href|src)="/', 'g'),  '$1="'+url+'/');
