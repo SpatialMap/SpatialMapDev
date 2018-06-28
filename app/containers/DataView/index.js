@@ -112,6 +112,7 @@ export class DataView extends React.Component {
         plot3D              : false,
         profileFiltering    : true,
         colorSelect         : [''],
+        peptideShortlist    : [],
         radiusSelect        : [''],
         markerToggle        : [],
         transpSelect        : [''],
@@ -162,6 +163,7 @@ export class DataView extends React.Component {
              this.setState({showProfileDataColumn: false});
   };
 
+  //shortList adding
   addToShortlist(){
     if(this.state.activePeptideID != ''){
     let object = (this.state.peptideShortlist)

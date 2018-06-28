@@ -3,7 +3,8 @@ import React from 'react';
 const renderCircles = (props) => {
   return (coords, index) => {
     // conditional statements to select certain elements:
-    const markSelected             = coords.id == props.activePeptideID ? "rgba(0,0,0,0.3)" : "none";
+    const markSelected             = coords.id == props.activePeptideID || props.peptideShortlist.filter(x => x.id == coords.id).length ? "rgba(0,0,0,0.3)" : "none";
+    const strokeWidth               = props.peptideShortlist.filter(x => x.id == coords.id).length ? 3 : 1;
     const colorSpace               = props.colorSelect == '' ? coords.Colors : props.colScale(coords[props.colorSelect]);
     const legendOrganelleSelection = !props.markerToggle.includes(coords[props.markerColumn]) ? colorSpace : "none";
     // delete true (placeholder for old labels)
@@ -22,13 +23,13 @@ const renderCircles = (props) => {
       fill        : colorFill,
       opacity     : transpVar,
       stroke      : markSelected,
-      strokeWidth : props.radius/3,
+      strokeWidth : (props.radius/3) * strokeWidth,
       key         : index,
     };
 
     const textProps = {
       x           : xPOS,
-      y           : yPOS - radiusVar*1.33,
+      y           : (yPOS - radiusVar*1.4),
       textAnchor  : "middle",
       key         : index+0.1
     };
