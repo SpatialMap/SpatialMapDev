@@ -82,6 +82,16 @@
   background-color: rgba(255,255,255,0.6);
 }
 
+.seperatorLeft {
+  height: 35px;
+  width: 3px;
+  margin-left: 4px;
+  margin-right: 3px;
+  float: left;
+  box-shadow: 2px 0px 1.5px 0px rgba(0,0,0,0.12);
+  background-color: rgba(255,255,255,0.6);
+}
+
 .legendItems {
   float: left;
   height: 32px;
@@ -194,6 +204,13 @@
 
 .leftButtons:hover{
   background-color: white;
+}
+
+.addBtn {
+  width: 30px;
+  margin-right: 5px;
+  padding-bottom: 5px;
+  outline: none;
 }
 
 .modChoice {

@@ -71,8 +71,10 @@ export class DataView extends React.Component {
       colorUnknown          : "rgba(100,100,100,0.1)",
       markerColumn          : 'markers',
       activePeptideID       : '',
+      peptideShortlist      : [],
       showUniProt           : false,
       showComparison        : false,
+      showShortlist         : false,
       plot2D                : true,
       plot3D                : false,
       plotProfile           : true,
@@ -159,6 +161,20 @@ export class DataView extends React.Component {
     !reset ? this.setState({showProfileDataColumn: !this.state.showProfileDataColumn}):
              this.setState({showProfileDataColumn: false});
   };
+
+  addToShortlist(){
+    if(this.state.activePeptideID != ''){
+    let object = (this.state.peptideShortlist)
+    console.log(this.state.activePeptideID);
+    object.push({"id": this.state.activePeptideID, "content": ""});
+    this.setState({peptideShortlist: object});
+    console.log("added to shortlist");
+    console.log(this.state.peptideShortlist);
+  } else {
+    console.log("already in the list");
+  }
+
+  }
 
   convertArrayOfObjectsToCSV(args) {
         var result, ctr, keys, columnDelimiter, lineDelimiter, data;
@@ -519,6 +535,10 @@ export class DataView extends React.Component {
       />
     );
 
+    let shortListMap = this.state.peptideShortlist.map(x =>
+      <div> {x.id} {x.content} </div>
+    );
+
     //the data table inclusive the bar above the table
     const table = <div className="tableCore">
                     <div className="belowMainPlot row">
@@ -573,19 +593,27 @@ export class DataView extends React.Component {
         <div className="configBar divFadeIn" style={{paddingLeft: 10}}>
           <div className="leftButtons first buttonFadeIn"
                style={this.activeButton(this.state.showProfileFilter)}
-               onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter, showPlotConfigPopup : false, showMetaDataPopup : false}) }>
+               onClick={() => this.setState({showProfileFilter : !this.state.showProfileFilter, showPlotConfigPopup : false, showMetaDataPopup : false, showShortlist: false}) }>
                Profile Columns
           </div>
           <div className="leftButtons buttonFadeIn"
                style={this.activeButton(this.state.showPlotConfigPopup)}
-               onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup, showMetaDataPopup : false, showProfileFilter : false })}>
+               onClick={() => this.setState({showPlotConfigPopup : !this.state.showPlotConfigPopup, showMetaDataPopup : false, showProfileFilter : false, showShortlist: false })}>
                Settings
           </div>
           <div className="leftButtons buttonFadeIn"
                style={this.activeButton(this.state.showMetaDataPopup)}
-               onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup, showProfileFilter : false, showPlotConfigPopup: false})}>
+               onClick={() => this.setState({showMetaDataPopup : !this.state.showMetaDataPopup, showProfileFilter : false, showPlotConfigPopup: false, showShortlist: false})}>
                Dataset
           </div>
+          <div className="seperatorLeft"> </div>
+          <div className="leftButtons buttonFadeIn"
+               style={this.activeButton(this.state.showShortlist)}
+               onClick={() => this.setState({showShortlist: !this.state.showShortlist, showMetaDataPopup : false, showProfileFilter : false, showPlotConfigPopup: false})}>
+               Shortlist
+          </div>
+          <button className="leftButtons addBtn" onClick={() => this.addToShortlist()}> <i className="fa fa-plus"> </i></button>
+          <div className="seperatorLeft"> </div>
 
           {/*Top right buttons */}
           <div className="rightButtons buttonFadeIn"
@@ -759,6 +787,20 @@ export class DataView extends React.Component {
       >
 
       {profileFilterButtons}
+      </Panel>
+
+      {/* The "Shortlist" panel */}
+      <Panel
+          isBlocking           = {false}
+          isOpen               = {this.state.showShortlist}
+          isLightDismiss       = {true}
+          onDismiss            = {() => this.setState({showShortlist: false})}
+          type                 = {PanelType.smallFixedFar}
+          headerText           = 'Shortlist'
+          closeButtonAriaLabel = 'Close'
+      >
+
+      {shortListMap}
       </Panel>
 
       {/* The "show More entries" panel */}

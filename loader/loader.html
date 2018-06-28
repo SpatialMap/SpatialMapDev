@@ -16,7 +16,7 @@
     	}
 	}
 
-		var url = 'http://www.uniprot.org/uniprot/' + getQueryVariable('peptide');
+		var url = 'https://www.uniprot.org/uniprot/P12345.html';
         $.getJSON('https://whateverorigin.herokuapp.com/get?url=' + encodeURIComponent(url) + '&callback=?', function(data){
             var html = ""+data.contents.replace('id="local-masthead"',"id='local-masthead' style='display: none'");
     
