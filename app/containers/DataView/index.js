@@ -165,8 +165,9 @@ export class DataView extends React.Component {
 
   //shortList adding
   addToShortlist(){
-    if(this.state.activePeptideID != ''){
+    if(this.state.activePeptideID != '' && !this.state.peptideShortlist.filter(x => x.id == this.state.activePeptideID).length){
     let object = (this.state.peptideShortlist)
+    console.log(this.state.peptideShortlist.filter(x => x.id == this.state.activePeptideID).length);
     console.log(this.state.activePeptideID);
     object.push({"id": this.state.activePeptideID, "content": ""});
     this.setState({peptideShortlist: object});
@@ -537,8 +538,8 @@ export class DataView extends React.Component {
       />
     );
 
-    let shortListMap = this.state.peptideShortlist.map(x =>
-      <div> {x.id} {x.content} </div>
+    let shortListMap = this.state.peptideShortlist.map((x, i) =>
+      <div key={'shortlist_key_' + i}> {x.id} {x.content} </div>
     );
 
     //the data table inclusive the bar above the table
