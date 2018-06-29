@@ -112,7 +112,6 @@ export class DataView extends React.Component {
         plot3D              : false,
         profileFiltering    : true,
         colorSelect         : [''],
-        peptideShortlist    : [],
         radiusSelect        : [''],
         markerToggle        : [],
         transpSelect        : [''],
@@ -163,20 +162,20 @@ export class DataView extends React.Component {
              this.setState({showProfileDataColumn: false});
   };
 
-  //shortList adding
-  addToShortlist(){
+  //shortList : adding element to array
+  addToShortlist(content = ''){
     if(this.state.activePeptideID != '' && !this.state.peptideShortlist.filter(x => x.id == this.state.activePeptideID).length){
     let object = (this.state.peptideShortlist)
-    console.log(this.state.peptideShortlist.filter(x => x.id == this.state.activePeptideID).length);
-    console.log(this.state.activePeptideID);
-    object.push({"id": this.state.activePeptideID, "content": ""});
+    object.push({"id": this.state.activePeptideID, "content": content});
     this.setState({peptideShortlist: object});
-    console.log("added to shortlist");
-    console.log(this.state.peptideShortlist);
   } else {
-    console.log("already in the list");
+    this.deleteFromShortlist(this.state.activePeptideID);
+  }
   }
 
+  //shortList : deleting element to array
+  deleteFromShortlist(peptideID){
+    this.setState({peptideShortlist : this.state.peptideShortlist.filter(item => item.id !== peptideID)})
   }
 
   convertArrayOfObjectsToCSV(args) {
@@ -203,8 +202,8 @@ export class DataView extends React.Component {
     }
 
   downloadCSV() {
-        var data, filename, link;
-        var csv = this.convertArrayOfObjectsToCSV({
+        let data, filename, link;
+        let csv = this.convertArrayOfObjectsToCSV({
             data: this.state.filteredData
         });
         if (csv == null) return;
@@ -218,6 +217,23 @@ export class DataView extends React.Component {
         link.setAttribute('download', filename);
         link.click();
     }
+
+    downloadShortlist() {
+          let data, filename, link;
+          let csv = this.convertArrayOfObjectsToCSV({
+              data: this.state.peptideShortlist
+          });
+          if (csv == null) return;
+          filename = this.state.metaData.varName + '_shortlist.csv';
+          if (!csv.match(/^data:text\/csv/i)) {
+              csv = 'data:text/csv;charset=utf-8,' + csv;
+          }
+          data = encodeURI(csv);
+          link = document.createElement('a');
+          link.setAttribute('href', data);
+          link.setAttribute('download', filename);
+          link.click();
+      }
 
   //adds or deletes organelle names from array to show/hide those
   addToggleMarkerArray(marker){
@@ -539,7 +555,13 @@ export class DataView extends React.Component {
     );
 
     let shortListMap = this.state.peptideShortlist.map((x, i) =>
-      <div key={'shortlist_key_' + i}> {x.id} {x.content} </div>
+      <div key={'shortlist_key_' + i} className="shortListEntry">
+        {x.id}
+        <button className="shortListDelete" onClick={() => this.deleteFromShortlist(x.id)}><i className="fa fa-trash-o"></i></button>
+        <button className="shortListDelete" onClick={() => this.deleteFromShortlist(x.id)}><i className="fa fa-commenting-o"></i></button>
+        <br/>
+        {x.content}
+      </div>
     );
 
     //the data table inclusive the bar above the table
@@ -565,7 +587,6 @@ export class DataView extends React.Component {
                            </button>
                         }
                         {legendItems}
-
                       </div>
                     </div>
                     <MarqueeSelection>
@@ -801,9 +822,13 @@ export class DataView extends React.Component {
           type                 = {PanelType.smallFixedFar}
           headerText           = 'Shortlist'
           closeButtonAriaLabel = 'Close'
-      >
+          >
 
       {shortListMap}
+      <div className="shortListBottom">
+        <PrimaryButton onClick={() => this.setState({peptideShortlist : []})} style={{ marginRight: '8px' }}>Clear List</PrimaryButton>
+        <PrimaryButton onClick={() => this.downloadShortlist()} style={{ marginRight: '8px' }}>Download List</PrimaryButton>
+      </div>
       </Panel>
 
       {/* The "show More entries" panel */}

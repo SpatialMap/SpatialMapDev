@@ -213,6 +213,31 @@
   outline: none;
 }
 
+.shortListBottom  {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 0;
+}
+
+.shortListDelete  {
+  float: right;
+  height: 22px;
+}
+
+.shortListEntry {
+  padding: 5px;
+  margin: 1px 0px 1px 0px;
+  background-color: rgba(0,0,0,0.03)
+}
+
+.shortListDelete:hover  {
+  height: 22px;
+  border-radius: 5px;
+  background-color: rgba(0,0,0,0.05)
+}
+
+
 .modChoice {
   background-color: #f2e4d8;
   height: 60px;
