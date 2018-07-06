@@ -26,7 +26,6 @@ import { Label }                            from 'office-ui-fabric-react/lib/Lab
 import { CompoundButton, IButtonProps }     from 'office-ui-fabric-react/lib/Button';
 import { ChoiceGroup, IChoiceGroupOption }  from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { autobind }                         from 'office-ui-fabric-react/lib/Utilities';
-import { TextField }                        from 'office-ui-fabric-react/lib/TextField';
 import { DetailsList, DetailsListLayoutMode,
          Selection, CheckboxVisibility,
          buildColumns, IColumn,
@@ -36,6 +35,7 @@ import { IContextualMenuProps, IContextualMenuItem,
 import { MarqueeSelection }                 from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { Callout }                          from 'office-ui-fabric-react/lib/Callout';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
+import { TextField }                        from 'office-ui-fabric-react/lib/TextField';
 import { SearchBox }                        from 'office-ui-fabric-react/lib/SearchBox';
 import { Panel, PanelType }                 from 'office-ui-fabric-react/lib/Panel';
 import { Dropdown, IDropdown, DropdownMenuItemType, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
@@ -75,6 +75,7 @@ export class DataView extends React.Component {
       showUniProt           : false,
       showComparison        : false,
       showShortlist         : false,
+      showShortlistContent  : {active : false, peptide : '', content : ''},
       plot2D                : true,
       plot3D                : false,
       plotProfile           : true,
@@ -165,12 +166,21 @@ export class DataView extends React.Component {
   //shortList : adding element to array
   addToShortlist(content = ''){
     if(this.state.activePeptideID != '' && !this.state.peptideShortlist.filter(x => x.id == this.state.activePeptideID).length){
-    let object = (this.state.peptideShortlist)
-    object.push({"id": this.state.activePeptideID, "content": content});
-    this.setState({peptideShortlist: object});
-  } else {
-    this.deleteFromShortlist(this.state.activePeptideID);
+      let object = this.state.peptideShortlist;
+      object.push({"id": this.state.activePeptideID, "content": content});
+      this.setState({peptideShortlist: object});
+      console.log(this.state.peptideShortlist);
+    } else {
+      this.deleteFromShortlist(this.state.activePeptideID);
+    }
   }
+
+  addCommentToItem(){
+    let peptideIDState = this.state.showShortlistContent;
+    let object = this.state.peptideShortlist;
+    let index = object.findIndex(i => i.id == peptideIDState.peptide);
+    object[index].content = peptideIDState.content;
+    this.setState({peptideShortlist : object, showShortlistContent : {active : false, peptide : '', content : ''}});
   }
 
   //shortList : deleting element to array
@@ -558,7 +568,10 @@ export class DataView extends React.Component {
       <div key={'shortlist_key_' + i} className="shortListEntry">
         {x.id}
         <button className="shortListDelete" onClick={() => this.deleteFromShortlist(x.id)}><i className="fa fa-trash-o"></i></button>
-        <button className="shortListDelete" onClick={() => this.deleteFromShortlist(x.id)}><i className="fa fa-commenting-o"></i></button>
+        <button className="shortListDelete" onClick={() => this.deleteFromShortlist(x.id)}><i className="fa fa-hdd-o"></i></button>
+        <button className="shortListDelete" onClick={() => this.setState({showShortlistContent : {active : true, peptide : x.id, content : x.content}})}>
+          <i className="fa fa-commenting-o"></i>
+        </button>
         <br/>
         {x.content}
       </div>
@@ -830,6 +843,35 @@ export class DataView extends React.Component {
         <PrimaryButton onClick={() => this.downloadShortlist()} style={{ marginRight: '8px' }}>Download List</PrimaryButton>
       </div>
       </Panel>
+
+      <Panel
+          isBlocking           = {false}
+          isOpen               = {this.state.showShortlistContent.active}
+          isLightDismiss       = {true}
+          onDismiss            = {() => this.setState({showShortlistContent: false})}
+          type                 = {PanelType.smallFixedFar}
+          headerText           = {'Peptide: ' + this.state.showShortlistContent.peptide}
+          closeButtonAriaLabel = 'Close'
+          >
+          <TextField
+            label      = "Add custome entry or remark"
+            value      = {this.state.showShortlistContent.content}
+            onNotifyValidationResult = {(x,y) => this.setState({showShortlistContent : {active : this.state.showShortlistContent.active,
+                                                                                        peptide : this.state.showShortlistContent.peptide,
+                                                                                        content : y}})}
+            borderless
+            style = {{backgroundColor: 'rgba(0,0,0,0.05)', height: 400}}
+            multiline
+            validateOnFocusOut
+            autoAdjustHeight
+
+          />
+      <div className="shortListBottom">
+        <PrimaryButton onClick={() => this.addCommentToItem()} style={{ marginRight: '8px' }}>Save</PrimaryButton>
+        <PrimaryButton onClick={() => this.setState({showShortlistContent: {active : false, peptide : '', content : ''}})} style={{ marginRight: '8px' }}>Dismiss</PrimaryButton>
+      </div>
+      </Panel>
+
 
       {/* The "show More entries" panel */}
       <Panel
