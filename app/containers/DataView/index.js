@@ -566,14 +566,19 @@ export class DataView extends React.Component {
 
     let shortListMap = this.state.peptideShortlist.map((x, i) =>
       <div key={'shortlist_key_' + i} className="shortListEntry">
-        {x.id}
+        <div className="shortListHeader">
+        <b>{x.id}</b>
         <button className="shortListDelete" onClick={() => this.deleteFromShortlist(x.id)}><i className="fa fa-trash-o"></i></button>
         <button className="shortListDelete" onClick={() => this.deleteFromShortlist(x.id)}><i className="fa fa-hdd-o"></i></button>
         <button className="shortListDelete" onClick={() => this.setState({showShortlistContent : {active : true, peptide : x.id, content : x.content}})}>
           <i className="fa fa-commenting-o"></i>
         </button>
-        <br/>
-        {x.content}
+        </div>
+        {x.content &&
+        <div className="shortListContent">
+          {x.content}
+        </div>
+        }
       </div>
     );
 
@@ -592,7 +597,9 @@ export class DataView extends React.Component {
                         <button className="optionToggle" onClick={() => this.switchPlotTools()}>  <i className="fa fa-object-group"></i></button>
                         <button className="optionToggle" onClick={() => this.resetAll()}>         <i className="fa fa-undo">        </i></button>
                         <button className="optionToggle" onClick={() => this.downloadCSV()}>      <i className="fa fa-download">    </i></button>
-
+                        <button className="legendItems sidebarLeft entryCounter">
+                             {Object.values(this.state.filteredData).length}
+                        </button>
                         {legendItems.length >= 5 &&
                            <button className="legendItems sidebarRight"
                                   onClick={() => this.setState({showMoreEntries : !this.state.showMoreEntries})}>
@@ -647,9 +654,12 @@ export class DataView extends React.Component {
           <div className="leftButtons buttonFadeIn"
                style={this.activeButton(this.state.showShortlist)}
                onClick={() => this.setState({showShortlist: !this.state.showShortlist, showMetaDataPopup : false, showProfileFilter : false, showPlotConfigPopup: false})}>
-               Shortlist
+                Shortlist
           </div>
           <button className="leftButtons addBtn" onClick={() => this.addToShortlist()}> <i className="fa fa-plus"> </i></button>
+            {this.state.peptideShortlist.length > 0 &&
+            <button className="leftButtons addBtn addBtnFixed">  {this.state.peptideShortlist.length} </button>
+            }
           <div className="seperatorLeft"> </div>
 
           {/*Top right buttons */}
@@ -854,17 +864,16 @@ export class DataView extends React.Component {
           closeButtonAriaLabel = 'Close'
           >
           <TextField
-            label      = "Add custome entry or remark"
+            label      = "Add custome entry or remark:"
+            inputClassName = "shortListContentTextfield"
             value      = {this.state.showShortlistContent.content}
-            onNotifyValidationResult = {(x,y) => this.setState({showShortlistContent : {active : this.state.showShortlistContent.active,
+            onNotifyValidationResult = {(x,y) => this.setState({showShortlistContent : {active  : this.state.showShortlistContent.active,
                                                                                         peptide : this.state.showShortlistContent.peptide,
                                                                                         content : y}})}
             borderless
-            style = {{backgroundColor: 'rgba(0,0,0,0.05)', height: 400}}
             multiline
             validateOnFocusOut
             autoAdjustHeight
-
           />
       <div className="shortListBottom">
         <PrimaryButton onClick={() => this.addCommentToItem()} style={{ marginRight: '8px' }}>Save</PrimaryButton>

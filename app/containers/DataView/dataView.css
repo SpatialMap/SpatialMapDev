@@ -119,6 +119,19 @@
   background-color: #f0f0f0;
 }
 
+.entryCounter {
+  background-color: rgba(255,255,255,0.1);
+  cursor: initial;
+  outline: solid;
+  margin: 1px 1px 1px 0px;
+  height: 30px;
+  outline-width: 1px;
+}
+
+.entryCounter:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
 .sidebarRight {
   float: right;
 }
@@ -200,6 +213,7 @@
   font-weight: bold;
   font-size: 12px;
   margin-left: 2px;
+  cursor: pointer;
 }
 
 .leftButtons:hover{
@@ -208,9 +222,20 @@
 
 .addBtn {
   width: 30px;
+  margin-left: -15px;
   margin-right: 5px;
   padding-bottom: 5px;
   outline: none;
+}
+
+.addBtnFixed {
+  cursor: initial;
+  margin-left: 0px;
+  color: brown;
+}
+
+.addBtnFixed:hover {
+  background-color: rgba(0,0,0,0);
 }
 
 .shortListBottom  {
@@ -225,10 +250,25 @@
   height: 22px;
 }
 
+.shortListHeader  {
+  margin: -5px -5px -5px -5px;
+  padding: 5px;
+  background-color: rgba(0,0,0,0.04);
+}
+
+.shortListContent {
+  margin-top: 10px;
+}
+
+.shortListContentTextfield {
+  background-color: rgba(0,0,0,0.04);
+  height: 400px;
+}
+
 .shortListEntry {
   padding: 5px;
   margin: 1px 0px 1px 0px;
-  background-color: rgba(0,0,0,0.03)
+  background-color: rgba(0,0,0,0.02)
 }
 
 .shortListDelete:hover  {
@@ -237,6 +277,9 @@
   background-color: rgba(0,0,0,0.05)
 }
 
+.shortListDelete:focus {
+  outline : 0;
+}
 
 .modChoice {
   background-color: #f2e4d8;
