@@ -16,15 +16,19 @@
     	}
 	}
 
-		$.get(
-		    "https://www.uniprot.org/uniprot/" + getQueryVariable("peptide"),
-		    {},
-		    function(data) {
-		       var html = ""+data.replace('id="local-masthead"',"id='local-masthead' style='display: none'").replace('class="main-aside"', '')
-		       																								.replace('id="entrySidebar"', 'id="entrySidebar" style="display: none"');
+		$.ajax({
+	        type: 'GET',
+	        url:"https://www.uniprot.org/uniprot/" + getQueryVariable("peptide"),
+	        error: function(XMLHttpRequest, textStatus, errorThrown){
+	            $("#siteLoader").html('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
+	        },
+	        success: function( data ) {
+		       var html = ""+data.replace('id="local-masthead"',"id='local-masthead' style='display: none'")
+		       					 .replace('class="main-aside"', '')
+		       				     .replace('id="entrySidebar"', 'id="entrySidebar" style="display: none"');
                $("#siteLoader").html(html);
-		    }
-		);
+	        }
+        });
 
 	</script>
 	<style>
