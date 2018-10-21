@@ -39,7 +39,7 @@ export class DocOverview extends React.Component { // eslint-disable-line react/
         <div className='tileContainer row container' style={{margin: 'auto'}}>
           <div className="tile">
             <img className="icon" src="http://frapbot.kohze.com/SpatialMaps/SpatialMaps_f3.png" />
-            <h2>SpatialMaps</h2>
+            <h2>SpatialCellAtlas</h2>
             <ul className="leftPadding">
               <Link><li className="liStyle"> Get Started </li></Link>
               <Link><li className="liStyle"> Examples </li></Link>

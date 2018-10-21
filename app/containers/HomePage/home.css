@@ -24,6 +24,7 @@
 .headText {
   font-size: 50px;
   font-weight: 700;
+  padding-bottom: 10px;
   margin: 0px;
   color: #ffffff;
 }
@@ -51,10 +52,11 @@
 .headButton {
   font-weight: 600;
   margin-top:  12px;
-  color: #333333;
-  background-color: #20e39f;
+  color: #dcd4f9;
+  background-color: #6260ea;
+  margin:  10px;
   padding: 12px 20px 12px 20px;
-  border-radius: 20px;
+  border-radius: 10px;
   box-shadow: 0px 5px 10px 1px rgba(0,0,0,0.2);
   cursor: pointer;
 }
