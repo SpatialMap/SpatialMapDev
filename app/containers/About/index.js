@@ -24,16 +24,16 @@ export class About extends React.Component {
         <Helmet
           title="About"
           meta={[
-            { name: 'description', content: 'SpatialMaps - About' },
+            { name: 'description', content: 'SpatialCellAtlas - About' },
           ]}
         />
         <div>
           <div className="welcome">
             <div className="row container" style={{margin:"auto", marginTop: 30}}>
               <div className="col-sm-6 textCard">
-               <h1 className="headText" style={{paddingBottom: 10}}> About </h1>
-               <p>We created a platform to accelerate the dissemination of spatial proteomic datasets and thereby
-                  improve scientific collaborations. SpatialMaps is a actively developed platform and we expect many features soon to be released.
+               <h1 className="headTextAbout" style={{paddingBottom: 10}}> About </h1>
+               <p>SpatialCellAtlas is the secured, private Cambridge version of SpatialMap. Here we share spatial proteomics datasets that are not yet published and need to remain internal. 
+                All current features are activated on this platform.  
                 </p>
                </div>
                <div className="col-sm-6">
@@ -49,17 +49,17 @@ export class About extends React.Component {
              </div>
              <div className="col-sm-6 bottomCard">
              <h2 className="bottomText"> Idea & Foundation </h2>
-             <p>After the creation of pRoloc and pRolocdata, SpatialMaps is an integral part of the pRoloc environment.
-             While the pRoloc universe was yet a purely R based frameworks, SpatialMaps lowers the treshhold for non-coding scientists to efficiently compare datasets.</p>
+             <p>After the creation of pRoloc and pRolocdata, SpatialCellAtlas is an integral part of the pRoloc environment.
+             While the pRoloc universe was yet a purely R based frameworks, SpatialCellAtlas lowers the treshhold for non-coding scientists to efficiently compare datasets.</p>
            </div>
           </div>
 
           <div className="row container" style={{margin:"auto", marginTop: 30}}>
             <div className="col-sm-6 bottomCard">
             <h2 className="bottomText"> Technology </h2>
-            <p>The SpatialMaps platform is based on Google Firebase as secure cloud database and react.js. </p>
+            <p>The SpatialCellAtlas platform is based on Google Firebase as secure cloud database and react.js. </p>
               <p>Combining the cloud database with pRolocdata biocoductor package, we offer the opportunity access
-                datasets both via R scripts as well as via the user friendly SpatialMaps web platform.</p>
+                datasets both via R scripts as well as via the user friendly SpatialCellAtlas web platform.</p>
             </div>
             <div className="col-sm-6" style={{marginTop: 15}}>
               <img className="headImageSmall imageFadeIn" src="https://firebasestorage.googleapis.com/v0/b/spatialmap-1b08e.appspot.com/o/img%2FtechnologyAbout.png?alt=media&token=e420f35e-0e4a-4707-8b21-f74dc311372c"/>
@@ -102,7 +102,7 @@ export class About extends React.Component {
           <div className="greyBG">
           <div className="row container features" style={{margin:"auto", textAlign: 'left'}}>
             <div className="col-sm-3">
-              <b>Open Souce</b> <br/> SpatialMaps is open source, easily editable and adjustable to specific
+              <b>Open Souce</b> <br/> SpatialCellAtlas is open source, easily editable and adjustable to specific
                 research needs and currently actively developed.
             </div>
             <div className="col-sm-3">
@@ -112,7 +112,7 @@ export class About extends React.Component {
             </div>
             <div className="col-sm-3">
               <b>Accessability</b> <br/> pRoloc, a sophisticated solution to analyse spatial data and
-                   is fully connected to the SpatialMaps platform.
+                   is fully connected to the SpatialCellAtlas platform.
             </div>
             <div className="col-sm-3">
               <b>Data Science</b> <br/> Spatial proteomics datasets are a scarce scientific good that can reveal

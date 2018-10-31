@@ -41,7 +41,9 @@ function Header() {
         <div className="col-sm-5 rightNavItems">
         <Link className="navItem" to="/"> Home </Link>
         <Link className="navItem" to="/about"> About </Link>
-        <Link className="navItem" to="/datasets"> Datasets </Link>
+        
+        {loggedIn ? <span> <Link className="navItem" to="/datasets"> Datasets </Link>
+        </span> : null}
 
         {loggedIn ? <span>
         <Link className="navItem" to="/profile"> Profile </Link>

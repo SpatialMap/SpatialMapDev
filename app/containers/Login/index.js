@@ -76,13 +76,13 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
     return () => {
       const email = this.state.email;
       const pw = this.state.password;
-      if (type === 'Login') {
+      if (type === 'Login' & email.includes('cam.ac.uk')) {
         firebase.auth().signInWithEmailAndPassword(email, pw).catch(function(error) {
           this.setState({ error: error.message });
         }).then(() => {
           browserHistory.push(`/datasets`);
           });
-      } else {
+      } else if(email.includes('cam.ac.uk')){
         firebase.auth().createUserWithEmailAndPassword(email, pw).then(() => {
         }).catch((error) => this.setState({ error: error.message })).then(() => {
           browserHistory.push(`/datasets`);
@@ -108,20 +108,20 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
                           <button className="socialButton" onClick={this.googleLogin('google')}> Facebook </button>
                         </div>;
 
-    const registerContent = <div> {socialLogin} <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
-                                <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password : value})}/>
-                                <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password2 : value})}/>
-                                <button className="buttonsLogin"
+    const registerContent = <div> <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
+                                  <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password : value})}/>
+                                  <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password2 : value})}/>
+                                  <button className="buttonsLogin"
                                   onClick={this.handleSubmit("CreateUserAccount")}
-                                > Create Account </button>
+                                  > Create Account </button>
                          </div>;
 
-    const loginContent = <div> {socialLogin} <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
+    const loginContent = <div>  <TextField placeholder='Email' onChanged={(value) => this.setState({email : value})} />
                                 <TextField placeholder='Password' type={'password'} onChanged={(value) => this.setState({password : value})}/>
                                 <button className="buttonsLogin toLeft"
                                   onClick={this.handleSubmit("Login")}
                                 > Login </button>
-                              <button className="buttonsLogin toRight"
+                                <button className="buttonsLogin toRight"
                                   onClick={() => {
                                                   this.pwReset();
                                                   this.setState({showDialog : true});
@@ -149,6 +149,7 @@ export class Profile extends React.Component { // eslint-disable-line react/pref
         <div className="inputArea">
           {socialLogin}
           <div className="inputInnerField">
+          <p> Login & Registration restricted invited Emails <br/> Message rk581@cam.ac.uk for more info </p>
             {textMsg}
           </div>
         </div>

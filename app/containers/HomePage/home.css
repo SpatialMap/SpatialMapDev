@@ -4,9 +4,8 @@
 
 .welcomeHome {
   margin-top: -92px;
-  padding-bottom: 95px;
   text-align: center;
-  min-height: 100vh;
+  min-height: calc(100vh + 92px);
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#87e0fd+0,53cbf1+40,05abe0+100;Blue+3D+%23+16 */
   background: #327cad; /* Old browsers */
   background: -moz-linear-gradient(-45deg, #327cad 0%, #05abe0 100%); /* FF3.6-15 */
@@ -17,21 +16,35 @@
 
 .textCardHome {
     padding-top: 60px;
-    text-align: center;
-    color: #C4E0F3;
+    text-align: left;
+    color: #e3f0f9;
+}
+
+.headTextHeader {
+  font-size: 40px;
+  margin:  2px;
+  font-weight: 500;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .headText {
-  font-size: 50px;
-  font-weight: 700;
-  padding-bottom: 10px;
-  margin: 0px;
-  color: #ffffff;
+  font-size: 18px;
+  margin:  0px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.4);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.headDescription{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .headImageHome {
-  padding-top: 60px;
-  height: 400px;
+  height: 50vh;
 }
 
 .imageFadeIn {
@@ -49,20 +62,31 @@
   to{opacity : 1;}
 }
 
+.bottom-right {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+}
+
+.SmallImage {
+  width:  200px;
+}
+
 .headButton {
   font-weight: 600;
   margin-top:  12px;
-  color: #dcd4f9;
-  background-color: #6260ea;
+  color: #1D2081;
+  background-color: rgba(255,255,255,0.9);
   margin:  10px;
   padding: 12px 20px 12px 20px;
-  border-radius: 10px;
+  border-radius: 2px;
   box-shadow: 0px 5px 10px 1px rgba(0,0,0,0.2);
   cursor: pointer;
 }
 
 .headButton:hover{
   box-shadow: 0px 7px 12px 1px rgba(0,0,0,0.225);
+  background-color: rgba(255,255,255,0.95);
 }
 
 .features {

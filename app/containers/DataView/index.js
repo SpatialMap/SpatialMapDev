@@ -629,8 +629,8 @@ export class DataView extends React.Component {
     return (
     <div>
         <Helmet
-          title = "SpatialMaps - DataView"
-          meta  = {[ {name : 'description', content : 'The SpatialMaps data viewer'}, ]}
+          title = "SpatialCellAtlas - DataView"
+          meta  = {[ {name : 'description', content : 'The SpatialCellAtlas data viewer'}, ]}
         />
 
         {/*Top left buttons & sliders */}
